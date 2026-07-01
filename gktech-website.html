@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GKTech — Technology, Talent & Training | Global Kernel Technologies</title>
+  <meta name="description" content="Global Kernel Technologies provides integrated solutions in Software Development, Staffing & Recruitment, Corporate Training, and HR Consulting. Headquartered in New Delhi." />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #0a1f44;
+      --navy-mid: #1a3566;
+      --navy-dark: #060f22;
+      --gold: #c9a84c;
+      --gold-light: #e8c97a;
+      --gold-pale: #fdf6e3;
+      --text-dark: #0a1f44;
+      --text-mid: #3a4a6b;
+      --text-light: #6b7a99;
+      --border: #e8ecf4;
+      --bg-alt: #f7f9fc;
+      --radius: 12px;
+      --radius-sm: 6px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text-dark); background: #fff; line-height: 1.6; }
+
+    /* NAV */
+    nav {
+      background: var(--navy); height: 66px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; position: sticky; top: 0; z-index: 200;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.22);
+    }
+    .logo { display: flex; align-items: center; gap: 0; text-decoration: none; }
+    .logo-name { color: #fff; font-size: 20px; font-weight: 800; letter-spacing: 0.5px; }
+    .logo-name span { color: var(--gold-light); }
+    .logo-sub { display: block; color: rgba(255,255,255,0.45); font-size: 10px; font-weight: 400; letter-spacing: 1.2px; text-transform: uppercase; margin-top: 1px; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.78); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .nav-btn { padding: 8px 18px; border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+    .nav-btn-outline { border: 1.5px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.85); }
+    .nav-btn-outline:hover { border-color: var(--gold-light); color: var(--gold-light); }
+    .nav-btn-fill { background: var(--gold); color: var(--navy); }
+    .nav-btn-fill:hover { background: var(--gold-light); }
+    .nav-hamburger { display: none; background: none; border: none; color: #fff; font-size: 26px; cursor: pointer; }
+    .mobile-menu { display: none; flex-direction: column; background: var(--navy-mid); padding: 1rem 1.5rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 14.5px; font-weight: 500; padding: 11px 0; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+
+    /* LAYOUT */
+    section { padding: 80px 2.5rem; }
+    .container { max-width: 980px; margin: 0 auto; }
+    .eyebrow { display: inline-block; background: var(--gold-pale); color: var(--gold); border: 1px solid #e8c97a55; font-size: 10.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 14px; }
+    .eyebrow-light { background: rgba(201,168,76,0.15); color: var(--gold-light); border-color: rgba(201,168,76,0.3); }
+    h2.sec-title { font-size: 31px; font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 12px; }
+    h2.sec-title-light { color: #fff; }
+    .sec-sub { font-size: 15.5px; color: var(--text-mid); line-height: 1.72; max-width: 640px; }
+    .sec-sub-light { color: rgba(255,255,255,0.62); }
+
+    /* HERO */
+    #hero {
+      background: linear-gradient(140deg, #07193a 0%, var(--navy-mid) 55%, #1e4488 100%);
+      padding: 96px 2.5rem 88px; position: relative; overflow: hidden; min-height: 580px;
+      display: flex; align-items: center;
+    }
+    .hero-ring { position: absolute; border-radius: 50%; pointer-events: none; }
+    .hero-ring-1 { width: 500px; height: 500px; top: -120px; right: -120px; border: 70px solid rgba(201,168,76,0.1); }
+    .hero-ring-2 { width: 280px; height: 280px; bottom: -80px; left: -60px; border: 40px solid rgba(201,168,76,0.07); }
+    .hero-ring-3 { width: 160px; height: 160px; bottom: 60px; right: 80px; border: 25px solid rgba(255,255,255,0.04); }
+    .hero-inner { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; width: 100%; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.14); border: 1px solid rgba(201,168,76,0.35); color: var(--gold-light); padding: 6px 16px; border-radius: 20px; font-size: 11.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 24px; }
+    .hero-title { font-size: 52px; font-weight: 900; color: #fff; line-height: 1.08; margin-bottom: 10px; letter-spacing: -0.5px; }
+    .hero-title-accent { color: var(--gold-light); }
+    .hero-tagline { font-size: 20px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+    .hero-desc { font-size: 16px; color: rgba(255,255,255,0.68); line-height: 1.8; max-width: 580px; margin-bottom: 36px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 60px; }
+    .btn-gold { background: var(--gold); color: var(--navy); padding: 14px 28px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-ghost { border: 1.5px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.88); padding: 14px 28px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .btn-ghost:hover { border-color: var(--gold-light); color: var(--gold-light); }
+    .hero-pillars { display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 36px; flex-wrap: wrap; }
+    .hero-pillar { flex: 1; min-width: 140px; padding: 0 28px 0 0; }
+    .hero-pillar + .hero-pillar { border-left: 1px solid rgba(255,255,255,0.1); padding-left: 28px; }
+    .pillar-icon { font-size: 26px; color: var(--gold-light); margin-bottom: 8px; }
+    .pillar-label { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+    .pillar-sub { font-size: 12px; color: rgba(255,255,255,0.42); line-height: 1.5; }
+
+    /* ABOUT */
+    #about { background: var(--bg-alt); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; margin-top: 8px; }
+    .about-text p { font-size: 15px; color: var(--text-mid); line-height: 1.82; margin-bottom: 16px; }
+    .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .highlight-card { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 20px 18px; }
+    .highlight-card .hi-num { font-size: 28px; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 4px; }
+    .highlight-card .hi-label { font-size: 12.5px; color: var(--text-mid); font-weight: 500; }
+    .values-list { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+    .value-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-mid); }
+    .v-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 8px; flex-shrink: 0; }
+    .vision-box { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 24px; margin-top: 16px; }
+    .vision-box h4 { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+    .vision-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .vision-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: var(--text-mid); }
+    .v-check { color: var(--gold); font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+
+    /* SERVICES */
+    #services { background: #fff; }
+    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 40px; }
+    .service-card { border: 0.5px solid var(--border); border-radius: var(--radius); padding: 30px 26px; transition: border-color 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); opacity: 0; transition: opacity 0.2s; }
+    .service-card:hover { border-color: var(--gold); box-shadow: 0 6px 24px rgba(10,31,68,0.08); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon { width: 50px; height: 50px; border-radius: 11px; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--gold); margin-bottom: 18px; }
+    .service-card h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .service-card p { font-size: 13.5px; color: var(--text-mid); line-height: 1.72; margin-bottom: 18px; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .stag { font-size: 11.5px; background: var(--bg-alt); color: var(--text-mid); padding: 4px 10px; border-radius: 20px; border: 0.5px solid var(--border); }
+
+    /* SECTORS */
+    #sectors { background: var(--bg-alt); }
+    .sectors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 36px; }
+    .sector-card { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 18px 14px; display: flex; align-items: flex-start; gap: 10px; transition: border-color 0.2s, transform 0.15s; }
+    .sector-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+    .sector-icon { color: var(--gold); font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .sector-name { font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+
+    /* TRAINING */
+    #training { background: #fff; }
+    .training-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-bottom: 44px; }
+    .training-why { background: var(--bg-alt); border-radius: var(--radius); padding: 26px 22px; }
+    .training-why h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
+    .why-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .why-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: var(--text-mid); }
+    .why-check { color: var(--gold); font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+    .training-programmes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .prog-card { border: 0.5px solid var(--border); border-radius: var(--radius); padding: 24px 20px; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s; }
+    .prog-card:hover { border-color: var(--gold); }
+    .prog-badge { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; align-self: flex-start; }
+    .badge-soft { background: #fef3e2; color: #7a4a00; }
+    .badge-leader { background: #ede7f6; color: #4a148c; }
+    .badge-team { background: #e8f5e9; color: #1b5e20; }
+    .badge-ai { background: #e3f2fd; color: #0d47a1; }
+    .badge-data { background: #fce4ec; color: #880e4f; }
+    .badge-campus { background: #e0f7fa; color: #006064; }
+    .prog-title { font-size: 14.5px; font-weight: 700; color: var(--navy); line-height: 1.35; }
+    .prog-desc { font-size: 13px; color: var(--text-mid); line-height: 1.65; flex: 1; }
+    .prog-enroll { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: var(--gold); text-decoration: none; margin-top: 4px; transition: color 0.2s; }
+    .prog-enroll:hover { color: var(--navy); }
+
+    /* WHY */
+    #why { background: var(--bg-alt); }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-top: 36px; }
+    .why-card { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 22px 18px; text-align: center; transition: border-color 0.2s, box-shadow 0.2s; }
+    .why-card:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(10,31,68,0.07); }
+    .why-icon { font-size: 28px; color: var(--gold); margin-bottom: 12px; }
+    .why-card h4 { font-size: 13.5px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+
+    /* EMPLOYERS */
+    #employers { background: var(--navy); }
+    .employers-top { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; margin-bottom: 36px; }
+    .employer-features { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .ef-card { border: 0.5px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 22px 20px; background: rgba(255,255,255,0.04); transition: background 0.2s; }
+    .ef-card:hover { background: rgba(255,255,255,0.07); }
+    .ef-card h3 { font-size: 14px; font-weight: 600; color: var(--gold-light); margin-bottom: 6px; margin-top: 10px; }
+    .ef-card p { font-size: 13px; color: rgba(255,255,255,0.52); line-height: 1.65; }
+
+    /* ── REGISTER SECTION ── */
+    #register { background: var(--navy-dark); padding: 80px 2.5rem; }
+    .register-wrap { max-width: 780px; margin: 0 auto; }
+    .register-header { text-align: center; margin-bottom: 40px; }
+    .register-header .eyebrow { background: rgba(201,168,76,0.15); color: var(--gold-light); border-color: rgba(201,168,76,0.3); }
+    .register-header h2 { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 12px; line-height: 1.2; }
+    .register-header p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 520px; margin: 0 auto; }
+
+    /* Dropdown selector */
+    .register-selector { margin-bottom: 32px; }
+    .selector-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
+    .selector-wrap { position: relative; }
+    .selector-wrap::after { content: '\ea99'; font-family: 'tabler-icons'; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 20px; pointer-events: none; }
+    #formSelect {
+      width: 100%; padding: 16px 48px 16px 20px;
+      background: rgba(255,255,255,0.06); border: 1.5px solid rgba(201,168,76,0.35);
+      border-radius: var(--radius); color: #fff; font-size: 15px; font-weight: 500;
+      font-family: inherit; appearance: none; cursor: pointer; transition: border-color 0.2s;
+      outline: none;
+    }
+    #formSelect:focus { border-color: var(--gold); }
+    #formSelect option { background: #0a1f44; color: #fff; }
+
+    /* Option pills */
+    .option-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+    .option-pill {
+      padding: 8px 18px; border-radius: 24px; border: 1.5px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 500; cursor: pointer;
+      transition: all 0.2s; background: transparent; font-family: inherit;
+    }
+    .option-pill:hover { border-color: var(--gold); color: var(--gold-light); }
+    .option-pill.active { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 700; }
+
+    /* Form container */
+    .form-container {
+      border-radius: var(--radius); overflow: hidden;
+      border: 1.5px solid rgba(201,168,76,0.2);
+      background: rgba(255,255,255,0.03);
+      transition: all 0.3s;
+    }
+    .form-placeholder {
+      padding: 60px 32px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 14px;
+    }
+    .form-placeholder-icon { font-size: 44px; color: rgba(201,168,76,0.3); }
+    .form-placeholder h3 { font-size: 17px; font-weight: 600; color: rgba(255,255,255,0.45); }
+    .form-placeholder p { font-size: 14px; color: rgba(255,255,255,0.28); max-width: 340px; line-height: 1.6; }
+    .form-iframe-wrap { display: none; }
+    .form-iframe-wrap.active { display: block; }
+    .form-iframe-wrap iframe {
+      width: 100%; border: none; display: block;
+      height: 780px; border-radius: 0;
+    }
+    .form-label-bar {
+      padding: 14px 20px; background: rgba(201,168,76,0.1);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .form-label-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .form-label-text { font-size: 13px; font-weight: 600; color: var(--gold-light); }
+
+    /* FOOTER */
+    footer { background: var(--navy-dark); padding: 52px 2.5rem 30px; border-top: 1px solid rgba(255,255,255,0.06); }
+    .footer-top { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+    .footer-logo-name { color: #fff; font-size: 17px; font-weight: 800; letter-spacing: 0.3px; margin-bottom: 6px; }
+    .footer-logo-name span { color: var(--gold-light); }
+    .footer-logo-tagline { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
+    .footer-about { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.78; margin-bottom: 18px; max-width: 320px; }
+    .clients-strip { display: flex; flex-wrap: wrap; gap: 8px; }
+    .client-pill { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: rgba(255,255,255,0.36); }
+    .footer-col h4 { color: var(--gold-light); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .footer-col a { color: rgba(255,255,255,0.44); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--gold-light); }
+    .footer-divider { border: none; border-top: 0.5px solid rgba(255,255,255,0.07); margin: 36px auto 24px; max-width: 980px; }
+    .footer-bottom { max-width: 980px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.26); }
+
+    /* RESPONSIVE */
+    @media (max-width: 860px) {
+      .nav-links, .nav-actions { display: none; }
+      .nav-hamburger { display: block; }
+      nav { padding: 0 1.2rem; }
+      section, #register { padding: 56px 1.2rem; }
+      .hero-title { font-size: 34px; }
+      .about-grid, .training-intro, .employers-top { grid-template-columns: 1fr; gap: 28px; }
+      .services-grid, .training-programmes { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 560px) {
+      .hero-title { font-size: 28px; }
+      .hero-pillars { flex-direction: column; gap: 16px; }
+      .hero-pillar + .hero-pillar { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); padding-left: 0; padding-top: 16px; }
+      .employer-features { grid-template-columns: 1fr; }
+      h2.sec-title { font-size: 24px; }
+      .option-pills { gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="logo">
+    <div>
+      <span class="logo-name">GK<span>Tech</span></span>
+      <span class="logo-sub">Global Kernel Technologies</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#sectors">Sectors</a></li>
+    <li><a href="#training">Training</a></li>
+    <li><a href="#employers">For Employers</a></li>
+    <li><a href="#register">Register</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#employers" class="nav-btn nav-btn-outline">Hire Through Us</a>
+    <a href="#register" class="nav-btn nav-btn-fill">Register Now</a>
+  </div>
+  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Toggle menu">
+    <i class="ti ti-menu-2"></i>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="this.closest('.mobile-menu').classList.remove('open')">About</a>
+  <a href="#services" onclick="this.closest('.mobile-menu').classList.remove('open')">Services</a>
+  <a href="#sectors" onclick="this.closest('.mobile-menu').classList.remove('open')">Sectors</a>
+  <a href="#training" onclick="this.closest('.mobile-menu').classList.remove('open')">Training</a>
+  <a href="#employers" onclick="this.closest('.mobile-menu').classList.remove('open')">For Employers</a>
+  <a href="#register" onclick="this.closest('.mobile-menu').classList.remove('open')">Register / Enrol</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-ring hero-ring-1"></div>
+  <div class="hero-ring hero-ring-2"></div>
+  <div class="hero-ring hero-ring-3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><i class="ti ti-map-pin" style="font-size:13px"></i>&nbsp; Headquartered in New Delhi &nbsp;&middot;&nbsp; 21+ Enterprise Clients</div>
+    <h1 class="hero-title">Technology. Talent.<br><span class="hero-title-accent">Training.</span></h1>
+    <div class="hero-tagline">Empowering businesses to grow, compete &amp; thrive.</div>
+    <p class="hero-desc">Global Kernel Technologies is a full-spectrum business solutions partner offering integrated services in Software Development, Staffing &amp; Recruitment, Corporate Training, and HR Consulting &mdash; helping organisations across 11 industries unlock sustainable growth.</p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-gold">Explore Our Services</a>
+      <a href="#register" class="btn-ghost">Register / Enrol</a>
+    </div>
+    <div class="hero-pillars">
+      <div class="hero-pillar">
+        <div class="pillar-icon"><i class="ti ti-code" aria-hidden="true"></i></div>
+        <div class="pillar-label">Software Development</div>
+        <div class="pillar-sub">Custom, scalable digital solutions</div>
+      </div>
+      <div class="hero-pillar">
+        <div class="pillar-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+        <div class="pillar-label">Staffing &amp; Recruitment</div>
+        <div class="pillar-sub">Right talent, faster</div>
+      </div>
+      <div class="hero-pillar">
+        <div class="pillar-icon"><i class="ti ti-presentation" aria-hidden="true"></i></div>
+        <div class="pillar-label">Corporate Training</div>
+        <div class="pillar-sub">Future-ready professionals</div>
+      </div>
+      <div class="hero-pillar">
+        <div class="pillar-icon"><i class="ti ti-chart-arrows" aria-hidden="true"></i></div>
+        <div class="pillar-label">HR Consulting</div>
+        <div class="pillar-sub">People practices that perform</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <span class="eyebrow">Who We Are</span>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 class="sec-title">Bridging business challenges with practical solutions</h2>
+        <p>At Global Kernel Technologies, we believe every successful organisation is built on three essential pillars: <strong>innovative technology, exceptional talent, and continuous learning.</strong></p>
+        <p>Founded with the vision of helping businesses grow in an ever-changing digital landscape, we provide comprehensive solutions that enable organisations to improve operational efficiency, build high-performing teams, and stay competitive in today&rsquo;s dynamic business environment.</p>
+        <p>We work closely with our clients to understand their unique objectives and design customised strategies that deliver measurable results &mdash; from building digital products and skilled workforces to enhancing employee capabilities through professional learning programmes.</p>
+        <div class="values-list">
+          <div class="value-item"><span class="v-dot"></span>Client-centric, customised approach &mdash; never one-size-fits-all</div>
+          <div class="value-item"><span class="v-dot"></span>Integrated expertise across technology, talent, and training</div>
+          <div class="value-item"><span class="v-dot"></span>Transparent communication and long-term partnership mindset</div>
+          <div class="value-item"><span class="v-dot"></span>Committed to trust, quality, and measurable business outcomes</div>
+        </div>
+      </div>
+      <div>
+        <div class="about-highlights">
+          <div class="highlight-card">
+            <div class="hi-num">21+</div>
+            <div class="hi-label">Enterprise Clients</div>
+          </div>
+          <div class="highlight-card">
+            <div class="hi-num">11+</div>
+            <div class="hi-label">Industries Served</div>
+          </div>
+          <div class="highlight-card">
+            <div class="hi-num">4</div>
+            <div class="hi-label">Core Service Areas</div>
+          </div>
+          <div class="highlight-card">
+            <div class="hi-num">Delhi</div>
+            <div class="hi-label">Headquartered</div>
+          </div>
+        </div>
+        <div class="vision-box">
+          <h4>Our Vision &amp; Mission</h4>
+          <ul class="vision-list">
+            <li><i class="ti ti-circle-check v-check"></i>Become one of India&rsquo;s most trusted business solution providers</li>
+            <li><i class="ti ti-circle-check v-check"></i>Empower organisations with innovative technology and world-class talent</li>
+            <li><i class="ti ti-circle-check v-check"></i>Develop future-ready professionals through impactful learning programmes</li>
+            <li><i class="ti ti-circle-check v-check"></i>Build long-term partnerships that create lasting business value</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <span class="eyebrow">Core Services</span>
+    <h2 class="sec-title">Four pillars. One partner.</h2>
+    <p class="sec-sub">We deliver integrated solutions across software, talent, learning, and people strategy &mdash; so you never have to manage multiple vendors for your growth needs.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon"><i class="ti ti-code" aria-hidden="true"></i></div>
+        <h3>Software Development</h3>
+        <p>Scalable, secure, and user-centric digital solutions that simplify operations, improve productivity, and enhance customer experiences &mdash; built with modern technologies and aligned to your business objectives.</p>
+        <div class="service-tags">
+          <span class="stag">Custom Software</span><span class="stag">Web &amp; Mobile Apps</span><span class="stag">CRM / ERP / HRMS</span><span class="stag">AI-Powered Apps</span><span class="stag">Cloud Solutions</span><span class="stag">UI/UX Design</span><span class="stag">API Integration</span><span class="stag">E-commerce</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
+        <h3>Staffing &amp; Recruitment</h3>
+        <p>End-to-end recruitment services that help businesses hire skilled professionals efficiently &mdash; reducing hiring time and improving candidate quality across all functional domains and seniority levels.</p>
+        <div class="service-tags">
+          <span class="stag">Permanent Staffing</span><span class="stag">Executive Search</span><span class="stag">Leadership Hiring</span><span class="stag">Contract Staffing</span><span class="stag">Bulk Hiring</span><span class="stag">Campus Recruitment</span><span class="stag">RPO</span><span class="stag">Talent Mapping</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="ti ti-presentation" aria-hidden="true"></i></div>
+        <h3>Corporate Training &amp; Learning</h3>
+        <p>Customised training programmes that improve employee performance, leadership capability, and organisational productivity &mdash; delivered through classroom, virtual, and blended learning models.</p>
+        <div class="service-tags">
+          <span class="stag">Behavioural Skills</span><span class="stag">Leadership Development</span><span class="stag">V&amp;A Training</span><span class="stag">Sales &amp; Negotiation</span><span class="stag">AI for Professionals</span><span class="stag">Data Analytics</span><span class="stag">POSH Awareness</span><span class="stag">Campus-to-Corporate</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon"><i class="ti ti-chart-arrows" aria-hidden="true"></i></div>
+        <h3>HR Consulting</h3>
+        <p>Strategic HR support that helps organisations build effective people practices aligned to business objectives &mdash; from policy and performance management to employee engagement and L&amp;D strategy.</p>
+        <div class="service-tags">
+          <span class="stag">HR Policy Development</span><span class="stag">Performance Management</span><span class="stag">Employee Engagement</span><span class="stag">Competency Frameworks</span><span class="stag">Org Development</span><span class="stag">L&amp;D Strategy</span><span class="stag">HR Compliance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section id="sectors">
+  <div class="container">
+    <span class="eyebrow">Industries We Serve</span>
+    <h2 class="sec-title">Expertise across 11 industries</h2>
+    <p class="sec-sub">We understand sector-specific challenges deeply &mdash; enabling us to deliver solutions that are practical, precise, and built for your industry&rsquo;s realities.</p>
+    <div class="sectors-grid">
+      <div class="sector-card"><i class="ti ti-device-laptop sector-icon"></i><span class="sector-name">IT Services &amp; Consulting</span></div>
+      <div class="sector-card"><i class="ti ti-building-bank sector-icon"></i><span class="sector-name">BFSI</span></div>
+      <div class="sector-card"><i class="ti ti-chart-dots sector-icon"></i><span class="sector-name">BPO / KPO / Research &amp; Analytics</span></div>
+      <div class="sector-card"><i class="ti ti-heart-rate-monitor sector-icon"></i><span class="sector-name">Healthcare &amp; Life Sciences</span></div>
+      <div class="sector-card"><i class="ti ti-settings sector-icon"></i><span class="sector-name">Manufacturing &amp; Production</span></div>
+      <div class="sector-card"><i class="ti ti-shopping-bag sector-icon"></i><span class="sector-name">Consumer, Retail &amp; Hospitality</span></div>
+      <div class="sector-card"><i class="ti ti-building-arch sector-icon"></i><span class="sector-name">Infrastructure</span></div>
+      <div class="sector-card"><i class="ti ti-plane sector-icon"></i><span class="sector-name">Aviation &amp; Transport</span></div>
+      <div class="sector-card"><i class="ti ti-home sector-icon"></i><span class="sector-name">Real Estate</span></div>
+      <div class="sector-card"><i class="ti ti-school sector-icon"></i><span class="sector-name">Education</span></div>
+      <div class="sector-card"><i class="ti ti-device-tv sector-icon"></i><span class="sector-name">Media, Entertainment &amp; Sports</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINING -->
+<section id="training">
+  <div class="container">
+    <span class="eyebrow">Skill Development</span>
+    <h2 class="sec-title">Build skills, build careers</h2>
+    <p class="sec-sub" style="margin-bottom:40px;">Our training programmes serve freshers, working professionals, and corporate teams &mdash; from foundational soft skills to cutting-edge AI and data science.</p>
+    <div class="training-intro">
+      <div>
+        <p style="font-size:15px;color:var(--text-mid);line-height:1.82;margin-bottom:16px;">Learning is no longer optional &mdash; it is essential for business growth. Our experienced trainers deliver engaging, practical, and result-oriented learning experiences through classroom sessions, virtual workshops, and blended learning models.</p>
+        <p style="font-size:15px;color:var(--text-mid);line-height:1.82;">Each programme is designed to address specific business challenges while delivering measurable improvements in employee performance and engagement.</p>
+      </div>
+      <div class="training-why">
+        <h4>Programme Delivery Modes</h4>
+        <ul class="why-list">
+          <li><i class="ti ti-circle-check why-check"></i>In-person classroom sessions</li>
+          <li><i class="ti ti-circle-check why-check"></i>Virtual instructor-led workshops</li>
+          <li><i class="ti ti-circle-check why-check"></i>Blended learning models</li>
+          <li><i class="ti ti-circle-check why-check"></i>Customised to your organisation&rsquo;s goals</li>
+          <li><i class="ti ti-circle-check why-check"></i>Measurable performance outcomes</li>
+        </ul>
+      </div>
+    </div>
+    <div class="training-programmes">
+      <div class="prog-card">
+        <span class="prog-badge badge-soft">Soft Skills</span>
+        <div class="prog-title">V&amp;A &amp; Soft Skills, Behavioral Trainings</div>
+        <div class="prog-desc">Voice &amp; accent neutralisation, interpersonal communication, professional etiquette, and behavioural competency development for workplace readiness.</div>
+        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
+      </div>
+      <div class="prog-card">
+        <span class="prog-badge badge-leader">Leadership</span>
+        <div class="prog-title">HIPO &amp; Peak Performance Trainings</div>
+        <div class="prog-desc">Designed for high-potential employees &mdash; leadership mindset, performance frameworks, decision-making under pressure, and executive presence.</div>
+        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
+      </div>
+      <div class="prog-card">
+        <span class="prog-badge badge-team">Team Culture</span>
+        <div class="prog-title">Team Building &amp; Cultural Transformation</div>
+        <div class="prog-desc">Experiential workshops to strengthen team cohesion, drive cultural alignment, and support organisational change initiatives.</div>
+        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
+      </div>
+      <div class="prog-card">
+        <span class="prog-badge badge-ai">AI &amp; Tech</span>
+        <div class="prog-title">Generative / Agentic AI, SQL &amp; LLM Programs</div>
+        <div class="prog-desc">Hands-on training in GenAI tools, prompt engineering, agentic workflows, SQL querying, and LLM fundamentals for working professionals.</div>
+        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
+      </div>
+      <div class="prog-card">
+        <span class="prog-badge badge-data">Data Science</span>
+        <div class="prog-title">Data Science &amp; Machine Learning Programs</div>
+        <div class="prog-desc">Applied curriculum covering Python, statistics, ML algorithms, model building, and real-world project experience for career transitions and upskilling.</div>
+        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
+      </div>
+      <div class="prog-card">
+        <span class="prog-badge badge-campus">Campus to Corporate</span>
+        <div class="prog-title">Campus-to-Corporate Transition Programs</div>
+        <div class="prog-desc">Bridging academia and industry &mdash; workplace readiness, corporate communication, productivity tools, and first-job success skills for fresh graduates.</div>
+        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="container">
+    <span class="eyebrow">Why GKTech</span>
+    <h2 class="sec-title">What sets us apart</h2>
+    <p class="sec-sub">Organisations choose us because we combine technology expertise, recruitment excellence, and professional learning under one roof &mdash; with a client-first approach at every step.</p>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon"><i class="ti ti-target" aria-hidden="true"></i></div><h4>Industry-focused expertise</h4></div>
+      <div class="why-card"><div class="why-icon"><i class="ti ti-tool" aria-hidden="true"></i></div><h4>Customised business solutions</h4></div>
+      <div class="why-card"><div class="why-icon"><i class="ti ti-rocket" aria-hidden="true"></i></div><h4>2&ndash;3 business day turnaround</h4></div>
+      <div class="why-card"><div class="why-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div><h4>High-quality talent acquisition</h4></div>
+      <div class="why-card"><div class="why-icon"><i class="ti ti-bulb" aria-hidden="true"></i></div><h4>Innovative technology solutions</h4></div>
+      <div class="why-card"><div class="why-icon"><i class="ti ti-messages" aria-hidden="true"></i></div><h4>Transparent communication</h4></div>
+      <div class="why-card"><div class="why-icon"><i class="ti ti-heart-handshake" aria-hidden="true"></i></div><h4>Long-term partnership mindset</h4></div>
+      <div class="why-card"><div class="why-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div><h4>Practical, business-oriented training</h4></div>
+    </div>
+  </div>
+</section>
+
+<!-- EMPLOYERS -->
+<section id="employers">
+  <div class="container">
+    <span class="eyebrow eyebrow-light">For Employers</span>
+    <div class="employers-top">
+      <div>
+        <h2 class="sec-title sec-title-light">Partner with GKTech as your recruitment vendor</h2>
+        <p class="sec-sub sec-sub-light">Empanel us as your preferred hiring partner and get access to a pre-screened, job-ready talent pool across 11 industry sectors &mdash; with dedicated account management and a structured delivery process.</p>
+      </div>
+      <div class="employer-features">
+        <div class="ef-card">
+          <i class="ti ti-rocket" style="color:var(--gold-light);font-size:24px"></i>
+          <h3>2&ndash;3 Business Days</h3>
+          <p>Shortlisted profiles delivered within 2&ndash;3 business days of receiving a mandate.</p>
+        </div>
+        <div class="ef-card">
+          <i class="ti ti-shield-check" style="color:var(--gold-light);font-size:24px"></i>
+          <h3>Pre-screened Talent</h3>
+          <p>Every candidate is background-verified and role-mapped before introduction.</p>
+        </div>
+        <div class="ef-card">
+          <i class="ti ti-refresh" style="color:var(--gold-light);font-size:24px"></i>
+          <h3>Replacement Guarantee</h3>
+          <p>Free replacement within the agreed warranty period at no extra cost.</p>
+        </div>
+        <div class="ef-card">
+          <i class="ti ti-chart-bar" style="color:var(--gold-light);font-size:24px"></i>
+          <h3>Volume Capability</h3>
+          <p>Structured drives for bulk requirements with dedicated account management.</p>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:8px;">
+      <p style="color:rgba(255,255,255,0.55);font-size:14px;margin-bottom:18px;">Ready to empanel GKTech? Use the registration section below and select <strong style="color:var(--gold-light);">Employer Empanelment</strong> from the dropdown.</p>
+      <a href="#register" style="border:2px solid var(--gold);color:var(--gold);padding:13px 30px;border-radius:var(--radius-sm);font-size:15px;font-weight:700;text-decoration:none;display:inline-block;transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--navy)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">Submit Empanelment Request &darr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── REGISTER SECTION ── -->
+<section id="register">
+  <div class="register-wrap">
+    <div class="register-header">
+      <span class="eyebrow">Register / Enrol</span>
+      <h2>One place for everything</h2>
+      <p>Select who you are from the dropdown below &mdash; the right form will appear instantly, right here on the page.</p>
+    </div>
+
+    <!-- Dropdown -->
+    <div class="register-selector">
+      <span class="selector-label">Or select from the dropdown</span>
+      <div class="selector-wrap">
+        <select id="formSelect" onchange="selectForm(this.value)">
+          <option value="">-- Select your registration type --</option>
+          <option value="candidate">Job Seeker &mdash; Find a job or join a recruitment drive</option>
+          <option value="course">Course Enrolment &mdash; Enrol in a skill development programme</option>
+          <option value="employer">Employer &mdash; Empanel GKTech as your hiring vendor</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Form container -->
+    <div class="form-container" id="formContainer">
+      <!-- Default placeholder -->
+      <div class="form-placeholder" id="formPlaceholder">
+        <div class="form-placeholder-icon"><i class="ti ti-hand-finger" aria-hidden="true"></i></div>
+        <h3>Select a registration type above</h3>
+        <p>The correct form will appear here instantly &mdash; no new tabs, no redirects.</p>
+      </div>
+
+      <!-- Candidate / General form -->
+      <div class="form-iframe-wrap" id="form-candidate">
+        <div class="form-label-bar">
+          <div class="form-label-dot"></div>
+          <span class="form-label-text">Registration &amp; Course Enrolment &mdash; General &amp; Candidates</span>
+        </div>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScIUSG255Y4EcwMN1OQFDfBl8QFT5i1i0VD7aSB3qq1pmrsmA/viewform?embedded=true" title="Candidate Registration Form" loading="lazy">Loading form&hellip;</iframe>
+      </div>
+
+      <!-- Course Enrolment form -->
+      <div class="form-iframe-wrap" id="form-course">
+        <div class="form-label-bar">
+          <div class="form-label-dot"></div>
+          <span class="form-label-text">Course Enrolment &mdash; Skill Development Programmes</span>
+        </div>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSec3nG8G9_VOg7ftl4V_QiBYYekYfUhmwfWRmxaZIsPf7fhzw/viewform?embedded=true" title="Course Enrolment Form" loading="lazy"></iframe>
+      </div>
+
+      <!-- Employer form -->
+      <div class="form-iframe-wrap" id="form-employer">
+        <div class="form-label-bar">
+          <div class="form-label-dot"></div>
+          <span class="form-label-text">Employer Empanelment &mdash; Hiring Partnership Request</span>
+        </div>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdkjlRUlytcnYDxza3PoRkcJVzmxbOt2wC557Op4sgnbcmSfA/viewform?embedded=true" title="Employer Empanelment Form" loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo-name">GK<span style="color:var(--gold-light)">Tech</span></div>
+      <div class="footer-logo-tagline">Global Kernel Technologies</div>
+      <p class="footer-about">We help organisations grow by combining innovative software solutions, exceptional talent acquisition, and impactful corporate training &mdash; all under one trusted partner.</p>
+      <div class="clients-strip">
+        <span class="client-pill">Tech Mahindra</span>
+        <span class="client-pill">Mahindra Finance</span>
+        <span class="client-pill">iEnergizer</span>
+        <span class="client-pill">HGS</span>
+        <span class="client-pill">+17 more</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Software Development</a></li>
+        <li><a href="#services">Staffing &amp; Recruitment</a></li>
+        <li><a href="#training">Corporate Training</a></li>
+        <li><a href="#services">HR Consulting</a></li>
+        <li><a href="#register">Employer Empanelment</a></li>
+        <li><a href="#register">Candidate Registration</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Key Sectors</h4>
+      <ul>
+        <li><a href="#sectors">IT Services &amp; Consulting</a></li>
+        <li><a href="#sectors">BFSI</a></li>
+        <li><a href="#sectors">Healthcare &amp; Life Sciences</a></li>
+        <li><a href="#sectors">Manufacturing</a></li>
+        <li><a href="#sectors">BPO / KPO</a></li>
+        <li><a href="#sectors">View all 11 sectors &uarr;</a></li>
+      </ul>
+    </div>
+  </div>
+  <hr class="footer-divider">
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2025 Global Kernel Technologies. All rights reserved.</span>
+    <span class="footer-copy">New Delhi &nbsp;&middot;&nbsp; info@gktech.in</span>
+  </div>
+</footer>
+
+<script>
+  const FORMS = {
+    candidate: 'form-candidate',
+    course:    'form-course',
+    employer:  'form-employer'
+  };
+
+  function selectForm(type) {
+    if (!type) return;
+
+    // Hide placeholder
+    document.getElementById('formPlaceholder').style.display = 'none';
+
+    // Hide all iframe wraps
+    document.querySelectorAll('.form-iframe-wrap').forEach(el => el.classList.remove('active'));
+
+    // Show correct form
+    const target = FORMS[type];
+    if (target) document.getElementById(target).classList.add('active');
+
+    // Sync dropdown
+    const sel = document.getElementById('formSelect');
+    if (type === 'candidate') sel.value = 'candidate';
+    else if (type === 'course') sel.value = 'course';
+    else if (type === 'employer') sel.value = 'employer';
+
+    // Update pills
+    document.querySelectorAll('.option-pill').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.option-pill').forEach(p => {
+      const map = { candidate: ['Job Seeker'], course: ['Course Enrolment'], employer: ['Employer'] };
+      if (map[type] && map[type].some(k => p.textContent.includes(k))) p.classList.add('active');
+    });
+
+    // Smooth scroll to form
+    document.getElementById('formContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Pre-select if navigating from an anchor with ?form= param (optional enhancement)
+  window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('form')) selectForm(params.get('form'));
+  });
+</script>
+
+</body>
+</html>
