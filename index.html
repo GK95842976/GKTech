@@ -1,731 +1,1771 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="intro-on">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GKTech — Technology, Talent & Training | Global Kernel Technologies</title>
-  <meta name="description" content="Global Kernel Technologies provides integrated solutions in Software Development, Staffing & Recruitment, Corporate Training, and HR Consulting. Headquartered in New Delhi." />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --navy: #0a1f44;
-      --navy-mid: #1a3566;
-      --navy-dark: #060f22;
-      --gold: #c9a84c;
-      --gold-light: #e8c97a;
-      --gold-pale: #fdf6e3;
-      --text-dark: #0a1f44;
-      --text-mid: #3a4a6b;
-      --text-light: #6b7a99;
-      --border: #e8ecf4;
-      --bg-alt: #f7f9fc;
-      --radius: 12px;
-      --radius-sm: 6px;
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--text-dark); background: #fff; line-height: 1.6; }
+<meta charset="utf-8">
+<meta name="theme-color" content="#000000">
+<noscript><style>#intro{display:none}html.intro-on{overflow:auto}</style></noscript>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GKTech: Corporate training and hiring</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#03050f; --surface:rgba(7,11,28,.8); --surface2:rgba(255,255,255,.07); --line:rgba(150,172,255,.18);
+  --text:#f6f8ff; --muted:#d0d8f0; --gold:#e8c46a; --gold-fill:#e4bb52; --gold-ink:#2a1f00;
+  --blue:#6b9bff; --violet:#a98be0; --rose:#e88596; --ok:#4cc98a; --bad:#ff8093;
+  --grad:linear-gradient(90deg,#86b0ff,#c4a6ff 55%,#ff9fb2);
+  --shadow:0 12px 40px rgba(0,0,0,.35);
+  --glow:.2; color-scheme:dark;
+  font-family:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-size:16px;line-height:1.55;min-height:100vh;-webkit-font-smoothing:antialiased}
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(50% 45% at 10% -8%,rgba(66,133,244,var(--glow)),transparent 70%),
+    radial-gradient(45% 40% at 92% 2%,rgba(155,114,203,var(--glow)),transparent 70%),
+    radial-gradient(55% 40% at 55% 112%,rgba(217,101,112,calc(var(--glow)*.7)),transparent 70%);
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:8px}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.wrap{position:relative;z-index:1;width:min(1120px,100%);margin:0 auto;padding:0 1.5rem}
 
-    /* NAV */
-    nav {
-      background: var(--navy); height: 66px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; position: sticky; top: 0; z-index: 200;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.22);
-    }
-    .logo { display: flex; align-items: center; gap: 0; text-decoration: none; }
-    .logo-name { color: #fff; font-size: 20px; font-weight: 800; letter-spacing: 0.5px; }
-    .logo-name span { color: var(--gold-light); }
-    .logo-sub { display: block; color: rgba(255,255,255,0.45); font-size: 10px; font-weight: 400; letter-spacing: 1.2px; text-transform: uppercase; margin-top: 1px; }
-    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
-    .nav-links a { color: rgba(255,255,255,0.78); text-decoration: none; font-size: 13.5px; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--gold-light); }
-    .nav-actions { display: flex; gap: 10px; align-items: center; }
-    .nav-btn { padding: 8px 18px; border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 600; text-decoration: none; transition: all 0.2s; }
-    .nav-btn-outline { border: 1.5px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.85); }
-    .nav-btn-outline:hover { border-color: var(--gold-light); color: var(--gold-light); }
-    .nav-btn-fill { background: var(--gold); color: var(--navy); }
-    .nav-btn-fill:hover { background: var(--gold-light); }
-    .nav-hamburger { display: none; background: none; border: none; color: #fff; font-size: 26px; cursor: pointer; }
-    .mobile-menu { display: none; flex-direction: column; background: var(--navy-mid); padding: 1rem 1.5rem; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { color: rgba(255,255,255,0.82); text-decoration: none; font-size: 14.5px; font-weight: 500; padding: 11px 0; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+/* header */
+.bar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:68px}
+.mark{display:flex;flex-direction:column;text-decoration:none;line-height:1.1}
+.mark b{font-size:1.4rem;font-weight:700;letter-spacing:-.01em}
+.mark b i{font-style:normal;color:var(--gold-fill)}
+.mark small{font-size:.72rem;color:var(--muted);margin-top:.15rem}
+.nav{display:flex;align-items:center;gap:.3rem}
+.nav button{background:none;border:0;border-radius:999px;padding:.55rem 1rem;font-weight:500;color:var(--muted);transition:background .15s,color .15s}
+.nav button:hover{background:var(--surface2);color:var(--text)}
+.nav button[aria-current="page"]{background:var(--surface2);color:var(--text);font-weight:600}
+.nav .cta{background:var(--gold-fill);color:var(--gold-ink);font-weight:700;margin-left:.4rem}
+.nav .cta:hover{background:var(--gold-fill);color:var(--gold-ink);filter:brightness(1.05)}
+.burger{display:none;background:var(--surface);border:1px solid var(--line);border-radius:12px;width:42px;height:42px;place-items:center}
 
-    /* LAYOUT */
-    section { padding: 80px 2.5rem; }
-    .container { max-width: 980px; margin: 0 auto; }
-    .eyebrow { display: inline-block; background: var(--gold-pale); color: var(--gold); border: 1px solid #e8c97a55; font-size: 10.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 14px; }
-    .eyebrow-light { background: rgba(201,168,76,0.15); color: var(--gold-light); border-color: rgba(201,168,76,0.3); }
-    h2.sec-title { font-size: 31px; font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 12px; }
-    h2.sec-title-light { color: #fff; }
-    .sec-sub { font-size: 15.5px; color: var(--text-mid); line-height: 1.72; max-width: 640px; }
-    .sec-sub-light { color: rgba(255,255,255,0.62); }
+.demo{position:relative;z-index:1;background:color-mix(in srgb,var(--gold-fill) 22%,var(--surface));border-bottom:1px solid var(--line);font-size:.88rem;padding:.55rem 1.5rem;text-align:center}
 
-    /* HERO */
-    #hero {
-      background: linear-gradient(140deg, #07193a 0%, var(--navy-mid) 55%, #1e4488 100%);
-      padding: 96px 2.5rem 88px; position: relative; overflow: hidden; min-height: 580px;
-      display: flex; align-items: center;
-    }
-    .hero-ring { position: absolute; border-radius: 50%; pointer-events: none; }
-    .hero-ring-1 { width: 500px; height: 500px; top: -120px; right: -120px; border: 70px solid rgba(201,168,76,0.1); }
-    .hero-ring-2 { width: 280px; height: 280px; bottom: -80px; left: -60px; border: 40px solid rgba(201,168,76,0.07); }
-    .hero-ring-3 { width: 160px; height: 160px; bottom: 60px; right: 80px; border: 25px solid rgba(255,255,255,0.04); }
-    .hero-inner { position: relative; z-index: 1; max-width: 980px; margin: 0 auto; width: 100%; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(201,168,76,0.14); border: 1px solid rgba(201,168,76,0.35); color: var(--gold-light); padding: 6px 16px; border-radius: 20px; font-size: 11.5px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 24px; }
-    .hero-title { font-size: 52px; font-weight: 900; color: #fff; line-height: 1.08; margin-bottom: 10px; letter-spacing: -0.5px; }
-    .hero-title-accent { color: var(--gold-light); }
-    .hero-tagline { font-size: 20px; font-weight: 600; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
-    .hero-desc { font-size: 16px; color: rgba(255,255,255,0.68); line-height: 1.8; max-width: 580px; margin-bottom: 36px; }
-    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 60px; }
-    .btn-gold { background: var(--gold); color: var(--navy); padding: 14px 28px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-block; }
-    .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
-    .btn-ghost { border: 1.5px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.88); padding: 14px 28px; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s; display: inline-block; }
-    .btn-ghost:hover { border-color: var(--gold-light); color: var(--gold-light); }
-    .hero-pillars { display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 36px; flex-wrap: wrap; }
-    .hero-pillar { flex: 1; min-width: 140px; padding: 0 28px 0 0; }
-    .hero-pillar + .hero-pillar { border-left: 1px solid rgba(255,255,255,0.1); padding-left: 28px; }
-    .pillar-icon { font-size: 26px; color: var(--gold-light); margin-bottom: 8px; }
-    .pillar-label { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-    .pillar-sub { font-size: 12px; color: rgba(255,255,255,0.42); line-height: 1.5; }
+/* hero */
+.hero{padding:clamp(2.5rem,8vh,5rem) 0 2rem}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.12;letter-spacing:-.025em;font-weight:600;margin:0 0 1rem;max-width:24ch;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:1.12rem;color:var(--muted);max-width:56ch;margin:0 0 1.6rem}
+.row{display:flex;flex-wrap:wrap;gap:.7rem;align-items:center}
+.go{display:inline-flex;align-items:center;gap:.5rem;border:0;border-radius:999px;padding:.75rem 1.5rem;font-weight:700;background:var(--gold-fill);color:var(--gold-ink);text-decoration:none;transition:filter .15s,transform .15s}
+.go:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.go[disabled]{opacity:.55;cursor:not-allowed;transform:none}
+.btn{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:.6rem 1.1rem;font-weight:600;font-size:.93rem;text-decoration:none;transition:background .15s}
+.btn:hover{background:var(--surface2)}
+.btn.gold{background:var(--gold-fill);border-color:transparent;color:var(--gold-ink)}
+.btn.gold:hover{background:var(--gold-fill);filter:brightness(1.05)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2.2rem 0 0;padding:0;list-style:none}
+.steps li{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:1rem 1.2rem;box-shadow:var(--shadow)}
+.steps b{display:block;margin-bottom:.15rem}
+.steps span{color:var(--muted);font-size:.92rem}
 
-    /* ABOUT */
-    #about { background: var(--bg-alt); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; margin-top: 8px; }
-    .about-text p { font-size: 15px; color: var(--text-mid); line-height: 1.82; margin-bottom: 16px; }
-    .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .highlight-card { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 20px 18px; }
-    .highlight-card .hi-num { font-size: 28px; font-weight: 800; color: var(--gold); line-height: 1; margin-bottom: 4px; }
-    .highlight-card .hi-label { font-size: 12.5px; color: var(--text-mid); font-weight: 500; }
-    .values-list { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
-    .value-item { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-mid); }
-    .v-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 8px; flex-shrink: 0; }
-    .vision-box { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 24px; margin-top: 16px; }
-    .vision-box h4 { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
-    .vision-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .vision-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: var(--text-mid); }
-    .v-check { color: var(--gold); font-size: 17px; flex-shrink: 0; margin-top: 1px; }
+/* filters and cards */
+.sec{padding:2.4rem 0 1rem}
+.sec h2{margin:0 0 .3rem;font-size:1.6rem;letter-spacing:-.02em}
+.sec>p{margin:0 0 1.2rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.3rem}
+.chip{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.45rem .95rem;font-size:.92rem;color:var(--muted);transition:background .15s}
+.chip:hover{background:var(--surface2);color:var(--text)}
+.chip[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.1rem}
+.prog{--c:var(--blue);display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--c);border-radius:22px;padding:1.2rem 1.25rem;box-shadow:var(--shadow)}
+.pills{display:flex;flex-wrap:wrap;gap:.4rem}
+.pill{font-size:.8rem;font-weight:600;border-radius:999px;padding:.15rem .7rem;background:var(--surface2);color:var(--muted)}
+.pill.k{color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent)}
+.prog h3{margin:.85rem 0 .45rem;font-size:1.12rem;line-height:1.3;letter-spacing:-.01em}
+.prog p{margin:0 0 .7rem;color:var(--muted);font-size:.94rem}
+.prog .aud{font-size:.88rem;color:var(--text);flex:1}
+.prog .aud b{font-weight:600}
+.prog .row{margin-top:1rem}
 
-    /* SERVICES */
-    #services { background: #fff; }
-    .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 40px; }
-    .service-card { border: 0.5px solid var(--border); border-radius: var(--radius); padding: 30px 26px; transition: border-color 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
-    .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); opacity: 0; transition: opacity 0.2s; }
-    .service-card:hover { border-color: var(--gold); box-shadow: 0 6px 24px rgba(10,31,68,0.08); }
-    .service-card:hover::before { opacity: 1; }
-    .service-icon { width: 50px; height: 50px; border-radius: 11px; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--gold); margin-bottom: 18px; }
-    .service-card h3 { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
-    .service-card p { font-size: 13.5px; color: var(--text-mid); line-height: 1.72; margin-bottom: 18px; }
-    .service-tags { display: flex; flex-wrap: wrap; gap: 7px; }
-    .stag { font-size: 11.5px; background: var(--bg-alt); color: var(--text-mid); padding: 4px 10px; border-radius: 20px; border: 0.5px solid var(--border); }
+/* jobs */
+.tools{display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;margin:0 0 1rem}
+.search{flex:1 1 260px;padding:.7rem 1rem;border-radius:999px;border:1px solid var(--line);background:var(--surface)}
+.jobs{display:flex;flex-direction:column;gap:1rem}
+.job{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:1.2rem 1.3rem;box-shadow:var(--shadow)}
+.job h3{margin:0;font-size:1.15rem;letter-spacing:-.01em;line-height:1.3}
+.co{margin:.2rem 0 0;color:var(--muted);font-size:.93rem}
+.facts{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0 0}
+.fact{font-size:.85rem;background:var(--surface2);border-radius:999px;padding:.2rem .7rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;margin:.8rem 0 0}
+.tag{font-size:.82rem;border:1px solid var(--line);border-radius:8px;padding:.1rem .55rem;color:var(--muted)}
+.detail{margin:.8rem 0 0;padding:.9rem 1rem;background:var(--surface2);border-radius:14px;font-size:.93rem;color:var(--muted)}
+.job .row{margin-top:1rem}
+.job .row .go{margin-left:auto;padding:.6rem 1.2rem}
+.empty{text-align:center;padding:2.6rem 1rem;color:var(--muted);border:1.5px dashed var(--line);border-radius:22px}
+.empty strong{display:block;color:var(--text);font-size:1.1rem;margin-bottom:.3rem}
 
-    /* SECTORS */
-    #sectors { background: var(--bg-alt); }
-    .sectors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-top: 36px; }
-    .sector-card { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 18px 14px; display: flex; align-items: flex-start; gap: 10px; transition: border-color 0.2s, transform 0.15s; }
-    .sector-card:hover { border-color: var(--gold); transform: translateY(-2px); }
-    .sector-icon { color: var(--gold); font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-    .sector-name { font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+/* forms */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:1.6rem;box-shadow:var(--shadow)}
+.split{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:1.4rem;align-items:start}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:.9rem 1rem}
+.form .full{grid-column:1/-1}
+.form label,.dlg label{display:block;font-size:.88rem;font-weight:600;margin:0 0 .3rem}
+.form input,.form select,.form textarea,.dlg input,.dlg select,.dlg textarea{width:100%;padding:.72rem .9rem;border-radius:12px;border:1px solid var(--line);background:var(--bg)}
+.form textarea,.dlg textarea{min-height:90px;resize:vertical}
+.req{color:var(--bad)}
+.check{display:flex;gap:.6rem;align-items:flex-start;font-size:.9rem;color:var(--muted)}
+.check input{width:auto;margin-top:.3rem}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.err{color:var(--bad);font-size:.9rem;min-height:1.3em;margin:.2rem 0 0}
+.side h3{margin:0 0 .5rem;font-size:1.1rem}
+.side p{margin:.2rem 0;color:var(--muted);font-size:.95rem}
+.side .big{font-size:1.15rem;font-weight:700;color:var(--text)}
+.done{text-align:center;padding:2rem 1rem}
+.done h2{margin:0 0 .5rem;font-size:1.5rem}
+.done p{color:var(--muted);margin:0 0 1.2rem}
+.ph{padding:2.4rem 0 1.2rem}
+.ph h1{margin:0;font-size:clamp(1.8rem,4.5vw,2.6rem);letter-spacing:-.025em;font-weight:600}
+.ph p{margin:.5rem 0 0;color:var(--muted);max-width:62ch}
+.ph h1{line-height:1.15;padding-bottom:.08em;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;width:fit-content;max-width:100%}
+.tri{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem;margin:1.2rem 0 0}
+.info{display:flex;flex-direction:column}
+.info h3{margin:0 0 .4rem;font-size:1.12rem}
+.info p{margin:0 0 1.1rem;color:var(--muted);font-size:.95rem;flex:1}
+.info .tags{margin:0 0 1.1rem}
+.cband{margin-top:2rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
+.cband h3{margin:0 0 .2rem;font-size:1.25rem}
+.cband p{margin:0;color:var(--muted);max-width:46ch}
 
-    /* TRAINING */
-    #training { background: #fff; }
-    .training-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-bottom: 44px; }
-    .training-why { background: var(--bg-alt); border-radius: var(--radius); padding: 26px 22px; }
-    .training-why h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
-    .why-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .why-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13.5px; color: var(--text-mid); }
-    .why-check { color: var(--gold); font-size: 17px; flex-shrink: 0; margin-top: 1px; }
-    .training-programmes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .prog-card { border: 0.5px solid var(--border); border-radius: var(--radius); padding: 24px 20px; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s; }
-    .prog-card:hover { border-color: var(--gold); }
-    .prog-badge { display: inline-block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; align-self: flex-start; }
-    .badge-soft { background: #fef3e2; color: #7a4a00; }
-    .badge-leader { background: #ede7f6; color: #4a148c; }
-    .badge-team { background: #e8f5e9; color: #1b5e20; }
-    .badge-ai { background: #e3f2fd; color: #0d47a1; }
-    .badge-data { background: #fce4ec; color: #880e4f; }
-    .badge-campus { background: #e0f7fa; color: #006064; }
-    .prog-title { font-size: 14.5px; font-weight: 700; color: var(--navy); line-height: 1.35; }
-    .prog-desc { font-size: 13px; color: var(--text-mid); line-height: 1.65; flex: 1; }
-    .prog-enroll { display: inline-flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 600; color: var(--gold); text-decoration: none; margin-top: 4px; transition: color 0.2s; }
-    .prog-enroll:hover { color: var(--navy); }
+/* admin */
+.jrow{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.75rem 0;border-top:1px solid var(--line)}
+.jrow:first-child{border-top:0}
+.jrow .jmeta{color:var(--muted);font-size:.88rem}
+.jrow .jact{display:flex;align-items:center;gap:.6rem;flex:none}
+.stt{font-size:.8rem;font-weight:600;border-radius:999px;padding:.1rem .65rem;background:var(--surface2);color:var(--muted)}
+.stt.on{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
+.stack{display:grid;gap:1rem;margin-top:1.2rem}
+.adm{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-top:1rem}
+.adm .card p{color:var(--muted);font-size:.93rem;margin:.3rem 0 1rem}
+.adm h3{margin:0}
+.lock{max-width:420px}
+.lock .row{margin-top:.8rem}
+.lock input{flex:1 1 200px;padding:.72rem .9rem;border-radius:12px;border:1px solid var(--line);background:var(--bg)}
 
-    /* WHY */
-    #why { background: var(--bg-alt); }
-    .why-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-top: 36px; }
-    .why-card { background: #fff; border: 0.5px solid var(--border); border-radius: var(--radius); padding: 22px 18px; text-align: center; transition: border-color 0.2s, box-shadow 0.2s; }
-    .why-card:hover { border-color: var(--gold); box-shadow: 0 4px 16px rgba(10,31,68,0.07); }
-    .why-icon { font-size: 28px; color: var(--gold); margin-bottom: 12px; }
-    .why-card h4 { font-size: 13.5px; font-weight: 600; color: var(--navy); line-height: 1.4; }
+/* dialogs */
+dialog{border:1px solid var(--line);border-radius:26px;background:var(--surface);color:var(--text);padding:0;width:min(720px,calc(100vw - 1.5rem));max-height:calc(100vh - 2rem);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+dialog::backdrop{background:rgba(6,8,18,.6);backdrop-filter:blur(3px)}
+.dlg{padding:1.6rem;overflow:auto;max-height:calc(100vh - 2rem)}
+.dlg h2{margin:0 0 .3rem;font-size:1.45rem;letter-spacing:-.015em;line-height:1.25}
+.dlg h4{margin:1.4rem 0 .5rem;font-size:1rem}
+.dlg p{margin:0 0 .6rem}
+.dlg ul{margin:0;padding-left:1.2rem}
+.dlg li{margin:.25rem 0}
+.dlg .muted{color:var(--muted);font-size:.93rem}
+.close{float:right;background:var(--surface2);border:0;border-radius:50%;width:38px;height:38px;font-size:1.2rem;line-height:1}
+.facts2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem;margin:1rem 0 0}
+.facts2 div{background:var(--surface2);border-radius:14px;padding:.7rem .9rem;font-size:.92rem}
+.facts2 b{display:block;font-size:.8rem;color:var(--muted);font-weight:600;margin-bottom:.1rem}
+.agenda{display:grid;grid-template-columns:120px 1fr;gap:.55rem 1rem;font-size:.93rem}
+.agenda .t{color:var(--muted);font-weight:600}
+.agenda .b{padding-bottom:.55rem;border-bottom:1px solid var(--line)}
+.agenda .b b{display:block}
+.agenda .b span{color:var(--muted)}
+.dlg-acts{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.4rem}
+.toast{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:var(--text);color:var(--bg);padding:.75rem 1.2rem;border-radius:14px;font-weight:500;font-size:.93rem;z-index:60;max-width:calc(100vw - 2rem);transition:opacity .2s,transform .2s}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer.foot{position:relative;z-index:1;margin-top:3rem;background:#050c1c;color:#8a94ae;padding:1.7rem 0 1.1rem;font-size:.9rem}
+footer.foot .wrap{display:block}
+.foot .fgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1.3fr) minmax(0,.8fr);gap:1.6rem 2.4rem;align-items:start}
+.foot .fmark{font-size:1.35rem;font-weight:700;letter-spacing:-.01em;color:#fff;text-decoration:none;display:inline-block;line-height:1.1}
+.foot .fmark i{font-style:normal;color:var(--gold-fill)}
+.foot .fsub{margin:.35rem 0 0;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#6b7590}
+.foot .fdesc{margin:.7rem 0 0;max-width:30rem;font-size:.88rem;line-height:1.6;color:#b3bcd8}
+.foot h4{margin:0 0 .6rem;font-size:.78rem;font-weight:600;letter-spacing:.06em;color:#6b7590}
+.foot .fclients{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:.4rem}
+.foot .fclients li{border:1px solid #26345a;background:#0b1326;color:#b3bcd8;border-radius:999px;padding:.28rem .8rem;font-size:.82rem}
+.foot .fcontact{display:grid;gap:.35rem}
+.foot .fcontact a{color:#fff;text-decoration:none;font-weight:600;overflow-wrap:anywhere}
+.foot .fcontact a:hover{color:var(--gold-fill)}
+.foot .fcontact span{color:#6b7590;margin-right:.4rem}
+.foot .fbottom{margin-top:1.2rem;padding-top:.9rem;border-top:1px solid #17213a;font-size:.82rem;color:#5f6a86}
 
-    /* EMPLOYERS */
-    #employers { background: var(--navy); }
-    .employers-top { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; margin-bottom: 36px; }
-    .employer-features { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .ef-card { border: 0.5px solid rgba(255,255,255,0.1); border-radius: var(--radius); padding: 22px 20px; background: rgba(255,255,255,0.04); transition: background 0.2s; }
-    .ef-card:hover { background: rgba(255,255,255,0.07); }
-    .ef-card h3 { font-size: 14px; font-weight: 600; color: var(--gold-light); margin-bottom: 6px; margin-top: 10px; }
-    .ef-card p { font-size: 13px; color: rgba(255,255,255,0.52); line-height: 1.65; }
+@media (max-width:1040px){
+  .burger{display:grid}
+  .nav{display:none;position:absolute;left:0;right:0;top:68px;flex-direction:column;align-items:stretch;background:var(--surface);border-bottom:1px solid var(--line);padding:.7rem 1rem 1rem}
+  .nav.open{display:flex}
+  .nav button{text-align:left}
+  .nav .cta{margin:.3rem 0 0;text-align:center}
+}
+@media (max-width:820px){
+  .burger{display:grid}
+  .nav{display:none;position:absolute;left:0;right:0;top:68px;flex-direction:column;align-items:stretch;background:var(--surface);border-bottom:1px solid var(--line);padding:.7rem 1rem 1rem}
+  .nav.open{display:flex}
+  .nav button{text-align:left}
+  .nav .cta{margin:.3rem 0 0;text-align:center}
+  .steps{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .form{grid-template-columns:1fr}
+  .wrap{padding:0 1rem}
+  .agenda{grid-template-columns:1fr}
+  .agenda .t{padding-bottom:0}
+  .job .row .go{margin-left:0}
+}
 
-    /* ── REGISTER SECTION ── */
-    #register { background: var(--navy-dark); padding: 80px 2.5rem; }
-    .register-wrap { max-width: 780px; margin: 0 auto; }
-    .register-header { text-align: center; margin-bottom: 40px; }
-    .register-header .eyebrow { background: rgba(201,168,76,0.15); color: var(--gold-light); border-color: rgba(201,168,76,0.3); }
-    .register-header h2 { font-size: 32px; font-weight: 800; color: #fff; margin-bottom: 12px; line-height: 1.2; }
-    .register-header p { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 520px; margin: 0 auto; }
+.about{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:2.2rem;align-items:start;margin-top:.6rem}
+.about-l h2{margin:0 0 1rem;font-size:clamp(1.6rem,3.4vw,2.2rem);letter-spacing:-.02em;line-height:1.15}
+.about-l p{color:var(--muted);margin:0 0 1rem;font-size:1.03rem;line-height:1.7}
+.about-l p b{color:var(--text)}
+.dots{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;gap:.55rem}
+.dots li{position:relative;padding-left:1.1rem;color:var(--muted)}
+.dots li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--gold-fill)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:1rem 1.2rem;box-shadow:var(--shadow)}
+.stat b{display:block;font-size:2.1rem;line-height:1.1;letter-spacing:-.02em;color:var(--gold)}
+.stat span{font-size:.92rem;color:var(--muted);font-weight:500}
+.vm{margin-top:1rem}
+.vm h3{margin:0 0 .9rem;font-size:1.02rem}
+.checks{list-style:none;padding:0;margin:0;display:grid;gap:.8rem}
+.checks li{display:flex;gap:.7rem;align-items:flex-start;color:var(--muted);font-size:.96rem}
+.checks svg{flex:none;color:var(--gold);margin-top:2px}
+.badge{display:inline-block;margin:0 0 .9rem;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:color-mix(in srgb,var(--gold-fill) 22%,transparent);border:1px solid color-mix(in srgb,var(--gold-fill) 45%,transparent);border-radius:999px;padding:.4rem 1rem}
+.ind{list-style:none;padding:0;margin:1.2rem 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.ind li{display:flex;align-items:center;gap:.85rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.05rem 1.1rem;font-weight:600;font-size:.95rem;line-height:1.3;box-shadow:var(--shadow)}
+.ind svg{flex:none;color:var(--gold)}
+@media (max-width:900px){.about{grid-template-columns:1fr}}
+@media (max-width:820px){.foot .fgrid{grid-template-columns:1fr;gap:1.1rem}}
 
-    /* Dropdown selector */
-    .register-selector { margin-bottom: 32px; }
-    .selector-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
-    .selector-wrap { position: relative; }
-    .selector-wrap::after { content: '\ea99'; font-family: 'tabler-icons'; position: absolute; right: 18px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 20px; pointer-events: none; }
-    #formSelect {
-      width: 100%; padding: 16px 48px 16px 20px;
-      background: rgba(255,255,255,0.06); border: 1.5px solid rgba(201,168,76,0.35);
-      border-radius: var(--radius); color: #fff; font-size: 15px; font-weight: 500;
-      font-family: inherit; appearance: none; cursor: pointer; transition: border-color 0.2s;
-      outline: none;
-    }
-    #formSelect:focus { border-color: var(--gold); }
-    #formSelect option { background: #0a1f44; color: #fff; }
+/* universe */
+#universe{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;pointer-events:none}
+.card,.stat,.ind li,.steps li,.prog,.job,.search{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+dialog{background:#0a1124}
+main p,main li,main label,main dd,main dt,main small,main td,main th{text-shadow:0 0 8px rgba(2,4,12,.95),0 0 22px rgba(2,4,12,.85),0 1px 2px rgba(0,0,0,.9)}
+main h2,main h3,main h4{text-shadow:0 0 10px rgba(2,4,12,.95),0 0 26px rgba(2,4,12,.85),0 1px 2px rgba(0,0,0,.9)}
+.ph h1,.hero h1{filter:drop-shadow(0 2px 10px rgba(2,4,12,.85)) drop-shadow(0 0 3px rgba(2,4,12,.7))}
+/* soft dark veil so text always stands out from the moving space scene */
+body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(130% 95% at 50% 38%,rgba(2,4,12,.46),rgba(2,4,12,.34) 62%,rgba(2,4,12,.24))}
+@media (max-width:820px){body::after{background:rgba(2,4,12,.42)}}
+footer.foot{background:rgba(3,6,18,.74);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 
-    /* Option pills */
-    .option-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
-    .option-pill {
-      padding: 8px 18px; border-radius: 24px; border: 1.5px solid rgba(255,255,255,0.15);
-      color: rgba(255,255,255,0.55); font-size: 13px; font-weight: 500; cursor: pointer;
-      transition: all 0.2s; background: transparent; font-family: inherit;
-    }
-    .option-pill:hover { border-color: var(--gold); color: var(--gold-light); }
-    .option-pill.active { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 700; }
+/* intro */
+html.intro-on{overflow:hidden}
+#intro{position:fixed;inset:0;z-index:9999;background:#000;overflow:hidden;transition:opacity .9s ease}
+#intro.out{opacity:0;pointer-events:none}
+#introCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.intro-logo{position:absolute;left:50%;bottom:11%;transform:translateX(-50%);text-align:center;pointer-events:none;animation:ilIn 1.3s .55s both cubic-bezier(.2,.7,.2,1);white-space:nowrap}
+.il-mark{display:block;font-size:clamp(2.6rem,6.5vw,4rem);font-weight:700;letter-spacing:-.02em;line-height:1.05;color:#fff;text-shadow:0 0 34px rgba(255,190,100,.4)}
+.il-mark i{font-style:normal;color:var(--gold-fill)}
+.il-sub{display:block;margin-top:.45rem;font-size:clamp(.66rem,1.5vw,.9rem);letter-spacing:.32em;text-transform:uppercase;color:#aab4d8}
+@keyframes ilIn{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
+#introSkip{position:absolute;right:1.2rem;bottom:1.2rem;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.28);color:#d3dafa;border-radius:999px;padding:.4rem 1rem;font:inherit;font-size:.85rem;cursor:pointer}
+#introSkip:hover{background:rgba(255,255,255,.12)}
+.foot .mark{color:#fff}
+.foot .mark small{color:#8a94ae}
 
-    /* Form container */
-    .form-container {
-      border-radius: var(--radius); overflow: hidden;
-      border: 1.5px solid rgba(201,168,76,0.2);
-      background: rgba(255,255,255,0.03);
-      transition: all 0.3s;
-    }
-    .form-placeholder {
-      padding: 60px 32px; text-align: center;
-      display: flex; flex-direction: column; align-items: center; gap: 14px;
-    }
-    .form-placeholder-icon { font-size: 44px; color: rgba(201,168,76,0.3); }
-    .form-placeholder h3 { font-size: 17px; font-weight: 600; color: rgba(255,255,255,0.45); }
-    .form-placeholder p { font-size: 14px; color: rgba(255,255,255,0.28); max-width: 340px; line-height: 1.6; }
-    .form-iframe-wrap { display: none; }
-    .form-iframe-wrap.active { display: block; }
-    .form-iframe-wrap iframe {
-      width: 100%; border: none; display: block;
-      height: 780px; border-radius: 0;
-    }
-    .form-label-bar {
-      padding: 14px 20px; background: rgba(201,168,76,0.1);
-      border-bottom: 1px solid rgba(201,168,76,0.15);
-      display: flex; align-items: center; gap: 10px;
-    }
-    .form-label-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
-    .form-label-text { font-size: 13px; font-weight: 600; color: var(--gold-light); }
-
-    /* FOOTER */
-    footer { background: var(--navy-dark); padding: 52px 2.5rem 30px; border-top: 1px solid rgba(255,255,255,0.06); }
-    .footer-top { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
-    .footer-logo-name { color: #fff; font-size: 17px; font-weight: 800; letter-spacing: 0.3px; margin-bottom: 6px; }
-    .footer-logo-name span { color: var(--gold-light); }
-    .footer-logo-tagline { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: rgba(255,255,255,0.3); margin-bottom: 14px; }
-    .footer-about { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.78; margin-bottom: 18px; max-width: 320px; }
-    .clients-strip { display: flex; flex-wrap: wrap; gap: 8px; }
-    .client-pill { background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: rgba(255,255,255,0.36); }
-    .footer-col h4 { color: var(--gold-light); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 16px; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .footer-col a { color: rgba(255,255,255,0.44); text-decoration: none; font-size: 13px; transition: color 0.2s; }
-    .footer-col a:hover { color: var(--gold-light); }
-    .footer-divider { border: none; border-top: 0.5px solid rgba(255,255,255,0.07); margin: 36px auto 24px; max-width: 980px; }
-    .footer-bottom { max-width: 980px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.26); }
-
-    /* RESPONSIVE */
-    @media (max-width: 860px) {
-      .nav-links, .nav-actions { display: none; }
-      .nav-hamburger { display: block; }
-      nav { padding: 0 1.2rem; }
-      section, #register { padding: 56px 1.2rem; }
-      .hero-title { font-size: 34px; }
-      .about-grid, .training-intro, .employers-top { grid-template-columns: 1fr; gap: 28px; }
-      .services-grid, .training-programmes { grid-template-columns: 1fr; }
-      .footer-top { grid-template-columns: 1fr; gap: 28px; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; }
-    }
-    @media (max-width: 560px) {
-      .hero-title { font-size: 28px; }
-      .hero-pillars { flex-direction: column; gap: 16px; }
-      .hero-pillar + .hero-pillar { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); padding-left: 0; padding-top: 16px; }
-      .employer-features { grid-template-columns: 1fr; }
-      h2.sec-title { font-size: 24px; }
-      .option-pills { gap: 8px; }
-    }
-  </style>
+#bhCanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;pointer-events:none;opacity:0;transition:opacity .9s ease}
+#bhCanvas.on{opacity:.85}
+.phone-row{display:grid;grid-template-columns:minmax(140px,40%) 1fr;gap:.6rem}
+.phone-row select{text-overflow:ellipsis}
+.dt-row{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.hint{margin:.4rem 0 0;color:var(--muted);font-size:.85rem}
+.side .lbl{margin:.3rem 0 .1rem;color:var(--text);font-weight:600;font-size:.95rem}
+.side a.plain{color:var(--text);font-weight:400;text-decoration:none;font-size:1.05rem}
+.side a.plain:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <a href="#hero" class="logo">
-    <div>
-      <span class="logo-name">GK<span>Tech</span></span>
-      <span class="logo-sub">Global Kernel Technologies</span>
-    </div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#sectors">Sectors</a></li>
-    <li><a href="#training">Training</a></li>
-    <li><a href="#employers">For Employers</a></li>
-    <li><a href="#register">Register</a></li>
-  </ul>
-  <div class="nav-actions">
-    <a href="#employers" class="nav-btn nav-btn-outline">Hire Through Us</a>
-    <a href="#register" class="nav-btn nav-btn-fill">Register Now</a>
-  </div>
-  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Toggle menu">
-    <i class="ti ti-menu-2"></i>
-  </button>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about" onclick="this.closest('.mobile-menu').classList.remove('open')">About</a>
-  <a href="#services" onclick="this.closest('.mobile-menu').classList.remove('open')">Services</a>
-  <a href="#sectors" onclick="this.closest('.mobile-menu').classList.remove('open')">Sectors</a>
-  <a href="#training" onclick="this.closest('.mobile-menu').classList.remove('open')">Training</a>
-  <a href="#employers" onclick="this.closest('.mobile-menu').classList.remove('open')">For Employers</a>
-  <a href="#register" onclick="this.closest('.mobile-menu').classList.remove('open')">Register / Enrol</a>
+<canvas id="universe" aria-hidden="true"></canvas>
+<canvas id="bhCanvas" aria-hidden="true"></canvas>
+<div id="intro" role="presentation">
+  <canvas id="introCanvas" aria-hidden="true"></canvas>
+  <div class="intro-logo"><span class="il-mark">GK<i>Tech</i></span><span class="il-sub">Global Kernel Technologies</span></div>
+  <button id="introSkip" type="button">Skip</button>
 </div>
+<script>
+/* GKTech black hole: real-time raymarched Schwarzschild lensing. Used for the intro and the Book a call page. */
+(function(){
+"use strict";
+var VS="attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
+var FS=[
+"precision highp float;",
+"uniform vec2 uRes;uniform float uTime;uniform int uSteps;uniform float uFade;uniform vec2 uCenter;uniform vec4 uCamP;",
+"float hash(vec3 p){p=fract(p*.3183099+vec3(.1,.2,.3));p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}",
+"float noise(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.-2.*f);",
+" return mix(mix(mix(hash(i),hash(i+vec3(1.,0.,0.)),f.x),mix(hash(i+vec3(0.,1.,0.)),hash(i+vec3(1.,1.,0.)),f.x),f.y),",
+"            mix(mix(hash(i+vec3(0.,0.,1.)),hash(i+vec3(1.,0.,1.)),f.x),mix(hash(i+vec3(0.,1.,1.)),hash(i+vec3(1.,1.,1.)),f.x),f.y),f.z);}",
+"float fbm(vec3 p){float s=0.,a=.5;for(int i=0;i<4;i++){s+=a*noise(p);p=p*2.03+vec3(1.7,9.2,3.1);a*=.5;}return s;}",
+"vec3 ramp(float h){",
+" vec3 c=mix(vec3(.42,.04,.02),vec3(1.,.36,.05),smoothstep(0.,.3,h));",
+" c=mix(c,vec3(1.,.76,.38),smoothstep(.25,.6,h));",
+" c=mix(c,vec3(1.,.95,.88),smoothstep(.55,.85,h));",
+" c=mix(c,vec3(.7,.85,1.),smoothstep(.85,1.,h));",
+" return c;",
+"}",
+"vec3 space(vec3 d){",
+" vec3 col=vec3(.004,.006,.014);",
+" vec3 q=vec3(fbm(d*2.+1.),fbm(d*2.+vec3(5.2,1.3,8.1)),fbm(d*2.+vec3(2.7,9.2,3.3)));",
+" float n=fbm(d*2.4+q*2.);",
+" float m=smoothstep(.5,.75,fbm(d*1.3+7.));",
+" vec3 nc=mix(vec3(.08,.2,.8),vec3(.6,.15,.75),smoothstep(.3,.65,n));",
+" nc=mix(nc,vec3(1.,.32,.4),smoothstep(.55,.85,n)*.8);",
+" col+=nc*n*n*m*.35;",
+" float band=exp(-pow(d.y*2.4+d.x*.35+.12,2.)*5.);",
+" float dust=fbm(d*6.+3.);",
+" col+=vec3(.75,.62,.85)*band*(.03+.3*dust*dust);",
+" for(int L=0;L<3;L++){",
+"  float sc=70.;if(L==1)sc=150.;if(L==2)sc=330.;",
+"  vec3 p=d*sc,id=floor(p),f=fract(p)-.5;",
+"  float h=hash(id+float(L)*13.7);",
+"  if(h>.92){",
+"   vec3 off=(vec3(hash(id+1.3),hash(id+2.7),hash(id+4.1))-.5)*.6;",
+"   float dd=length(f-off);",
+"   float m2=(h-.92)/.08;",
+"   float br=smoothstep(.18,0.,dd)*(.35+m2*m2*3.)+exp(-dd*24.)*.18*m2;",
+"   col+=mix(vec3(1.,.7,.45),vec3(.62,.76,1.),hash(id+9.1))*br;",
+"  }",
+" }",
+" return col;",
+"}",
+"void main(){",
+" float asp=uRes.x/uRes.y;",
+" vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y;",
+" if(asp<1.)uv/=max(.4,asp/1.15);",
+" uv-=uCenter;",
+" float t=uTime;",
+" float ang=uCamP.x+t*.055,elev=uCamP.y+.05*sin(t*.45);",
+" float dist=mix(uCamP.z,uCamP.w,smoothstep(0.,4.,t));",
+" vec3 ro=dist*vec3(sin(ang)*cos(elev),sin(elev),cos(ang)*cos(elev));",
+" vec3 fw=normalize(-ro),rt=normalize(cross(fw,vec3(0.,1.,0.))),up=cross(rt,fw);",
+" vec3 rd=normalize(fw*1.55+rt*uv.x+up*uv.y);",
+" vec3 pos=ro,vel=rd;",
+" vec3 hh=cross(pos,vel);float h2=dot(hh,hh);",
+" vec3 col=vec3(0.);float trans=1.;",
+" float rin=2.6,rout=9.8;",
+" bool hit=false;float minr=1e9;",
+" for(int i=0;i<170;i++){",
+"  if(i>=uSteps)break;",
+"  float r2=dot(pos,pos),r=sqrt(r2);",
+"  minr=min(minr,r);",
+"  if(r<1.){hit=true;break;}",
+"  if(r>45.&&dot(pos,vel)>0.)break;",
+"  float dt=clamp(.075*(r-.85),.03,1.2);",
+"  vec3 acc=-1.5*h2*pos/(r2*r2*r);",
+"  vec3 npos=pos+vel*dt;",
+"  vec3 nvel=normalize(vel+acc*dt);",
+"  float rr0=length(pos.xz);",
+"  if(rr0>rin*.8&&rr0<rout*1.15){",
+"   float hg=abs(pos.y),th=.1+.05*rr0;",
+"   float dens=exp(-hg*hg/(th*th));",
+"   float heat0=pow(rin/rr0,1.5);",
+"   float edge0=smoothstep(rin*.8,rin,rr0)*(1.-smoothstep(rout*.55,rout*1.05,rr0));",
+"   vec3 vd0=normalize(vec3(-pos.z,0.,pos.x));",
+"   float bm0=clamp(1.+.75*dot(vd0,-vel),.25,1.9);",
+"   col+=trans*ramp(heat0)*dens*edge0*heat0*heat0*bm0*bm0*dt*1.5;",
+"  }",
+"  if(pos.y*npos.y<0.){",
+"   float k=pos.y/(pos.y-npos.y);",
+"   vec3 p=mix(pos,npos,k);",
+"   float rr=length(p.xz);",
+"   if(rr>rin&&rr<rout){",
+"    float phi=atan(p.z,p.x);",
+"    float om=2.6/(rr*sqrt(rr));",
+"    float a=phi-t*om*1.6;",
+"    vec3 q=vec3(cos(a)*rr*.5,sin(a)*rr*.5,rr*1.2);",
+"    float n=fbm(q*1.8);",
+"    float streak=fbm(vec3(rr*4.8,a*2.8,t*.06));",
+"    float arm=.5+.5*sin(2.*a-3.2*log(rr));",
+"    float edge=smoothstep(rin,rin+.35,rr)*(1.-smoothstep(rout-4.,rout,rr));",
+"    float heat=pow(rin/rr,1.5);",
+"    float inten=edge*(.15+1.6*n*n*1.6+.6*streak+.7*arm*streak)*heat*2.6;",
+"    vec3 vd=normalize(vec3(-p.z,0.,p.x));",
+"    float beam=clamp(1.+.8*dot(vd,-vel),.2,2.);",
+"    vec3 c=ramp(clamp(heat*(.75+.35*beam),0.,1.));",
+"    c*=mix(vec3(1.25,.85,.65),vec3(.8,.95,1.25),smoothstep(.6,1.4,beam));",
+"    col+=trans*c*inten*beam*beam*sqrt(beam);",
+"    trans*=mix(1.,.5,clamp(edge*1.6,0.,1.));",
+"   }",
+"  }",
+"  pos=npos;vel=nvel;",
+" }",
+" if(!hit){",
+"  col+=trans*space(normalize(vel));",
+"  col+=vec3(1.,.82,.55)*exp(-max(minr-1.,0.)*6.)*.9;",
+" }",
+" col*=1.55;",
+" col=(col*(2.51*col+.03))/(col*(2.43*col+.59)+.14);",
+" col=pow(max(col,0.),vec3(.9));",
+" float l=dot(col,vec3(.299,.587,.114));col=mix(vec3(l),col,1.22);",
+" vec2 vv=(gl_FragCoord.xy/uRes-.5);",
+" col*=1.-.55*dot(vv,vv)*1.6;",
+" col+=(hash(vec3(gl_FragCoord.xy,uTime*60.))-.5)*.02;",
+" gl_FragColor=vec4(max(col,0.)*uFade,1.);",
+"}"
+].join("\n");
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-ring hero-ring-1"></div>
-  <div class="hero-ring hero-ring-2"></div>
-  <div class="hero-ring hero-ring-3"></div>
-  <div class="hero-inner">
-    <div class="hero-badge"><i class="ti ti-map-pin" style="font-size:13px"></i>&nbsp; Headquartered in New Delhi &nbsp;&middot;&nbsp; 21+ Enterprise Clients</div>
-    <h1 class="hero-title">Technology. Talent.<br><span class="hero-title-accent">Training.</span></h1>
-    <div class="hero-tagline">Empowering businesses to grow, compete &amp; thrive.</div>
-    <p class="hero-desc">Global Kernel Technologies is a full-spectrum business solutions partner offering integrated services in Software Development, Staffing &amp; Recruitment, Corporate Training, and HR Consulting &mdash; helping organisations across 11 industries unlock sustainable growth.</p>
-    <div class="hero-btns">
-      <a href="#services" class="btn-gold">Explore Our Services</a>
-      <a href="#register" class="btn-ghost">Register / Enrol</a>
-    </div>
-    <div class="hero-pillars">
-      <div class="hero-pillar">
-        <div class="pillar-icon"><i class="ti ti-code" aria-hidden="true"></i></div>
-        <div class="pillar-label">Software Development</div>
-        <div class="pillar-sub">Custom, scalable digital solutions</div>
-      </div>
-      <div class="hero-pillar">
-        <div class="pillar-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
-        <div class="pillar-label">Staffing &amp; Recruitment</div>
-        <div class="pillar-sub">Right talent, faster</div>
-      </div>
-      <div class="hero-pillar">
-        <div class="pillar-icon"><i class="ti ti-presentation" aria-hidden="true"></i></div>
-        <div class="pillar-label">Corporate Training</div>
-        <div class="pillar-sub">Future-ready professionals</div>
-      </div>
-      <div class="hero-pillar">
-        <div class="pillar-icon"><i class="ti ti-chart-arrows" aria-hidden="true"></i></div>
-        <div class="pillar-label">HR Consulting</div>
-        <div class="pillar-sub">People practices that perform</div>
-      </div>
-    </div>
+function create(cv,o){
+  var gl=null;
+  try{gl=cv.getContext("webgl",{antialias:false,alpha:false,powerPreference:"high-performance"})}catch(e){gl=null}
+  if(!gl)return null;
+  function sh(type,src){var s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s}
+  var U={};
+  try{
+    var prog=gl.createProgram();
+    gl.attachShader(prog,sh(gl.VERTEX_SHADER,VS));gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,FS));
+    gl.linkProgram(prog);
+    if(!gl.getProgramParameter(prog,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(prog));
+    gl.useProgram(prog);
+    var buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    var loc=gl.getAttribLocation(prog,"p");gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+    ["uRes","uTime","uSteps","uFade","uCenter","uCamP"].forEach(function(n){U[n]=gl.getUniformLocation(prog,n)});
+  }catch(e){return null}
+  var api={
+    scale:1,
+    resize:function(q){
+      api.scale=q;
+      var dpr=Math.min(window.devicePixelRatio||1,2);
+      var w=window.innerWidth*dpr,h=window.innerHeight*dpr,cap=3840/Math.max(w,h);
+      var k=Math.min(1,cap)*q;
+      cv.width=Math.max(2,Math.floor(w*k));cv.height=Math.max(2,Math.floor(h*k));
+      gl.viewport(0,0,cv.width,cv.height);
+    },
+    draw:function(t,fade){
+      var asp=cv.width/cv.height,c=o.center(asp);
+      gl.uniform2f(U.uRes,cv.width,cv.height);gl.uniform1f(U.uTime,t);
+      gl.uniform1i(U.uSteps,o.steps);gl.uniform1f(U.uFade,fade);
+      gl.uniform2f(U.uCenter,c[0],c[1]);gl.uniform4f(U.uCamP,o.cam[0],o.cam[1],o.cam[2],o.cam[3]);
+      gl.drawArrays(gl.TRIANGLES,0,3);
+    },
+    dispose:function(){try{var x=gl.getExtension("WEBGL_lose_context");if(x)x.loseContext()}catch(e){}}
+  };
+  return api;
+}
+window.GKBH={create:create};
+})();
+
+</script>
+<script>
+/* Intro controller + Book a call black hole page */
+(function(){
+"use strict";
+var el=document.getElementById("intro"),cv=document.getElementById("introCanvas");
+var finished=false,cbs=[];
+window.GKIntro={done:false,onDone:function(f){if(this.done)f();else cbs.push(f)}};
+var hold=!!window.__holdIntro;
+var reduce=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+var small=Math.min(window.innerWidth,window.innerHeight)<700||!!(window.matchMedia&&matchMedia("(pointer: coarse)").matches);
+window.GKSmall=small;
+
+/* ---------- Book a call page: real black hole behind the form ---------- */
+(function(){
+  var bcv=document.getElementById("bhCanvas");
+  if(!bcv||!window.GKBH)return;
+  var api=null,failed=false,raf=0,active=false,t0=0,q=small?.55:1,fr=0,acc=0,last=0,offTimer=0;
+  function center(asp){return asp<1?[0,.2]:[.3,0]}
+  function loop(now){
+    raf=requestAnimationFrame(loop);
+    if(!t0){t0=now;last=now}
+    var dt=(now-last)/1000;last=now;
+    api.draw((now-t0)/1000+2,1);
+    fr++;acc+=dt;
+    if(fr>=12){var avg=acc/fr;fr=0;acc=0;if(avg>.04&&api.scale>.4){api.resize(api.scale*.75)}}
+  }
+  function stopLoop(){if(raf){cancelAnimationFrame(raf);raf=0}}
+  window.GKBHPage={
+    setActive:function(on){
+      if(on===active)return;active=on;clearTimeout(offTimer);
+      if(on){
+        if(failed)return;
+        if(!api){
+          api=window.GKBH.create(bcv,{steps:small?100:150,cam:[.95,.2,20,15.5],center:center});
+          if(!api){failed=true;return}
+          api.resize(q);
+          window.addEventListener("resize",function(){if(api&&active)api.resize(api.scale)});
+        }
+        bcv.classList.add("on");
+        if(window.GKUniverse&&window.GKUniverse.pause)window.GKUniverse.pause(true);
+        if(reduce){api.draw(3,1)}else{t0=0;fr=0;acc=0;stopLoop();raf=requestAnimationFrame(loop)}
+      }else{
+        bcv.classList.remove("on");
+        if(window.GKUniverse&&window.GKUniverse.pause)window.GKUniverse.pause(false);
+        offTimer=setTimeout(function(){stopLoop()},1000);
+      }
+    }
+  };
+  if(window.GKView==="book")window.GKBHPage.setActive(true);
+})();
+
+if(!el)return;
+
+/* ---------- intro ---------- */
+function finish(){
+  if(finished||hold)return;finished=true;
+  el.classList.add("out");
+  GKIntro.done=true;
+  for(var i=0;i<cbs.length;i++){try{cbs[i]()}catch(e){}}cbs.length=0;
+  setTimeout(function(){
+    if(raf){cancelAnimationFrame(raf);raf=0}
+    if(api)api.dispose();
+    if(el.parentNode)el.parentNode.removeChild(el);
+    document.documentElement.classList.remove("intro-on");
+  },1000);
+}
+document.getElementById("introSkip").addEventListener("click",finish);
+el.addEventListener("click",finish);
+window.addEventListener("keydown",function(e){if(e.key==="Escape"||e.key==="Enter"||e.key===" ")finish()});
+
+var api=null,raf=0;
+var SHOW=3.0;
+if(window.GKBH)api=window.GKBH.create(cv,{steps:small?100:150,cam:[.55,.17,25,17],center:function(asp){return asp<1?[0,.12]:[0,.15]}});
+if(!api){setTimeout(finish,1800)}
+else{
+  var q=small?.6:1;
+  api.resize(q);
+  window.addEventListener("resize",function(){if(!finished)api.resize(api.scale)});
+  window.GKIntro.draw=function(t){api.draw(t,1)};
+  window.GKIntro.stop=function(){if(raf){cancelAnimationFrame(raf);raf=0}};
+  if(reduce){api.draw(2.4,1);setTimeout(finish,1700)}
+  else{
+    var t0=0,last=0,fr=0,acc=0;
+    var loop=function(now){
+      if(!t0){t0=now;last=now}
+      var t=(now-t0)/1000,dt=(now-last)/1000;last=now;
+      api.draw(t,Math.min(1,t/.7));
+      /* keep 4K sharp when the GPU can take it, and scale down smoothly when it cannot */
+      fr++;acc+=dt;
+      if(fr>=4){var avg=acc/fr;fr=0;acc=0;if(avg>.042&&api.scale>.35)api.resize(api.scale*.72)}
+      if(t>=SHOW)finish();
+      raf=requestAnimationFrame(loop);
+    };
+    raf=requestAnimationFrame(loop);
+  }
+}
+})();
+
+</script>
+<script>if(!window.__holdIntro)setTimeout(function(){var e=document.getElementById("intro");if(e&&e.parentNode){e.parentNode.removeChild(e);document.documentElement.classList.remove("intro-on")}},9000);</script>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="mark" href="#about" data-go="about"><b>GK<i>Tech</i></b><small>Global Kernel Technologies</small></a>
+    <button class="burger" id="burger" type="button" aria-label="Open menu" aria-controls="nav" aria-expanded="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <button type="button" data-go="about">About</button>
+      <button type="button" data-go="services">Services</button>
+      <button type="button" data-go="sectors">Sectors</button>
+      <button type="button" data-go="trainings">Trainings</button>
+      <button type="button" data-go="hiring">Hiring</button>
+      <button type="button" data-go="admin">Admin</button>
+      <button type="button" class="cta" data-go="book">Book a call</button>
+    </nav>
   </div>
-</section>
+</header>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <span class="eyebrow">Who We Are</span>
-    <div class="about-grid">
-      <div class="about-text">
-        <h2 class="sec-title">Bridging business challenges with practical solutions</h2>
-        <p>At Global Kernel Technologies, we believe every successful organisation is built on three essential pillars: <strong>innovative technology, exceptional talent, and continuous learning.</strong></p>
-        <p>Founded with the vision of helping businesses grow in an ever-changing digital landscape, we provide comprehensive solutions that enable organisations to improve operational efficiency, build high-performing teams, and stay competitive in today&rsquo;s dynamic business environment.</p>
-        <p>We work closely with our clients to understand their unique objectives and design customised strategies that deliver measurable results &mdash; from building digital products and skilled workforces to enhancing employee capabilities through professional learning programmes.</p>
-        <div class="values-list">
-          <div class="value-item"><span class="v-dot"></span>Client-centric, customised approach &mdash; never one-size-fits-all</div>
-          <div class="value-item"><span class="v-dot"></span>Integrated expertise across technology, talent, and training</div>
-          <div class="value-item"><span class="v-dot"></span>Transparent communication and long-term partnership mindset</div>
-          <div class="value-item"><span class="v-dot"></span>Committed to trust, quality, and measurable business outcomes</div>
-        </div>
+<div class="demo" id="demoBar" hidden>Preview mode: submissions stay in this browser until the site is connected to your Google Sheet (see the setup guide).</div>
+
+<main class="wrap" id="page"></main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <a class="mark" href="#about" data-go="about"><b>GK<i>Tech</i></b><small>Global Kernel Technologies</small></a>
+        <p class="fdesc">We help organisations grow by combining innovative software solutions, exceptional talent acquisition, and impactful corporate training — all under one trusted partner.</p>
       </div>
       <div>
-        <div class="about-highlights">
-          <div class="highlight-card">
-            <div class="hi-num">21+</div>
-            <div class="hi-label">Enterprise Clients</div>
-          </div>
-          <div class="highlight-card">
-            <div class="hi-num">11+</div>
-            <div class="hi-label">Industries Served</div>
-          </div>
-          <div class="highlight-card">
-            <div class="hi-num">4</div>
-            <div class="hi-label">Core Service Areas</div>
-          </div>
-          <div class="highlight-card">
-            <div class="hi-num">Delhi</div>
-            <div class="hi-label">Headquartered</div>
-          </div>
-        </div>
-        <div class="vision-box">
-          <h4>Our Vision &amp; Mission</h4>
-          <ul class="vision-list">
-            <li><i class="ti ti-circle-check v-check"></i>Become one of India&rsquo;s most trusted business solution providers</li>
-            <li><i class="ti ti-circle-check v-check"></i>Empower organisations with innovative technology and world-class talent</li>
-            <li><i class="ti ti-circle-check v-check"></i>Develop future-ready professionals through impactful learning programmes</li>
-            <li><i class="ti ti-circle-check v-check"></i>Build long-term partnerships that create lasting business value</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="container">
-    <span class="eyebrow">Core Services</span>
-    <h2 class="sec-title">Four pillars. One partner.</h2>
-    <p class="sec-sub">We deliver integrated solutions across software, talent, learning, and people strategy &mdash; so you never have to manage multiple vendors for your growth needs.</p>
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon"><i class="ti ti-code" aria-hidden="true"></i></div>
-        <h3>Software Development</h3>
-        <p>Scalable, secure, and user-centric digital solutions that simplify operations, improve productivity, and enhance customer experiences &mdash; built with modern technologies and aligned to your business objectives.</p>
-        <div class="service-tags">
-          <span class="stag">Custom Software</span><span class="stag">Web &amp; Mobile Apps</span><span class="stag">CRM / ERP / HRMS</span><span class="stag">AI-Powered Apps</span><span class="stag">Cloud Solutions</span><span class="stag">UI/UX Design</span><span class="stag">API Integration</span><span class="stag">E-commerce</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><i class="ti ti-users" aria-hidden="true"></i></div>
-        <h3>Staffing &amp; Recruitment</h3>
-        <p>End-to-end recruitment services that help businesses hire skilled professionals efficiently &mdash; reducing hiring time and improving candidate quality across all functional domains and seniority levels.</p>
-        <div class="service-tags">
-          <span class="stag">Permanent Staffing</span><span class="stag">Executive Search</span><span class="stag">Leadership Hiring</span><span class="stag">Contract Staffing</span><span class="stag">Bulk Hiring</span><span class="stag">Campus Recruitment</span><span class="stag">RPO</span><span class="stag">Talent Mapping</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><i class="ti ti-presentation" aria-hidden="true"></i></div>
-        <h3>Corporate Training &amp; Learning</h3>
-        <p>Customised training programmes that improve employee performance, leadership capability, and organisational productivity &mdash; delivered through classroom, virtual, and blended learning models.</p>
-        <div class="service-tags">
-          <span class="stag">Behavioural Skills</span><span class="stag">Leadership Development</span><span class="stag">V&amp;A Training</span><span class="stag">Sales &amp; Negotiation</span><span class="stag">AI for Professionals</span><span class="stag">Data Analytics</span><span class="stag">POSH Awareness</span><span class="stag">Campus-to-Corporate</span>
-        </div>
-      </div>
-      <div class="service-card">
-        <div class="service-icon"><i class="ti ti-chart-arrows" aria-hidden="true"></i></div>
-        <h3>HR Consulting</h3>
-        <p>Strategic HR support that helps organisations build effective people practices aligned to business objectives &mdash; from policy and performance management to employee engagement and L&amp;D strategy.</p>
-        <div class="service-tags">
-          <span class="stag">HR Policy Development</span><span class="stag">Performance Management</span><span class="stag">Employee Engagement</span><span class="stag">Competency Frameworks</span><span class="stag">Org Development</span><span class="stag">L&amp;D Strategy</span><span class="stag">HR Compliance</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTORS -->
-<section id="sectors">
-  <div class="container">
-    <span class="eyebrow">Industries We Serve</span>
-    <h2 class="sec-title">Expertise across 11 industries</h2>
-    <p class="sec-sub">We understand sector-specific challenges deeply &mdash; enabling us to deliver solutions that are practical, precise, and built for your industry&rsquo;s realities.</p>
-    <div class="sectors-grid">
-      <div class="sector-card"><i class="ti ti-device-laptop sector-icon"></i><span class="sector-name">IT Services &amp; Consulting</span></div>
-      <div class="sector-card"><i class="ti ti-building-bank sector-icon"></i><span class="sector-name">BFSI</span></div>
-      <div class="sector-card"><i class="ti ti-chart-dots sector-icon"></i><span class="sector-name">BPO / KPO / Research &amp; Analytics</span></div>
-      <div class="sector-card"><i class="ti ti-heart-rate-monitor sector-icon"></i><span class="sector-name">Healthcare &amp; Life Sciences</span></div>
-      <div class="sector-card"><i class="ti ti-settings sector-icon"></i><span class="sector-name">Manufacturing &amp; Production</span></div>
-      <div class="sector-card"><i class="ti ti-shopping-bag sector-icon"></i><span class="sector-name">Consumer, Retail &amp; Hospitality</span></div>
-      <div class="sector-card"><i class="ti ti-building-arch sector-icon"></i><span class="sector-name">Infrastructure</span></div>
-      <div class="sector-card"><i class="ti ti-plane sector-icon"></i><span class="sector-name">Aviation &amp; Transport</span></div>
-      <div class="sector-card"><i class="ti ti-home sector-icon"></i><span class="sector-name">Real Estate</span></div>
-      <div class="sector-card"><i class="ti ti-school sector-icon"></i><span class="sector-name">Education</span></div>
-      <div class="sector-card"><i class="ti ti-device-tv sector-icon"></i><span class="sector-name">Media, Entertainment &amp; Sports</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- TRAINING -->
-<section id="training">
-  <div class="container">
-    <span class="eyebrow">Skill Development</span>
-    <h2 class="sec-title">Build skills, build careers</h2>
-    <p class="sec-sub" style="margin-bottom:40px;">Our training programmes serve freshers, working professionals, and corporate teams &mdash; from foundational soft skills to cutting-edge AI and data science.</p>
-    <div class="training-intro">
-      <div>
-        <p style="font-size:15px;color:var(--text-mid);line-height:1.82;margin-bottom:16px;">Learning is no longer optional &mdash; it is essential for business growth. Our experienced trainers deliver engaging, practical, and result-oriented learning experiences through classroom sessions, virtual workshops, and blended learning models.</p>
-        <p style="font-size:15px;color:var(--text-mid);line-height:1.82;">Each programme is designed to address specific business challenges while delivering measurable improvements in employee performance and engagement.</p>
-      </div>
-      <div class="training-why">
-        <h4>Programme Delivery Modes</h4>
-        <ul class="why-list">
-          <li><i class="ti ti-circle-check why-check"></i>In-person classroom sessions</li>
-          <li><i class="ti ti-circle-check why-check"></i>Virtual instructor-led workshops</li>
-          <li><i class="ti ti-circle-check why-check"></i>Blended learning models</li>
-          <li><i class="ti ti-circle-check why-check"></i>Customised to your organisation&rsquo;s goals</li>
-          <li><i class="ti ti-circle-check why-check"></i>Measurable performance outcomes</li>
+        <h4>Our clients</h4>
+        <ul class="fclients" aria-label="Some of our clients">
+          <li>Tech Mahindra</li><li>Mahindra Finance</li><li>iEnergizer</li><li>HGS</li><li>+17 more</li>
         </ul>
       </div>
-    </div>
-    <div class="training-programmes">
-      <div class="prog-card">
-        <span class="prog-badge badge-soft">Soft Skills</span>
-        <div class="prog-title">V&amp;A &amp; Soft Skills, Behavioral Trainings</div>
-        <div class="prog-desc">Voice &amp; accent neutralisation, interpersonal communication, professional etiquette, and behavioural competency development for workplace readiness.</div>
-        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
-      </div>
-      <div class="prog-card">
-        <span class="prog-badge badge-leader">Leadership</span>
-        <div class="prog-title">HIPO &amp; Peak Performance Trainings</div>
-        <div class="prog-desc">Designed for high-potential employees &mdash; leadership mindset, performance frameworks, decision-making under pressure, and executive presence.</div>
-        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
-      </div>
-      <div class="prog-card">
-        <span class="prog-badge badge-team">Team Culture</span>
-        <div class="prog-title">Team Building &amp; Cultural Transformation</div>
-        <div class="prog-desc">Experiential workshops to strengthen team cohesion, drive cultural alignment, and support organisational change initiatives.</div>
-        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
-      </div>
-      <div class="prog-card">
-        <span class="prog-badge badge-ai">AI &amp; Tech</span>
-        <div class="prog-title">Generative / Agentic AI, SQL &amp; LLM Programs</div>
-        <div class="prog-desc">Hands-on training in GenAI tools, prompt engineering, agentic workflows, SQL querying, and LLM fundamentals for working professionals.</div>
-        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
-      </div>
-      <div class="prog-card">
-        <span class="prog-badge badge-data">Data Science</span>
-        <div class="prog-title">Data Science &amp; Machine Learning Programs</div>
-        <div class="prog-desc">Applied curriculum covering Python, statistics, ML algorithms, model building, and real-world project experience for career transitions and upskilling.</div>
-        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
-      </div>
-      <div class="prog-card">
-        <span class="prog-badge badge-campus">Campus to Corporate</span>
-        <div class="prog-title">Campus-to-Corporate Transition Programs</div>
-        <div class="prog-desc">Bridging academia and industry &mdash; workplace readiness, corporate communication, productivity tools, and first-job success skills for fresh graduates.</div>
-        <a href="#register" onclick="selectForm('course')" class="prog-enroll">Enrol <i class="ti ti-arrow-right" style="font-size:12px"></i></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY US -->
-<section id="why">
-  <div class="container">
-    <span class="eyebrow">Why GKTech</span>
-    <h2 class="sec-title">What sets us apart</h2>
-    <p class="sec-sub">Organisations choose us because we combine technology expertise, recruitment excellence, and professional learning under one roof &mdash; with a client-first approach at every step.</p>
-    <div class="why-grid">
-      <div class="why-card"><div class="why-icon"><i class="ti ti-target" aria-hidden="true"></i></div><h4>Industry-focused expertise</h4></div>
-      <div class="why-card"><div class="why-icon"><i class="ti ti-tool" aria-hidden="true"></i></div><h4>Customised business solutions</h4></div>
-      <div class="why-card"><div class="why-icon"><i class="ti ti-rocket" aria-hidden="true"></i></div><h4>2&ndash;3 business day turnaround</h4></div>
-      <div class="why-card"><div class="why-icon"><i class="ti ti-shield-check" aria-hidden="true"></i></div><h4>High-quality talent acquisition</h4></div>
-      <div class="why-card"><div class="why-icon"><i class="ti ti-bulb" aria-hidden="true"></i></div><h4>Innovative technology solutions</h4></div>
-      <div class="why-card"><div class="why-icon"><i class="ti ti-messages" aria-hidden="true"></i></div><h4>Transparent communication</h4></div>
-      <div class="why-card"><div class="why-icon"><i class="ti ti-heart-handshake" aria-hidden="true"></i></div><h4>Long-term partnership mindset</h4></div>
-      <div class="why-card"><div class="why-icon"><i class="ti ti-chart-line" aria-hidden="true"></i></div><h4>Practical, business-oriented training</h4></div>
-    </div>
-  </div>
-</section>
-
-<!-- EMPLOYERS -->
-<section id="employers">
-  <div class="container">
-    <span class="eyebrow eyebrow-light">For Employers</span>
-    <div class="employers-top">
       <div>
-        <h2 class="sec-title sec-title-light">Partner with GKTech as your recruitment vendor</h2>
-        <p class="sec-sub sec-sub-light">Empanel us as your preferred hiring partner and get access to a pre-screened, job-ready talent pool across 11 industry sectors &mdash; with dedicated account management and a structured delivery process.</p>
-      </div>
-      <div class="employer-features">
-        <div class="ef-card">
-          <i class="ti ti-rocket" style="color:var(--gold-light);font-size:24px"></i>
-          <h3>2&ndash;3 Business Days</h3>
-          <p>Shortlisted profiles delivered within 2&ndash;3 business days of receiving a mandate.</p>
-        </div>
-        <div class="ef-card">
-          <i class="ti ti-shield-check" style="color:var(--gold-light);font-size:24px"></i>
-          <h3>Pre-screened Talent</h3>
-          <p>Every candidate is background-verified and role-mapped before introduction.</p>
-        </div>
-        <div class="ef-card">
-          <i class="ti ti-refresh" style="color:var(--gold-light);font-size:24px"></i>
-          <h3>Replacement Guarantee</h3>
-          <p>Free replacement within the agreed warranty period at no extra cost.</p>
-        </div>
-        <div class="ef-card">
-          <i class="ti ti-chart-bar" style="color:var(--gold-light);font-size:24px"></i>
-          <h3>Volume Capability</h3>
-          <p>Structured drives for bulk requirements with dedicated account management.</p>
-        </div>
+        <h4>Contact</h4>
+        <div class="fcontact"><div><span>Email</span><a id="fMail" href="#"></a></div><div><span>Call</span><a id="fPhone" href="#"></a></div></div>
       </div>
     </div>
-    <div style="text-align:center;margin-top:8px;">
-      <p style="color:rgba(255,255,255,0.55);font-size:14px;margin-bottom:18px;">Ready to empanel GKTech? Use the registration section below and select <strong style="color:var(--gold-light);">Employer Empanelment</strong> from the dropdown.</p>
-      <a href="#register" style="border:2px solid var(--gold);color:var(--gold);padding:13px 30px;border-radius:var(--radius-sm);font-size:15px;font-weight:700;text-decoration:none;display:inline-block;transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--gold)';this.style.color='var(--navy)'" onmouseout="this.style.background='transparent';this.style.color='var(--gold)'">Submit Empanelment Request &darr;</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── REGISTER SECTION ── -->
-<section id="register">
-  <div class="register-wrap">
-    <div class="register-header">
-      <span class="eyebrow">Register / Enrol</span>
-      <h2>One place for everything</h2>
-      <p>Select who you are from the dropdown below &mdash; the right form will appear instantly, right here on the page.</p>
-    </div>
-
-    <!-- Dropdown -->
-    <div class="register-selector">
-      <span class="selector-label">Or select from the dropdown</span>
-      <div class="selector-wrap">
-        <select id="formSelect" onchange="selectForm(this.value)">
-          <option value="">-- Select your registration type --</option>
-          <option value="candidate">Job Seeker &mdash; Find a job or join a recruitment drive</option>
-          <option value="course">Course Enrolment &mdash; Enrol in a skill development programme</option>
-          <option value="employer">Employer &mdash; Empanel GKTech as your hiring vendor</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- Form container -->
-    <div class="form-container" id="formContainer">
-      <!-- Default placeholder -->
-      <div class="form-placeholder" id="formPlaceholder">
-        <div class="form-placeholder-icon"><i class="ti ti-hand-finger" aria-hidden="true"></i></div>
-        <h3>Select a registration type above</h3>
-        <p>The correct form will appear here instantly &mdash; no new tabs, no redirects.</p>
-      </div>
-
-      <!-- Candidate / General form -->
-      <div class="form-iframe-wrap" id="form-candidate">
-        <div class="form-label-bar">
-          <div class="form-label-dot"></div>
-          <span class="form-label-text">Registration &amp; Course Enrolment &mdash; General &amp; Candidates</span>
-        </div>
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScIUSG255Y4EcwMN1OQFDfBl8QFT5i1i0VD7aSB3qq1pmrsmA/viewform?embedded=true" title="Candidate Registration Form" loading="lazy">Loading form&hellip;</iframe>
-      </div>
-
-      <!-- Course Enrolment form -->
-      <div class="form-iframe-wrap" id="form-course">
-        <div class="form-label-bar">
-          <div class="form-label-dot"></div>
-          <span class="form-label-text">Course Enrolment &mdash; Skill Development Programmes</span>
-        </div>
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSec3nG8G9_VOg7ftl4V_QiBYYekYfUhmwfWRmxaZIsPf7fhzw/viewform?embedded=true" title="Course Enrolment Form" loading="lazy"></iframe>
-      </div>
-
-      <!-- Employer form -->
-      <div class="form-iframe-wrap" id="form-employer">
-        <div class="form-label-bar">
-          <div class="form-label-dot"></div>
-          <span class="form-label-text">Employer Empanelment &mdash; Hiring Partnership Request</span>
-        </div>
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdkjlRUlytcnYDxza3PoRkcJVzmxbOt2wC557Op4sgnbcmSfA/viewform?embedded=true" title="Employer Empanelment Form" loading="lazy"></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-top">
-    <div>
-      <div class="footer-logo-name">GK<span style="color:var(--gold-light)">Tech</span></div>
-      <div class="footer-logo-tagline">Global Kernel Technologies</div>
-      <p class="footer-about">We help organisations grow by combining innovative software solutions, exceptional talent acquisition, and impactful corporate training &mdash; all under one trusted partner.</p>
-      <div class="clients-strip">
-        <span class="client-pill">Tech Mahindra</span>
-        <span class="client-pill">Mahindra Finance</span>
-        <span class="client-pill">iEnergizer</span>
-        <span class="client-pill">HGS</span>
-        <span class="client-pill">+17 more</span>
-      </div>
-    </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <ul>
-        <li><a href="#services">Software Development</a></li>
-        <li><a href="#services">Staffing &amp; Recruitment</a></li>
-        <li><a href="#training">Corporate Training</a></li>
-        <li><a href="#services">HR Consulting</a></li>
-        <li><a href="#register">Employer Empanelment</a></li>
-        <li><a href="#register">Candidate Registration</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Key Sectors</h4>
-      <ul>
-        <li><a href="#sectors">IT Services &amp; Consulting</a></li>
-        <li><a href="#sectors">BFSI</a></li>
-        <li><a href="#sectors">Healthcare &amp; Life Sciences</a></li>
-        <li><a href="#sectors">Manufacturing</a></li>
-        <li><a href="#sectors">BPO / KPO</a></li>
-        <li><a href="#sectors">View all 11 sectors &uarr;</a></li>
-      </ul>
-    </div>
-  </div>
-  <hr class="footer-divider">
-  <div class="footer-bottom">
-    <span class="footer-copy">&copy; 2025 Global Kernel Technologies. All rights reserved.</span>
-    <span class="footer-copy">New Delhi &nbsp;&middot;&nbsp; info@gktech.in</span>
+    <div class="fbottom">© <span id="fYear"></span> Global Kernel Technologies. All rights reserved.</div>
   </div>
 </footer>
 
+<!-- programme details -->
+<dialog id="detailDlg"><div class="dlg" id="detailBody"></div></dialog>
+<!-- job apply -->
+<dialog id="applyDlg"><div class="dlg" id="applyBody"></div></dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script>
-  const FORMS = {
-    candidate: 'form-candidate',
-    course:    'form-course',
-    employer:  'form-employer'
-  };
+(function(){
+"use strict";
 
-  function selectForm(type) {
-    if (!type) return;
+/* =====================================================
+   SETTINGS: edit only this block
+   backendUrl: paste the Web app URL from your Google
+   Apps Script (see the setup guide). Leave empty for
+   preview mode.
+   ===================================================== */
+var CONFIG={
+  backendUrl:"",
+  mail:"Talent@globalkt.in",
+  phone:"9716865327",
+  phoneDisplay:"+91 9716865327"
+};
 
-    // Hide placeholder
-    document.getElementById('formPlaceholder').style.display = 'none';
+/* ---------- programmes ---------- */
+var DURATION="Half day, first half of the day (about 4 hours)";
+var OPEN="Introductions, what participants want from the day, and how the session will run.";
+var CLOSE="Each participant writes the first three things they will apply. Questions and feedback.";
 
-    // Hide all iframe wraps
-    document.querySelectorAll('.form-iframe-wrap').forEach(el => el.classList.remove('active'));
+var PROGRAMS=[
+ {id:"soft",cat:"Soft skills",c:"#e08a1e",title:"V&A & Soft Skills, Behavioral Trainings",
+  sum:"Voice & accent neutralisation, interpersonal communication, professional etiquette, and behavioral competency development for workplace readiness.",
+  aud:"Customer-facing teams, support and sales staff, new joiners, and anyone whose work depends on clear spoken communication.",
+  learn:["Speak clearly with better pace, stress and intonation","Reduce mother-tongue influence on everyday pronunciation","Listen actively and respond with empathy","Follow professional etiquette on calls, email and in meetings","Handle difficult conversations calmly"],
+  mods:[["Voice and accent clarity","Breathing, pace, stress and intonation. Common sound patterns and how to correct them, with a recorded self-check."],["Interpersonal communication and etiquette","Active listening, tone, call and email etiquette, and how to respond when a conversation gets tense."],["Role plays and feedback","Paired scenarios from your own workplace, with facilitator feedback on voice and behaviour."]],
+  out:["Clearer and more confident speech","Better conversations with customers and colleagues","A personal 30-day practice plan"],
+  fmt:"Interactive workshop with voice drills, recordings and role plays."},
+ {id:"hipo",cat:"Leadership",c:"#8b5cf6",title:"HIPO & Peak Performance Trainings",
+  sum:"Designed for high-potential employees: leadership mindset, performance frameworks, decision-making under pressure, and executive presence.",
+  aud:"High-potential employees nominated by management, emerging leaders and first-time team leads.",
+  learn:["Build a leadership mindset built on ownership","Set and track clear performance goals","Make sound decisions under time pressure","Show executive presence in meetings and presentations","Influence colleagues without formal authority"],
+  mods:[["Leadership mindset and performance frameworks","Self-awareness, ownership, and goal-setting frameworks that link personal targets to business results."],["Decisions under pressure and executive presence","Simple decision models, a pressure-test exercise, and how to communicate with senior stakeholders."],["Case simulation","Small groups work through a business case and present their decision, followed by coaching feedback."]],
+  out:["A clearer view of personal leadership strengths","Tools for faster, better decisions","A 90-day performance and growth plan"],
+  fmt:"Facilitated workshop with self-assessment, case simulation and peer coaching."},
+ {id:"team",cat:"Team culture",c:"#1e8e5a",title:"Team Building & Cultural Transformation",
+  sum:"Experiential workshops to strengthen team cohesion, drive cultural alignment, and support organisational change initiatives.",
+  aud:"Intact teams, managers and department heads, and teams going through change such as a merger, restructure or new leadership.",
+  learn:["Build trust and open communication inside the team","Agree shared values and the behaviours that show them","Work better across functions","Understand how people react to change and how to support them","Give and receive feedback constructively"],
+  mods:[["Trust and team dynamics","Activities that show how the team works today: roles, strengths, and where communication breaks down."],["Culture and change","Turning values into everyday behaviours, and understanding the stages people go through during change."],["Team challenge and debrief","An experiential challenge followed by a guided debrief and team agreements."]],
+  out:["Stronger working relationships","A short list of agreed team behaviours","Clear next steps for the team"],
+  fmt:"Experiential workshop with team activities, games and facilitated debriefs."},
+ {id:"ai",cat:"AI and tech",c:"#3b6ff0",title:"Generative / Agentic AI, SQL & LLM Programs",
+  sum:"Hands-on training in GenAI tools, prompt engineering, agentic workflows, SQL querying, and LLM fundamentals for working professionals.",
+  aud:"Working professionals in technology, operations, analytics and business roles who want to use AI and data tools at work. No coding background is needed.",
+  learn:["Understand in plain language how large language models work and where they fail","Write clear prompts that give reliable results","See what AI agents and automated workflows can do","Write basic SQL queries: select, filter, join and group","Use AI safely at work, including data privacy basics"],
+  mods:[["GenAI tools and prompt engineering","Tour of current GenAI tools, prompt patterns, and how to check and improve AI output."],["Agentic workflows and LLM basics","What agents are, how they use tools, where they help and where they need human review."],["Hands-on lab","Guided practice: write SQL queries on a sample database and build a small AI-assisted workflow."]],
+  out:["A set of tested prompts for your own work","Ability to read and write simple SQL queries","A starter idea for an AI workflow in your team"],
+  fmt:"Hands-on lab. Each participant needs a laptop with internet access.",
+  note:"A half-day session gives a solid introduction and a roadmap. Longer programmes are available on request."},
+ {id:"ds",cat:"Data science",c:"#d6457a",title:"Data Science & Machine Learning Programs",
+  sum:"Applied curriculum covering Python, statistics, ML algorithms, model building, and real-world project experience for career transitions and upskilling.",
+  aud:"Analysts, engineers and professionals moving into data roles. Comfort with Excel and basic maths is enough. Some Python helps but is not required.",
+  learn:["Follow the data science workflow from question to result","Use Python to load, clean and explore data","Apply statistics basics: averages, spread and correlation","Understand how regression and classification models learn","Read model results and spot common mistakes"],
+  mods:[["Python and statistics essentials","Working with data in Python, and the statistics ideas needed to understand a model."],["Machine learning in practice","How a model is trained, tested and judged, using a simple regression and classification example."],["Mini project","Groups work on a sample dataset and present what they found."]],
+  out:["A working picture of the data science workflow","A first model built on sample data","A learning roadmap for the next steps"],
+  fmt:"Hands-on lab. Each participant needs a laptop with internet access.",
+  note:"A half-day session gives a strong foundation and a roadmap. Longer programmes are available on request."},
+ {id:"campus",cat:"Campus to corporate",c:"#12a0a0",title:"Campus-to-Corporate Transition Programs",
+  sum:"Bridging academia and industry: workplace readiness, corporate communication, productivity tools, and first-job success skills for fresh graduates.",
+  aud:"Fresh graduates, campus hires and employees in their first year of work.",
+  learn:["Understand workplace norms and expectations","Write clear emails and messages, and take part in meetings","Use everyday productivity tools well","Plan time and priorities","Ask for help and feedback the right way"],
+  mods:[["Workplace readiness and communication","How offices work, professional behaviour, and email, chat and meeting communication."],["Productivity tools and first-90-day habits","Calendar, documents, spreadsheets and collaboration tools, plus habits that build a good first impression."],["Workplace scenarios","Short role plays based on situations new joiners face, with feedback."]],
+  out:["Confidence in day-to-day office communication","Better use of common work tools","A first-90-days checklist"],
+  fmt:"Interactive workshop with scenarios, exercises and tool demonstrations."},
+ {id:"stress",cat:"Employee wellness",c:"#d6457a",title:"Stress Management & Resilience",
+  sum:"Workshops that help teams manage workload pressure, build daily coping routines and recover from setbacks.",
+  aud:"All employees, especially teams with heavy workloads, tight deadlines or customer pressure.",
+  learn:["Recognise personal stress signals early","Use quick techniques to reset during a busy day","Set boundaries and talk about workload","Build routines that support resilience","Support colleagues who are under pressure"],
+  mods:[["Understanding stress","What stress does to focus and energy, and the difference between short-term pressure and long-term strain."],["Coping and reset techniques","Breathing, pacing, prioritising and thinking tools people can use at their desk."],["Personal resilience plan","Each person builds a simple plan and shares one commitment with a partner."]],
+  out:["Practical tools for high-pressure days","Better conversations about workload","A personal resilience plan"],
+  fmt:"Interactive workshop with short practices and reflection.",
+  note:"This is awareness and skills training. It is not therapy or medical care."},
+ {id:"counsel",cat:"Employee wellness",c:"#8b5cf6",title:"Counselling Access & Manager Awareness",
+  sum:"Confidential counselling sessions for employees, and short sessions that help managers notice early signs of burnout and respond well.",
+  aud:"People managers and HR teams. Employees can join the awareness part.",
+  learn:["Notice early changes in mood, energy and performance at work","Start a supportive conversation without judging","Know what managers should and should not do","Point people to counselling and support services","Protect confidentiality and trust"],
+  mods:[["Noticing early signs and starting conversations","Behaviours managers may observe, and simple ways to open a caring, respectful conversation."],["Support routes, confidentiality and boundaries","How to refer someone to counselling or HR, what stays private, and where a manager's role ends."],["Manager role plays","Practice supportive conversations with feedback from the facilitator."]],
+  out:["Managers who feel prepared for hard conversations","A clear referral path for your organisation","Greater trust in the team"],
+  fmt:"Facilitated workshop with role plays. Counselling access for employees can be arranged separately.",
+  note:"This is awareness training for managers. It does not replace professional care."},
+ {id:"ergo",cat:"Employee wellness",c:"#1e8e5a",title:"Ergonomics & Physical Wellbeing",
+  sum:"Desk set-up, posture and movement-break coaching, with optional health check-up camps for desk-based and shift teams.",
+  aud:"Desk-based staff, shift teams and anyone who sits or stands for long periods.",
+  learn:["Set up chair, desk and screen correctly","Keep good posture through the day","Use movement breaks and simple stretches","Look after eyes during long screen hours","Know when to ask a health professional for advice"],
+  mods:[["Workstation set-up and posture","Chair, desk, screen and keyboard positions, adjusted for each person."],["Movement, stretches and eye care","Short stretch routines and eye-care habits that fit into a working day."],["Personal workstation check","Participants adjust their own set-up with facilitator guidance."]],
+  out:["A better set-up at every desk","A short daily movement routine","Fewer aches from long hours"],
+  fmt:"Demonstration and practice session.",
+  note:"Health check-up camps can be added on request, with separate commercials."},
+ {id:"nutri",cat:"Employee wellness",c:"#e08a1e",title:"Nutrition, Sleep & Energy Sessions",
+  sum:"Practical sessions on eating, sleep and energy management for people who work long or irregular hours.",
+  aud:"All employees, especially people on long days, night shifts or rotating shifts.",
+  learn:["Plan meals and snacks for steady energy","Drink enough water through the day","Build better sleep habits, including for shift work","Manage energy across long or irregular hours","Make small habit changes that last"],
+  mods:[["Eating for steady energy","Everyday food choices, meal timing and hydration that suit an office or shift routine."],["Sleep and energy management","Sleep routines, light and caffeine habits, and how to recover after night shifts."],["My habit plan","Each person picks two small habits and plans how to keep them."]],
+  out:["Practical food and sleep habits","A personal two-habit plan","Better day-to-day energy"],
+  fmt:"Interactive session with examples and a habit planner.",
+  note:"General wellbeing guidance, not medical or dietary advice for individual conditions."},
+ {id:"fin",cat:"Employee wellness",c:"#3b6ff0",title:"Financial Wellness for Employees",
+  sum:"Budgeting, tax planning, investing basics and debt awareness, taught in plain language.",
+  aud:"All employees. Useful for young professionals and first-time earners.",
+  learn:["Build a simple monthly budget","Understand savings and an emergency fund","Know the basics of income tax planning","Understand common investment options in plain language","Use credit and loans carefully"],
+  mods:[["Budgeting and saving","Track income and spending, set savings goals and build an emergency fund."],["Tax, investing and debt basics","How tax planning works, what common investments are, and how credit and loans behave."],["My money plan","Each person drafts a one-page money plan with a next step."]],
+  out:["A simple budget and savings plan","Confidence in basic money decisions","Awareness of debt risks"],
+  fmt:"Interactive session with worked examples.",
+  note:"Educational content only. It is not personal financial or investment advice."},
+ {id:"mind",cat:"Employee wellness",c:"#12a0a0",title:"Mindfulness, Yoga & Breathwork",
+  sum:"On-site or virtual sessions that give teams short, repeatable practices for focus and calm during the workday.",
+  aud:"All employees. No yoga or meditation experience is needed.",
+  learn:["Use simple breathing techniques to calm down","Take mindful pauses during work","Do gentle seated yoga at the desk","Improve focus with short practices","Build a five-minute daily routine"],
+  mods:[["Breathwork and mindful pauses","Simple breathing techniques and short pauses that fit between tasks."],["Gentle yoga and focus practices","Seated and standing movements for the neck, back and shoulders, plus focus exercises."],["Build my five-minute routine","Participants choose practices and set a daily routine."]],
+  out:["A toolkit of short calming practices","A five-minute daily routine","Better focus during the day"],
+  fmt:"Guided practice session. Participants wear comfortable clothes.",
+  note:"Gentle practices for general wellbeing. Anyone with a health concern should check with a doctor first."}
+];
 
-    // Show correct form
-    const target = FORMS[type];
-    if (target) document.getElementById(target).classList.add('active');
+var CATS=["All","Soft skills","Leadership","Team culture","AI and tech","Data science","Campus to corporate","Employee wellness"];
 
-    // Sync dropdown
-    const sel = document.getElementById('formSelect');
-    if (type === 'candidate') sel.value = 'candidate';
-    else if (type === 'course') sel.value = 'course';
-    else if (type === 'employer') sel.value = 'employer';
+/* ---------- sample jobs (replaced by your Google Sheet when connected) ---------- */
+var SAMPLE_JOBS=[
+ {id:"J1",title:"Python backend developer",company:"Leading IT services company",location:"Gurugram",mode:"Hybrid",vertical:"IT / Software / Tech",min:3,max:6,pay:"₹12–20 LPA",skills:["Python","Django","REST API","PostgreSQL","AWS"],description:"Build and maintain APIs and services for a large enterprise platform. You will design database schemas, write tests and work with a cloud deployment team."},
+ {id:"J2",title:"Frontend engineer",company:"Product startup",location:"Bengaluru",mode:"Onsite",vertical:"IT / Software / Tech",min:2,max:5,pay:"₹10–18 LPA",skills:["React","JavaScript","TypeScript","HTML","CSS"],description:"Own the customer-facing web app: build components, improve performance and work closely with designers on new features."},
+ {id:"J3",title:"Data analyst",company:"E-commerce company",location:"Noida",mode:"Hybrid",vertical:"IT / Software / Tech",min:1,max:4,pay:"₹6–11 LPA",skills:["SQL","Excel","Power BI","Python"],description:"Turn sales and customer data into dashboards and weekly insights. You will clean data, write SQL and present findings to business teams."},
+ {id:"J4",title:"Business development manager, SaaS",company:"B2B software company",location:"Delhi NCR",mode:"Hybrid",vertical:"Sales & Business Development",min:4,max:8,pay:"₹10–18 LPA plus incentives",skills:["B2B sales","Lead generation","CRM","Negotiation"],description:"Find and win new mid-market accounts. You will run discovery calls, demos and commercial negotiations and hit a quarterly target."},
+ {id:"J5",title:"Inside sales executive",company:"EdTech company",location:"Noida",mode:"Onsite",vertical:"Sales & Business Development",min:1,max:3,pay:"₹3.5–6 LPA plus incentives",skills:["Cold calling","Lead qualification","CRM","Communication"],description:"Call warm and cold leads, explain the programme and move qualified leads to the closing team."},
+ {id:"J6",title:"Key account manager",company:"Manufacturing group",location:"Mumbai",mode:"Onsite",vertical:"Sales & Business Development",min:6,max:10,pay:"₹18–28 LPA",skills:["Account management","Client relationship","Upselling","Enterprise sales"],description:"Manage a portfolio of large enterprise accounts, grow revenue from them and act as their senior point of contact."},
+ {id:"J7",title:"Accounts executive",company:"Trading company",location:"Delhi",mode:"Onsite",vertical:"Finance & Accounts",min:2,max:5,pay:"₹3.6–6.5 LPA",skills:["Tally","GST","Reconciliation","Accounts payable"],description:"Handle day-to-day bookkeeping, vendor payments, GST filing support and monthly bank reconciliation."},
+ {id:"J8",title:"Financial analyst",company:"Consumer goods company",location:"Gurugram",mode:"Hybrid",vertical:"Finance & Accounts",min:3,max:6,pay:"₹9–16 LPA",skills:["Financial modelling","Excel","Budgeting","MIS"],description:"Prepare monthly MIS, track budgets against actuals and build forecasts for the finance leadership team."},
+ {id:"J9",title:"Supply chain planner",company:"Automotive components maker",location:"Chennai",mode:"Onsite",vertical:"Operations & Logistics",min:3,max:7,pay:"₹8–14 LPA",skills:["Demand planning","Inventory management","SAP","Vendor management"],description:"Plan material flow from suppliers to plant, keep inventory at target levels and resolve shortages early."},
+ {id:"J10",title:"Warehouse operations manager",company:"Third-party logistics provider",location:"Bhiwandi",mode:"Onsite",vertical:"Operations & Logistics",min:6,max:10,pay:"₹9–15 LPA",skills:["Warehouse","WMS","Team management","Dispatch"],description:"Run a busy fulfilment warehouse: manage shifts, meet dispatch targets, keep stock accurate and keep the floor safe."}
+];
+var VERTICALS=["All","IT / Software / Tech","Sales & Business Development","Finance & Accounts","Operations & Logistics"];
 
-    // Update pills
-    document.querySelectorAll('.option-pill').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.option-pill').forEach(p => {
-      const map = { candidate: ['Job Seeker'], course: ['Course Enrolment'], employer: ['Employer'] };
-      if (map[type] && map[type].some(k => p.textContent.includes(k))) p.classList.add('active');
-    });
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]})}
+var mem={};
+var store={
+  get:function(k){try{var v=localStorage.getItem(k);return v?JSON.parse(v):(mem[k]||null)}catch(e){return mem[k]||null}},
+  set:function(k,v){mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+var toastTimer;
+function toast(msg){var t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove("show")},3800)}
+function openDlg(d){if(d.showModal)d.showModal();else d.setAttribute("open","")}
+function closeDlg(d){if(d.close)d.close();else d.removeAttribute("open")}
 
-    // Smooth scroll to form
-    document.getElementById('formContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+/* fields kept in the sheet, in order: [column header, form key] */
+var FIELDS={
+ call:[["Timestamp","_ts"],["Name","name"],["Company","company"],["Designation","designation"],["Work email","email"],["Phone","phone"],["Programme","programme"],["Participants","participants"],["Preferred date","preferred_date"],["Best time to call","best_time"],["Message","message"],["Consent","consent"]],
+ apply:[["Timestamp","_ts"],["Job title","job_title"],["Job id","job_id"],["Name","name"],["Phone","phone"],["Email","email"],["Current location","location"],["Experience (years)","experience"],["Current company","current_company"],["Notice period","notice_period"],["Resume link","resume_link"],["Consent","consent"]]
+};
+function csvCell(v){
+  var s=String(v==null?"":v);
+  if(/^[=+\-@]/.test(s))s="'"+s;
+  return '"'+s.replace(/"/g,'""')+'"';
+}
+function toCsv(type,rows){
+  var head=FIELDS[type].map(function(f){return csvCell(f[0])}).join(",");
+  var body=rows.map(function(r){return FIELDS[type].map(function(f){return csvCell(r[f[1]])}).join(",")});
+  return [head].concat(body).join("\r\n");
+}
+function saveCsv(name,text){
+  if(window.claude&&typeof window.claude.use==="function"){
+    window.claude.use("downloads").then(function(d){
+      if(d)d.save({filename:name,data:"\ufeff"+text}).catch(function(){});
+      else saveCsvFile(name,text);
+    }).catch(function(){saveCsvFile(name,text)});
+    return;
   }
+  saveCsvFile(name,text);
+}
+function saveCsvFile(name,text){
+  var blob=new Blob(["\ufeff"+text],{type:"text/csv;charset=utf-8"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(a.href)},1500);
+}
+var connected=!!CONFIG.backendUrl;
+function send(type,payload){
+  payload._ts=new Date().toISOString();
+  if(!connected){
+    var rows=store.get("gk_local_"+type)||[];
+    rows.push(payload);store.set("gk_local_"+type,rows);
+    return Promise.resolve(true);
+  }
+  var body=new URLSearchParams();body.set("type",type);
+  Object.keys(payload).forEach(function(k){body.set(k,payload[k])});
+  return fetch(CONFIG.backendUrl,{method:"POST",mode:"no-cors",body:body}).then(function(){return true}).catch(function(){return false});
+}
+var PHONE_RE=/^\+?[0-9][0-9\s-]{8,14}$/, MAIL_RE=/^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
-  // Pre-select if navigating from an anchor with ?form= param (optional enhancement)
-  window.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('form')) selectForm(params.get('form'));
+/* ---------- state and routing ---------- */
+var view="trainings", cat="All", vert="All", q="", jobs=SAMPLE_JOBS, openJob={}, adminOK=false, adminKey="", bookPrefill="", adminJobs=[];
+
+function go(v,opts){
+  view=v;
+  if(opts&&opts.program!==undefined)bookPrefill=opts.program;
+  $("nav").classList.remove("open");$("burger").setAttribute("aria-expanded","false");
+  try{if(location.hash!=="#"+v)history.replaceState(null,"","#"+v)}catch(e){}
+  render();window.scrollTo(0,0);
+}
+function render(){
+  var btns=$("nav").querySelectorAll("button[data-go]");
+  for(var i=0;i<btns.length;i++){
+    if(btns[i].getAttribute("data-go")===view&&!btns[i].classList.contains("cta"))btns[i].setAttribute("aria-current","page");
+    else btns[i].removeAttribute("aria-current");
+  }
+  var el=$("page");
+  if(view==="about")el.innerHTML=vAbout();
+  else if(view==="services")el.innerHTML=vServices();
+  else if(view==="sectors")el.innerHTML=vSectors();
+  else if(view==="trainings")el.innerHTML=vTrainings();
+  else if(view==="hiring")el.innerHTML=vHiring();
+  else if(view==="book")el.innerHTML=vBook();
+  else el.innerHTML=vAdmin();
+  window.GKView=view;
+  if(window.GKUniverse)window.GKUniverse.setView(view);
+  if(window.GKBHPage)window.GKBHPage.setActive(view==="book");
+}
+
+/* ---------- about, services, sectors ---------- */
+function infoCard(title,text,label,attrs,tags){
+  return '<article class="card info"><h3>'+title+'</h3><p>'+text+'</p>'+
+   (tags?'<div class="tags">'+tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join("")+'</div>':'')+
+   '<div class="row"><button class="btn" type="button" '+attrs+'>'+label+'</button></div></article>';
+}
+function contactBand(){
+  return '<div class="card cband"><div><h3>Let\u2019s talk about what your teams need</h3><p>Share your details and our sales team will call you.</p></div>'+
+   '<button class="go" type="button" data-go="book">Book a call</button></div>';
+}
+var ABOUT_STATS=[["21+","Enterprise clients"],["11+","Industries served"],["4","Core service areas"],["Delhi","Headquartered"]];
+var ABOUT_VM=["Become one of India\u2019s most trusted business solution providers","Empower organisations with innovative technology and world-class talent","Develop future-ready professionals through impactful learning programmes","Build long-term partnerships that create lasting business value"];
+var ABOUT_PTS=["Client-centric, customised approach \u2014 never one-size-fits-all","Integrated expertise across technology, talent, and training","Transparent communication and long-term partnership mindset","Committed to trust, quality, and measurable business outcomes"];
+var TICK='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.2 12.4l2.6 2.6 5-5.2"/></svg>';
+function vAbout(){
+  return '<div class="ph"><h1>Technology, Talent &amp; Training, all with one trusted partner</h1></div>'+
+   '<div class="about">'+
+    '<div class="about-l"><h2>Bridging business challenges with practical solutions</h2>'+
+     '<p>At Global Kernel Technologies, we believe every successful organisation is built on three essential pillars: <b>innovative technology, exceptional talent, and continuous learning.</b></p>'+
+     '<p>Founded with the vision of helping businesses grow in an ever-changing digital landscape, we provide comprehensive solutions that enable organisations to improve operational efficiency, build high-performing teams, and stay competitive in today\u2019s dynamic business environment.</p>'+
+     '<p>We work closely with our clients to understand their unique objectives and design customised strategies that deliver measurable results \u2014 from building digital products and skilled workforces to enhancing employee capabilities through professional learning programmes.</p>'+
+     '<ul class="dots">'+ABOUT_PTS.map(function(t){return '<li>'+t+'</li>'}).join("")+'</ul></div>'+
+    '<div class="about-r"><div class="stats">'+ABOUT_STATS.map(function(x){return '<div class="stat"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>'}).join("")+'</div>'+
+     '<div class="card vm"><h3>Our Vision &amp; Mission</h3><ul class="checks">'+ABOUT_VM.map(function(t){return '<li>'+TICK+'<span>'+t+'</span></li>'}).join("")+'</ul></div></div>'+
+   '</div>'+contactBand();
+}
+function vServices(){
+  return '<div class="ph"><h1>Services built around your people</h1>'+
+   '<p>From hiring the right talent to developing the teams you already have.</p></div>'+
+   '<div class="tri">'+
+    infoCard('Talent acquisition','Recruiter-led sourcing and screening for your open roles. Candidates apply on this site and our recruiters call them back.','See open roles','data-go="hiring"')+
+    infoCard('Corporate training','One-day programmes in soft skills, leadership, team culture, AI and tech, data science and campus-to-corporate transition.','View programmes','data-go="trainings"')+
+    infoCard('Employee wellness','Programmes on stress management, ergonomics, financial wellness, mindfulness and more, for healthier and more focused teams.','View wellness programmes','data-traincat="Employee wellness"')+
+    infoCard('Software and automation','Software solutions and automation tools that streamline recruitment and business workflows.','Talk to us','data-go="book"')+
+   '</div>'+contactBand();
+}
+var IND_ICON={
+ laptop:'<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>',
+ bank:'<path d="M3 9l9-5 9 5"/><path d="M5 9v9M9.5 9v9M14.5 9v9M19 9v9"/><path d="M3 20h18"/>',
+ chart:'<path d="M4 4v16h16"/><circle cx="8.5" cy="14" r="1.5"/><circle cx="13" cy="9" r="1.5"/><circle cx="18" cy="12" r="1.5"/><path d="M9.8 12.9l2-2.6M14.4 9.6l2.2 1.5"/>',
+ health:'<rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M6 10h3l1.5-3 2 5 1.5-2H18"/>',
+ gear:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>',
+ bag:'<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6.5a3 3 0 016 0V8"/>',
+ arch:'<path d="M4 21V9a8 8 0 0116 0v12"/><path d="M9 21v-7a3 3 0 016 0v7"/>',
+ plane:'<path d="M21 3L3 11l6 2 2 6z"/><path d="M9 13L21 3"/>',
+ home:'<path d="M3 11l9-7 9 7"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5h4v5"/>',
+ cap:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c3.5 2.5 8.5 2.5 12 0v-4.5"/>',
+ tv:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 3l4 4 4-4"/>'
+};
+var INDUSTRIES=[["IT Services & Consulting","laptop"],["BFSI","bank"],["BPO / KPO / Research & Analytics","chart"],["Healthcare & Life Sciences","health"],["Manufacturing & Production","gear"],["Consumer, Retail & Hospitality","bag"],["Infrastructure","arch"],["Aviation & Transport","plane"],["Real Estate","home"],["Education","cap"],["Media, Entertainment & Sports","tv"]];
+function vSectors(){
+  return '<div class="ph"><span class="badge">Industries we serve</span><h1>Expertise across 11 industries</h1>'+
+   '<p>We understand sector-specific challenges deeply \u2014 enabling us to deliver solutions that are practical, precise, and built for your industry\u2019s realities.</p></div>'+
+   '<ul class="ind">'+INDUSTRIES.map(function(x){
+     return '<li><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IND_ICON[x[1]]+'</svg><span>'+esc(x[0])+'</span></li>';
+   }).join("")+'</ul>'+contactBand();
+}
+
+/* ---------- trainings ---------- */
+function vTrainings(){
+  return '<section class="hero"><h1>Personalised training programmes designed to develop your teams’ skills and capabilities.</h1>'+
+   '<p>Practical, facilitator-led sessions on communication, leadership, AI and data, and employee wellness. Each programme runs in the first half of the day, at your office or online.</p>'+
+   '<div class="row"><button class="go" type="button" data-go="book">Book a call with our sales team</button><a class="btn" href="#programmes" data-scroll="programmes">See all programmes</a></div>'+
+   '<ol class="steps"><li><b>Choose a programme</b><span>Open any card for the full agenda.</span></li><li><b>Leave your details</b><span>Tell us your team size and preferred dates.</span></li><li><b>Our sales team calls you</b><span>We confirm the plan and share commercials.</span></li></ol></section>'+
+   '<section class="sec" id="programmes"><h2>Our programmes</h2><p>Every programme is a half-day session with the same clear structure.</p>'+
+   '<div class="chips" id="catChips">'+CATS.map(function(c){return '<button type="button" class="chip" data-cat="'+esc(c)+'" aria-pressed="'+(c===cat)+'">'+esc(c)+'</button>'}).join("")+'</div>'+
+   '<div class="grid" id="progGrid">'+progGrid()+'</div></section>';
+}
+function progGrid(){
+  return PROGRAMS.filter(function(p){return cat==="All"||p.cat===cat}).map(function(p){
+    return '<article class="prog" style="--c:'+p.c+'"><div class="pills"><span class="pill k">'+esc(p.cat)+'</span><span class="pill">Half day</span></div>'+
+     '<h3>'+esc(p.title)+'</h3><p>'+esc(p.sum)+'</p><p class="aud"><b>Best for:</b> '+esc(p.aud)+'</p>'+
+     '<div class="row"><button class="btn" type="button" data-detail="'+p.id+'">Full details</button><button class="btn gold" type="button" data-book="'+p.id+'">Book a call</button></div></article>';
+  }).join("");
+}
+function agendaRows(p){
+  return [["9:30 to 9:45","Welcome and goals",OPEN],["9:45 to 11:00",p.mods[0][0],p.mods[0][1]],["11:00 to 11:15","Tea break","Short break."],["11:15 to 12:30",p.mods[1][0],p.mods[1][1]],["12:30 to 1:15",p.mods[2][0],p.mods[2][1]],["1:15 to 1:30","Action plan and close",CLOSE]];
+}
+function openDetail(id){
+  var p=PROGRAMS.filter(function(x){return x.id===id})[0];if(!p)return;
+  var ag=agendaRows(p).map(function(r){return '<div class="t">'+esc(r[0])+'</div><div class="b"><b>'+esc(r[1])+'</b><span>'+esc(r[2])+'</span></div>'}).join("");
+  $("detailBody").innerHTML=
+   '<button class="close" type="button" data-close="detailDlg" aria-label="Close">&times;</button>'+
+   '<div class="pills"><span class="pill k" style="--c:'+p.c+'">'+esc(p.cat)+'</span></div>'+
+   '<h2 style="margin-top:.6rem">'+esc(p.title)+'</h2><p class="muted">'+esc(p.sum)+'</p>'+
+   '<div class="facts2"><div><b>Duration</b>'+esc(DURATION)+'</div><div><b>Format</b>'+esc(p.fmt)+'</div><div><b>Group size</b>Confirmed with our sales team</div><div><b>Where</b>At your office or online</div></div>'+
+   '<h4>Who should attend</h4><p>'+esc(p.aud)+'</p>'+
+   '<h4>What participants learn</h4><ul>'+p.learn.map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul>'+
+   '<h4>Half-day agenda</h4><div class="agenda">'+ag+'</div><p class="muted" style="margin-top:.6rem">Timings are a guide and can be adjusted to your working day.</p>'+
+   '<h4>What you take away</h4><ul>'+p.out.map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul>'+
+   (p.note?'<p class="muted" style="margin-top:1rem">'+esc(p.note)+'</p>':"")+
+   '<div class="dlg-acts"><button class="go" type="button" data-book="'+p.id+'">Book a call for this programme</button><button class="btn" type="button" data-close="detailDlg">Close</button></div>';
+  openDlg($("detailDlg"));
+  $("detailBody").scrollTop=0;
+}
+
+/* ---------- hiring ---------- */
+function vHiring(){
+  return '<div class="ph"><h1>Let’s find the right opportunity for you</h1><p>Find a role that fits, apply with your details, and a GKTech recruiter will call you. There is no sign-in and no fee to apply.</p></div>'+
+   '<div class="tools"><label class="sr" for="jobSearch">Search jobs</label><input class="search" id="jobSearch" type="search" placeholder="Search by title, skill or city" value="'+esc(q)+'"></div>'+
+   '<div class="chips" id="vertChips">'+VERTICALS.map(function(v){return '<button type="button" class="chip" data-vert="'+esc(v)+'" aria-pressed="'+(v===vert)+'">'+esc(v)+'</button>'}).join("")+'</div>'+
+   '<div id="jobList">'+jobList()+'</div>';
+}
+function jobList(){
+  var ql=q.trim().toLowerCase();
+  var list=jobs.filter(function(j){
+    if(vert!=="All"&&j.vertical!==vert)return false;
+    if(!ql)return true;
+    return (j.title+" "+j.location+" "+j.company+" "+j.skills.join(" ")).toLowerCase().indexOf(ql)>-1;
   });
-</script>
+  if(!list.length)return '<div class="empty"><strong>No roles match</strong>Try a different search, or send us your details from the Book a call page and we will keep you in mind.</div>';
+  return '<div class="jobs">'+list.map(function(j){
+    return '<article class="job"><h3>'+esc(j.title)+'</h3><p class="co">'+esc(j.company)+', '+esc(j.location)+(j.mode?' ('+esc(j.mode)+')':'')+'</p>'+
+     '<div class="facts"><span class="fact">'+esc(j.min)+' to '+esc(j.max)+' years</span>'+(j.pay?'<span class="fact">'+esc(j.pay)+'</span>':'')+'<span class="fact">'+esc(j.vertical)+'</span></div>'+
+     '<div class="tags">'+j.skills.map(function(s){return '<span class="tag">'+esc(s)+'</span>'}).join("")+'</div>'+
+     (openJob[j.id]?'<div class="detail">'+esc(j.description)+'</div>':"")+
+     '<div class="row"><button class="btn" type="button" data-jobdetail="'+esc(j.id)+'" aria-expanded="'+(!!openJob[j.id])+'">'+(openJob[j.id]?"Hide details":"View details")+'</button>'+
+     '<button class="go" type="button" data-apply="'+esc(j.id)+'">Apply</button></div></article>';
+  }).join("")+'</div>';
+}
+function openApply(id){
+  var j=jobs.filter(function(x){return x.id===id})[0];if(!j)return;
+  $("applyBody").innerHTML=
+   '<button class="close" type="button" data-close="applyDlg" aria-label="Close">&times;</button>'+
+   '<h2>Apply: '+esc(j.title)+'</h2><p class="muted">Share your details. A GKTech recruiter will call you.</p>'+
+   '<form id="applyForm" novalidate><div class="form" style="margin-top:1rem">'+
+    '<div class="full"><label for="a_name">Full name <span class="req">*</span></label><input id="a_name" name="name" autocomplete="name" required></div>'+
+    '<div><label for="a_phone">Phone <span class="req">*</span></label><input id="a_phone" name="phone" type="tel" autocomplete="tel" required></div>'+
+    '<div><label for="a_email">Email <span class="req">*</span></label><input id="a_email" name="email" type="email" autocomplete="email" required></div>'+
+    '<div><label for="a_loc">Current location</label><input id="a_loc" name="location"></div>'+
+    '<div><label for="a_exp">Total experience (years)</label><input id="a_exp" name="experience" inputmode="decimal"></div>'+
+    '<div><label for="a_co">Current company</label><input id="a_co" name="current_company"></div>'+
+    '<div><label for="a_np">Notice period</label><select id="a_np" name="notice_period"><option value="">Select</option><option>Immediate</option><option>Up to 15 days</option><option>1 month</option><option>2 months</option><option>3 months</option><option>Not working currently</option></select></div>'+
+    '<div class="full"><label for="a_cv">Link to your resume (Google Drive, LinkedIn or similar)</label><input id="a_cv" name="resume_link" type="url" placeholder="https://"></div>'+
+    '<div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>'+
+    '<div class="full check"><input type="checkbox" id="a_ok" name="consent"><label for="a_ok" style="font-weight:400;margin:0">I agree that GKTech may contact me by phone and email about this role and other suitable roles.</label></div>'+
+   '</div><p class="err" id="a_err" role="alert"></p>'+
+   '<div class="dlg-acts"><button class="go" type="submit" id="a_go">Submit application</button><button class="btn" type="button" data-close="applyDlg">Cancel</button></div></form>';
+  $("applyForm").addEventListener("submit",function(e){e.preventDefault();submitApply(j)});
+  openDlg($("applyDlg"));
+}
+function submitApply(j){
+  var f=$("applyForm"),g=function(n){return f.elements[n].value.trim()};
+  var err=$("a_err");
+  if(f.elements.website.value)return finishApply();
+  if(!g("name")){err.textContent="Enter your full name.";return}
+  if(!PHONE_RE.test(g("phone"))){err.textContent="Enter a valid phone number.";return}
+  if(!MAIL_RE.test(g("email"))){err.textContent="Enter a valid email address.";return}
+  if(!f.elements.consent.checked){err.textContent="Please tick the box to let us contact you.";return}
+  err.textContent="";
+  var b=$("a_go");b.disabled=true;b.textContent="Sending";
+  send("apply",{job_title:j.title,job_id:j.id,name:g("name"),phone:g("phone"),email:g("email"),location:g("location"),experience:g("experience"),current_company:g("current_company"),notice_period:g("notice_period"),resume_link:g("resume_link"),consent:"Yes"}).then(function(ok){
+    if(ok)finishApply();
+    else{b.disabled=false;b.textContent="Submit application";err.textContent="Could not send. Please email "+CONFIG.mail+" or call "+CONFIG.phoneDisplay+"."}
+  });
+}
+function finishApply(){
+  $("applyBody").innerHTML='<div class="done"><h2>Thank you</h2><p>We have your application. A GKTech recruiter will call you soon.</p><button class="go" type="button" data-close="applyDlg">Back to jobs</button></div>';
+}
 
+/* ---------- book a call ---------- */
+var COUNTRIES=[["Afghanistan","+93"],["Albania","+355"],["Algeria","+213"],["Argentina","+54"],["Armenia","+374"],["Australia","+61"],["Austria","+43"],["Azerbaijan","+994"],["Bahrain","+973"],["Bangladesh","+880"],["Belarus","+375"],["Belgium","+32"],["Bhutan","+975"],["Bolivia","+591"],["Bosnia and Herzegovina","+387"],["Botswana","+267"],["Brazil","+55"],["Brunei","+673"],["Bulgaria","+359"],["Cambodia","+855"],["Cameroon","+237"],["Canada","+1"],["Chile","+56"],["China","+86"],["Colombia","+57"],["Costa Rica","+506"],["Croatia","+385"],["Cuba","+53"],["Cyprus","+357"],["Czechia","+420"],["Denmark","+45"],["Ecuador","+593"],["Egypt","+20"],["El Salvador","+503"],["Estonia","+372"],["Ethiopia","+251"],["Fiji","+679"],["Finland","+358"],["France","+33"],["Georgia","+995"],["Germany","+49"],["Ghana","+233"],["Greece","+30"],["Guatemala","+502"],["Hong Kong","+852"],["Hungary","+36"],["Iceland","+354"],["India","+91"],["Indonesia","+62"],["Iran","+98"],["Iraq","+964"],["Ireland","+353"],["Israel","+972"],["Italy","+39"],["Jamaica","+1"],["Japan","+81"],["Jordan","+962"],["Kazakhstan","+7"],["Kenya","+254"],["Kuwait","+965"],["Kyrgyzstan","+996"],["Laos","+856"],["Latvia","+371"],["Lebanon","+961"],["Libya","+218"],["Lithuania","+370"],["Luxembourg","+352"],["Macau","+853"],["Malaysia","+60"],["Maldives","+960"],["Malta","+356"],["Mauritius","+230"],["Mexico","+52"],["Moldova","+373"],["Mongolia","+976"],["Morocco","+212"],["Myanmar","+95"],["Namibia","+264"],["Nepal","+977"],["Netherlands","+31"],["New Zealand","+64"],["Nigeria","+234"],["North Macedonia","+389"],["Norway","+47"],["Oman","+968"],["Pakistan","+92"],["Palestine","+970"],["Panama","+507"],["Paraguay","+595"],["Peru","+51"],["Philippines","+63"],["Poland","+48"],["Portugal","+351"],["Puerto Rico","+1"],["Qatar","+974"],["Romania","+40"],["Russia","+7"],["Rwanda","+250"],["Saudi Arabia","+966"],["Senegal","+221"],["Serbia","+381"],["Singapore","+65"],["Slovakia","+421"],["Slovenia","+386"],["South Africa","+27"],["South Korea","+82"],["Spain","+34"],["Sri Lanka","+94"],["Sudan","+249"],["Sweden","+46"],["Switzerland","+41"],["Syria","+963"],["Taiwan","+886"],["Tajikistan","+992"],["Tanzania","+255"],["Thailand","+66"],["Tunisia","+216"],["Turkey","+90"],["Uganda","+256"],["Ukraine","+380"],["United Arab Emirates","+971"],["United Kingdom","+44"],["United States","+1"],["Uruguay","+598"],["Uzbekistan","+998"],["Venezuela","+58"],["Vietnam","+84"],["Yemen","+967"],["Zambia","+260"],["Zimbabwe","+263"]];
+function fmtTime12(t){if(!t)return"";var p=t.split(":"),h=+p[0],m=p[1],ap=h>=12?"PM":"AM";h=h%12;if(h===0)h=12;return h+":"+m+" "+ap}
+function fmtDateShort(d){if(!d)return"";var p=d.split("-");var mn=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];return +p[2]+" "+mn[+p[1]-1]+" "+p[0]}
+function vBook(){
+  var td=new Date(),todayIso=td.getFullYear()+'-'+String(td.getMonth()+1).padStart(2,'0')+'-'+String(td.getDate()).padStart(2,'0');
+  var ccOpts=COUNTRIES.map(function(c){return '<option value="'+c[1]+'"'+(c[0]==='India'?' selected':'')+'>'+esc(c[0])+' ('+c[1]+')</option>'}).join('');
+  var opts='<option value="">Not sure yet</option>'+PROGRAMS.map(function(p){return '<option value="'+esc(p.title)+'"'+(p.id===bookPrefill?' selected':'')+'>'+esc(p.title)+'</option>'}).join("");
+  return '<div class="ph"><h1>Book a call with our sales team</h1><p>Tell us a little about your team. Our sales team will call you to plan the session and share commercials.</p></div>'+
+   '<div class="split"><div class="card" id="bookCard"><form id="bookForm" novalidate><div class="form">'+
+    '<div><label for="b_name">Your name <span class="req">*</span></label><input id="b_name" name="name" autocomplete="name" required></div>'+
+    '<div><label for="b_co">Company <span class="req">*</span></label><input id="b_co" name="company" autocomplete="organization" required></div>'+
+    '<div><label for="b_des">Designation</label><input id="b_des" name="designation" autocomplete="organization-title"></div>'+
+    '<div><label for="b_n">Number of participants</label><input id="b_n" name="participants" inputmode="numeric"></div>'+
+    '<div class="full"><label for="b_phone">Phone <span class="req">*</span></label><div class="phone-row"><select id="b_cc" name="cc" aria-label="Country code">'+ccOpts+'</select><input id="b_phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="Phone number" required></div></div>'+
+    '<div class="full"><label for="b_mail">Work email <span class="req">*</span></label><input id="b_mail" name="email" type="email" autocomplete="email" required></div>'+
+    '<div class="full"><label for="b_prog">Programme you are interested in</label><select id="b_prog" name="programme">'+opts+'</select></div>'+
+    '<div class="full"><label for="b_d">Preferred date &amp; time</label><div class="dt-row"><input id="b_d" name="preferred_date" type="date" min="'+todayIso+'" aria-label="Preferred date"><input id="b_t" name="best_time" type="time" step="900" aria-label="Preferred time"></div><p class="hint">Pick a date and time for our sales team to call you (India time).</p></div>'+
+    '<div class="full"><label for="b_m">Anything else we should know</label><textarea id="b_m" name="message"></textarea></div>'+
+    '<div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>'+
+    '<div class="full check"><input type="checkbox" id="b_ok" name="consent"><label for="b_ok" style="font-weight:400;margin:0">I agree that GKTech may contact me by phone and email about training.</label></div>'+
+   '</div><p class="err" id="b_err" role="alert"></p><div class="row" style="margin-top:.6rem"><button class="go" type="submit" id="b_go">Request a call</button></div></form></div>'+
+   '<aside class="card side"><h3>Prefer to reach us directly?</h3><p class="lbl">Call now</p><p><a class="plain" href="tel:+91'+esc(CONFIG.phone)+'">'+esc(CONFIG.phoneDisplay)+'</a></p><p class="lbl" style="margin-top:.9rem">Send an email</p><p><a class="plain" href="mailto:'+esc(CONFIG.mail)+'">'+esc(CONFIG.mail)+'</a></p><p style="margin-top:1rem">Our sales team calls you back after you submit the form.</p></aside></div>';
+}
+function submitBook(){
+  var f=$("bookForm"),g=function(n){return f.elements[n].value.trim()},err=$("b_err");
+  if(f.elements.website.value)return bookDone();
+  if(!g("name")){err.textContent="Enter your name.";return}
+  if(!g("company")){err.textContent="Enter your company name.";return}
+  var cc=g("cc"),num=g("phone").replace(/[\s\-()]/g,"");
+  var phoneOk=cc==="+91"?/^[6-9]\d{9}$/.test(num):/^\d{6,14}$/.test(num);
+  if(!phoneOk){err.textContent=cc==="+91"?"Enter a 10-digit Indian mobile number.":"Enter a valid phone number.";return}
+  if(!MAIL_RE.test(g("email"))){err.textContent="Enter a valid work email.";return}
+  if(!f.elements.consent.checked){err.textContent="Please tick the box to let us contact you.";return}
+  err.textContent="";
+  var b=$("b_go");b.disabled=true;b.textContent="Sending";
+  send("call",{name:g("name"),company:g("company"),designation:g("designation"),email:g("email"),phone:cc+" "+num,programme:g("programme"),participants:g("participants"),preferred_date:fmtDateShort(g("preferred_date")),best_time:fmtTime12(g("best_time")),message:g("message"),consent:"Yes"}).then(function(ok){
+    if(ok)bookDone();
+    else{b.disabled=false;b.textContent="Request a call";err.textContent="Could not send. Please email "+CONFIG.mail+" or call "+CONFIG.phoneDisplay+"."}
+  });
+}
+function bookDone(){
+  bookPrefill="";
+  $("bookCard").innerHTML='<div class="done"><h2>Thank you</h2><p>We have your details. Our sales team will call you soon.</p><button class="btn" type="button" data-go="trainings">Back to programmes</button></div>';
+}
+
+/* ---------- admin ---------- */
+function vAdmin(){
+  if(!adminOK){
+    return '<div class="ph"><h1>Admin</h1><p>Download the contact details people have submitted.</p></div>'+
+     '<div class="card lock"><form id="adminForm"><label for="ad_key" style="font-weight:600;font-size:.9rem">Admin key</label><div class="row"><input id="ad_key" type="password" autocomplete="off" required><button class="go" type="submit">Unlock</button></div><p class="err" id="ad_err" role="alert"></p>'+
+     (connected?'':'<p style="color:var(--muted);font-size:.88rem;margin:.3rem 0 0">Preview mode: use the key <b>demo</b>.</p>')+'</form></div>';
+  }
+  var n1=(store.get("gk_local_call")||[]).length,n2=(store.get("gk_local_apply")||[]).length;
+  return '<div class="ph"><h1>Admin</h1><p>'+(connected?'Downloads come straight from your Google Sheet.':'Preview mode: these files contain what was submitted in this browser.')+'</p></div>'+
+   '<div class="adm"><div class="card"><h3>Call requests</h3><p>Everyone who asked for a call about a training.'+(connected?'':' ('+n1+' saved here)')+'</p><button class="go" type="button" data-export="call">Download CSV</button></div>'+
+   '<div class="card"><h3>Job applications</h3><p>Everyone who applied for a role.'+(connected?'':' ('+n2+' saved here)')+'</p><button class="go" type="button" data-export="apply">Download CSV</button></div></div>'+
+   '<div class="stack"><div class="card"><h3 style="margin:0 0 .3rem">Post a job</h3><p style="color:var(--muted);font-size:.93rem;margin:0 0 1rem">New jobs go live on the Hiring page straight away.</p>'+
+   '<form id="jobForm" novalidate><div class="form">'+
+    '<div class="full"><label for="j_t">Job title <span class="req">*</span></label><input id="j_t" name="title" maxlength="120" required></div>'+
+    '<div><label for="j_c">Company name shown to candidates</label><input id="j_c" name="company" maxlength="100" placeholder="Confidential client"></div>'+
+    '<div><label for="j_l">Location <span class="req">*</span></label><input id="j_l" name="location" maxlength="80" required></div>'+
+    '<div><label for="j_m">Work mode</label><select id="j_m" name="mode"><option>Onsite</option><option>Hybrid</option><option>Remote</option></select></div>'+
+    '<div><label for="j_v">Category</label><select id="j_v" name="vertical">'+VERTICALS.slice(1).map(function(v){return '<option>'+esc(v)+'</option>'}).join("")+'</select></div>'+
+    '<div><label for="j_min">Minimum experience (years)</label><input id="j_min" name="min_years" type="number" min="0" max="50" inputmode="numeric"></div>'+
+    '<div><label for="j_max">Maximum experience (years)</label><input id="j_max" name="max_years" type="number" min="0" max="50" inputmode="numeric"></div>'+
+    '<div class="full"><label for="j_p">Pay (optional, for example 8 to 12 LPA)</label><input id="j_p" name="pay" maxlength="80"></div>'+
+    '<div class="full"><label for="j_s">Key skills (separate with commas)</label><input id="j_s" name="skills" maxlength="240"></div>'+
+    '<div class="full"><label for="j_d">Job description <span class="req">*</span></label><textarea id="j_d" name="description" maxlength="1500" required></textarea></div>'+
+   '</div><p class="err" id="j_err" role="alert"></p><button class="go" type="submit" id="j_go">Post job</button></form></div>'+
+   '<div class="card"><h3 style="margin:0 0 .6rem">Jobs you posted here</h3><div id="adminJobs">'+adminJobsHtml()+'</div></div></div>'+
+   '<div class="row" style="margin-top:1.2rem"><button class="btn" type="button" data-lock="1">Lock admin</button></div>';
+}
+function tryUnlock(){
+  var k=$("ad_key").value.trim(),err=$("ad_err");
+  if(!k){err.textContent="Enter the admin key.";return}
+  if(!connected){
+    if(k==="demo"){adminOK=true;adminKey=k;loadAdminJobs(render)}else err.textContent="Wrong key.";
+    return;
+  }
+  err.textContent="Checking";
+  fetch(CONFIG.backendUrl+"?action=check&key="+encodeURIComponent(k)).then(function(r){return r.json()}).then(function(d){
+    if(d&&d.ok){adminOK=true;adminKey=k;loadAdminJobs(render)}else $("ad_err").textContent="Wrong key.";
+  }).catch(function(){$("ad_err").textContent="Could not reach the server. Try again."});
+}
+function doExport(type){
+  var name="gktech-"+(type==="call"?"call-requests":"job-applications")+"-"+new Date().toISOString().slice(0,10)+".csv";
+  if(!connected){
+    var rows=store.get("gk_local_"+type)||[];
+    saveCsv(name,toCsv(type,rows));toast("Downloaded "+rows.length+" rows.");return;
+  }
+  fetch(CONFIG.backendUrl+"?action=export&type="+type+"&key="+encodeURIComponent(adminKey)).then(function(r){return r.text()}).then(function(t){
+    if(t.charAt(0)==="{"){toast("Access denied. Unlock admin again.");adminOK=false;render();return}
+    saveCsv(name,t);toast("CSV downloaded.");
+  }).catch(function(){toast("Could not download. Try again.")});
+}
+
+/* ---------- admin: jobs ---------- */
+function adminJobsHtml(){
+  if(!adminJobs.length)return '<p style="color:var(--muted);margin:0;font-size:.93rem">Nothing posted yet. Use the form above.</p>';
+  return adminJobs.slice().reverse().map(function(j){
+    var live=String(j.status).toLowerCase()==="live";
+    return '<div class="jrow"><div><strong>'+esc(j.title)+'</strong><br><span class="jmeta">'+esc(j.location)+(j.company?', '+esc(j.company):'')+'</span></div>'+
+      '<div class="jact"><span class="stt'+(live?' on':'')+'">'+(live?'Live':'Closed')+'</span>'+
+      '<button class="btn" type="button" data-jobstatus="'+esc(j.id)+'" data-to="'+(live?'closed':'live')+'">'+(live?'Close':'Reopen')+'</button></div></div>';
+  }).join("");
+}
+function loadAdminJobs(cb){
+  if(!connected){adminJobs=store.get("gk_local_jobs")||[];if(cb)cb();return}
+  fetch(CONFIG.backendUrl+"?action=adminjobs&key="+encodeURIComponent(adminKey)).then(function(r){return r.json()}).then(function(d){
+    adminJobs=(d&&d.ok&&Array.isArray(d.jobs))?d.jobs:[];if(cb)cb();
+  }).catch(function(){if(cb)cb()});
+}
+function submitJob(){
+  var f=$("jobForm"),g=function(n){return f.elements[n].value.trim()},err=$("j_err");
+  if(!g("title")||!g("location")||!g("description")){err.textContent="Title, location and description are required.";return}
+  var mn=g("min_years"),mx=g("max_years");
+  if(mn!==""&&mx!==""&&+mx<+mn){err.textContent="Maximum experience cannot be lower than minimum.";return}
+  err.textContent="";
+  var job={id:"J"+Date.now().toString(36),title:g("title"),company:g("company")||"Confidential client",location:g("location"),mode:g("mode"),vertical:g("vertical"),min_years:mn||0,max_years:mx||0,pay:g("pay"),skills:g("skills"),description:g("description"),status:"live"};
+  var b=$("j_go");b.disabled=true;b.textContent="Posting";
+  if(!connected){
+    var l=store.get("gk_local_jobs")||[];l.push(job);store.set("gk_local_jobs",l);
+    loadLiveJobs();loadAdminJobs(function(){toast("Job posted. It is now on the Hiring page.");render()});
+    return;
+  }
+  var p=Object.assign({key:adminKey},job);
+  send("job",p).then(function(ok){
+    if(!ok){b.disabled=false;b.textContent="Post job";err.textContent="Could not send. Try again.";return}
+    setTimeout(function(){loadLiveJobs();loadAdminJobs(function(){toast("Job posted. It is now on the Hiring page.");render()})},1800);
+  });
+}
+function setJobStatus(id,to){
+  if(!connected){
+    var l=store.get("gk_local_jobs")||[];l.forEach(function(j){if(j.id===id)j.status=to});store.set("gk_local_jobs",l);
+    loadLiveJobs();loadAdminJobs(render);return;
+  }
+  toast("Updating");
+  send("job_status",{key:adminKey,id:id,status:to}).then(function(){
+    setTimeout(function(){loadLiveJobs();loadAdminJobs(render)},1800);
+  });
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click",function(e){
+  var t=e.target.closest("button,a");if(!t)return;
+  var v;
+  if((v=t.getAttribute("data-go"))){e.preventDefault();go(v);return}
+  if((v=t.getAttribute("data-hirevert"))){vert=v;go("hiring");return}
+  if((v=t.getAttribute("data-traincat"))){cat=v;go("trainings");var ps=$("programmes");if(ps)ps.scrollIntoView();return}
+  if(t.getAttribute("data-scroll")){e.preventDefault();var s=$(t.getAttribute("data-scroll"));if(s)s.scrollIntoView({behavior:"smooth"});return}
+  if((v=t.getAttribute("data-cat"))){cat=v;var g=$("progGrid");g.innerHTML=progGrid();var cs=$("catChips").querySelectorAll(".chip");for(var i=0;i<cs.length;i++)cs[i].setAttribute("aria-pressed",cs[i].getAttribute("data-cat")===cat);return}
+  if((v=t.getAttribute("data-detail"))){openDetail(v);return}
+  if((v=t.getAttribute("data-book"))){closeDlg($("detailDlg"));go("book",{program:v});return}
+  if((v=t.getAttribute("data-close"))){closeDlg($(v));return}
+  if((v=t.getAttribute("data-vert"))){vert=v;$("jobList").innerHTML=jobList();var vs=$("vertChips").querySelectorAll(".chip");for(var j=0;j<vs.length;j++)vs[j].setAttribute("aria-pressed",vs[j].getAttribute("data-vert")===vert);return}
+  if((v=t.getAttribute("data-jobdetail"))){openJob[v]=!openJob[v];$("jobList").innerHTML=jobList();return}
+  if((v=t.getAttribute("data-apply"))){openApply(v);return}
+  if((v=t.getAttribute("data-export"))){doExport(v);return}
+  if((v=t.getAttribute("data-jobstatus"))){setJobStatus(v,t.getAttribute("data-to"));return}
+  if(t.getAttribute("data-lock")){adminOK=false;adminKey="";render();return}
+});
+document.addEventListener("input",function(e){
+  if(e.target.id==="jobSearch"){q=e.target.value;$("jobList").innerHTML=jobList()}
+});
+document.addEventListener("submit",function(e){
+  if(e.target.id==="bookForm"){e.preventDefault();submitBook()}
+  else if(e.target.id==="adminForm"){e.preventDefault();tryUnlock()}
+  else if(e.target.id==="jobForm"){e.preventDefault();submitJob()}
+});
+$("burger").addEventListener("click",function(){
+  var open=$("nav").classList.toggle("open");this.setAttribute("aria-expanded",open);
+});
+["detailDlg","applyDlg"].forEach(function(id){
+  $(id).addEventListener("click",function(e){if(e.target===this)closeDlg(this)});
+});
+window.addEventListener("hashchange",function(){
+  var h=location.hash.replace("#","");
+  if(["about","services","sectors","trainings","hiring","book","admin"].indexOf(h)>-1&&h!==view){view=h;render()}
+});
+
+/* ---------- start ---------- */
+$("fMail").textContent=CONFIG.mail;$("fMail").href="mailto:"+CONFIG.mail;
+$("fPhone").textContent=CONFIG.phoneDisplay;$("fPhone").href="tel:+91"+CONFIG.phone;
+$("fYear").textContent=new Date().getFullYear();
+if(!connected)$("demoBar").hidden=false;
+try{var h0=location.hash.replace("#","");if(["about","services","sectors","trainings","hiring","book","admin"].indexOf(h0)>-1)view=h0}catch(e){}
+render();
+
+/* live jobs */
+function mapJob(j){
+  return{id:String(j.id||j.title),title:j.title||"",company:j.company||"",location:j.location||"",mode:j.mode||"",vertical:j.vertical||"Other",min:j.min_years||0,max:j.max_years||0,pay:j.pay||"",
+    skills:Array.isArray(j.skills)?j.skills:String(j.skills||"").split(",").map(function(x){return x.trim()}).filter(Boolean),description:j.description||""};
+}
+function loadLiveJobs(){
+  if(!connected){
+    var mine=(store.get("gk_local_jobs")||[]).filter(function(j){return String(j.status).toLowerCase()==="live"}).map(mapJob);
+    jobs=mine.reverse().concat(SAMPLE_JOBS);
+    if(view==="hiring")render();
+    return;
+  }
+  fetch(CONFIG.backendUrl+"?action=jobs").then(function(r){return r.json()}).then(function(d){
+    if(d&&d.ok&&Array.isArray(d.jobs)){jobs=d.jobs.map(mapJob);if(view==="hiring")render()}
+  }).catch(function(){});
+}
+if(connected){jobs=[]}
+loadLiveJobs();
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* GKTech universe: cinematic 3D space behind every page (three.js r128). Built for 4K. */
+(function(){
+"use strict";
+var canvas=document.getElementById("universe");
+if(!canvas)return;
+if(typeof THREE==="undefined"){document.documentElement.classList.add("no3d");return}
+
+var reduce=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
+var coarse=!!(window.matchMedia&&matchMedia("(pointer: coarse)").matches);
+var small=Math.min(window.innerWidth,window.innerHeight)<700;
+var lowCPU=(navigator.hardwareConcurrency||8)<=4;
+var full=!(coarse||small||lowCPU);
+var dpr=window.devicePixelRatio||1;
+var ultra=full&&Math.max(screen.width,screen.height)*dpr>=3000;   /* 4K class screens */
+
+var renderer;
+try{renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:false,alpha:false,powerPreference:"high-performance"})}
+catch(e){document.documentElement.classList.add("no3d");return}
+var PR=Math.min(dpr,full?2:1.25);
+renderer.setPixelRatio(PR);
+renderer.setClearColor(0x02030a,1);
+canvas.addEventListener("webglcontextlost",function(e){e.preventDefault();stop();document.documentElement.classList.add("no3d")});
+
+var scene=new THREE.Scene();
+var camera=new THREE.PerspectiveCamera(58,1,0.5,4000);
+var maxAniso=Math.min(8,renderer.capabilities.getMaxAnisotropy?renderer.capabilities.getMaxAnisotropy():1);
+
+/* ---------- helpers ---------- */
+function mulberry32(a){return function(){var t=a+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+function canvasTex(w,h,draw){
+  var c=document.createElement("canvas");c.width=w;c.height=h;
+  draw(c.getContext("2d"),w,h);
+  var t=new THREE.CanvasTexture(c);t.anisotropy=4;return t;
+}
+function glowTex(inner,outer){
+  return canvasTex(256,256,function(g,w,h){
+    var gr=g.createRadialGradient(w/2,h/2,0,w/2,h/2,w/2);
+    gr.addColorStop(0,inner);gr.addColorStop(.35,outer);gr.addColorStop(1,"rgba(0,0,0,0)");
+    g.fillStyle=gr;g.fillRect(0,0,w,h);
+  });
+}
+function raysTex(){
+  return canvasTex(256,256,function(g,w,h){
+    g.translate(w/2,h/2);
+    for(var i=0;i<4;i++){
+      g.save();g.rotate(i*Math.PI/4);
+      var gr=g.createLinearGradient(-w/2,0,w/2,0);
+      gr.addColorStop(0,"rgba(255,220,160,0)");gr.addColorStop(.5,"rgba(255,235,190,.8)");gr.addColorStop(1,"rgba(255,220,160,0)");
+      g.fillStyle=gr;g.fillRect(-w/2,-1.2,w,2.4);g.restore();
+    }
+  });
+}
+
+/* ---------- GPU baking, sliced into small tiles so nothing stutters ---------- */
+var quadScene=new THREE.Scene(),quadCam=new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+var quadMesh=new THREE.Mesh(new THREE.PlaneGeometry(2,2));quadScene.add(quadMesh);
+var QVS="varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}";
+var bakeQ=[],pumping=false;
+function pump(){
+  var f=bakeQ.shift();
+  if(f){try{f()}catch(e){}}
+  renderer.setRenderTarget(null);
+  if(bakeQ.length)requestAnimationFrame(pump);else pumping=false;
+}
+function kick(){if(!pumping&&bakeQ.length){pumping=true;requestAnimationFrame(pump)}}
+function makeRT(W,H){
+  var rt=new THREE.WebGLRenderTarget(W,H,{minFilter:THREE.LinearMipmapLinearFilter,magFilter:THREE.LinearFilter,wrapS:THREE.RepeatWrapping,wrapT:THREE.ClampToEdgeWrapping,generateMipmaps:true,format:THREE.RGBAFormat});
+  rt.texture.anisotropy=maxAniso;return rt;
+}
+function bake2D(rt,setup,done){
+  var W=rt.width,H=rt.height,T=512,cols=Math.max(1,Math.round(W/T)),rows=Math.max(1,Math.round(H/T)),tw=W/cols,th=H/rows;
+  for(var j=0;j<rows;j++)for(var i=0;i<cols;i++)(function(x,y){
+    bakeQ.push(function(){setup();rt.scissor.set(x,y,tw,th);rt.scissorTest=true;renderer.setRenderTarget(rt);renderer.render(quadScene,quadCam)});
+  })(i*tw,j*th);
+  bakeQ.push(function(){rt.scissorTest=false;if(done)done()});
+  kick();
+}
+
+var GLSL_NOISE=[
+"float hash(vec3 p){p=fract(p*.3183099+vec3(.1,.2,.3));p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}",
+"float noise(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.-2.*f);",
+" return mix(mix(mix(hash(i),hash(i+vec3(1.,0.,0.)),f.x),mix(hash(i+vec3(0.,1.,0.)),hash(i+vec3(1.,1.,0.)),f.x),f.y),",
+"            mix(mix(hash(i+vec3(0.,0.,1.)),hash(i+vec3(1.,0.,1.)),f.x),mix(hash(i+vec3(0.,1.,1.)),hash(i+vec3(1.,1.,1.)),f.x),f.y),f.z);}",
+"float fbm4(vec3 p){float s=0.,a=.5;for(int i=0;i<4;i++){s+=a*noise(p);p=p*2.03+vec3(1.7,9.2,3.1);a*=.5;}return s;}",
+"float fbm5(vec3 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*noise(p);p=p*2.03+vec3(1.7,9.2,3.1);a*=.5;}return s;}"
+].join("\n");
+
+/* deep-space sky: nebulae, Milky Way and stars, baked once into a cube map */
+var SKY_FS=GLSL_NOISE+[
+"varying vec3 vD;",
+"vec3 stars(vec3 d){",
+" vec3 col=vec3(0.);",
+" for(int L=0;L<3;L++){",
+"  float sc=50.;if(L==1)sc=110.;if(L==2)sc=240.;",
+"  vec3 p=d*sc,id=floor(p),f=fract(p)-.5;",
+"  float h=hash(id+float(L)*13.7);",
+"  if(h>.9){",
+"   vec3 off=(vec3(hash(id+1.3),hash(id+2.7),hash(id+4.1))-.5)*.6;",
+"   float dd=length(f-off);",
+"   float m=(h-.9)/.1;m=m*m*m;",
+"   float br=smoothstep(.13+.07*m,0.,dd)*(.25+m*3.4)+exp(-dd*22.)*.2*m;",
+"   float t=hash(id+9.1);",
+"   col+=mix(vec3(1.,.72,.5),vec3(.62,.76,1.),t)*br;",
+"  }",
+" }",
+" return col;",
+"}",
+"vec3 milky(vec3 d){",
+" vec3 nrm=normalize(vec3(.3,.86,.4));",
+" float b=dot(d,nrm);",
+" float band=exp(-b*b*22.);",
+" float cloud=fbm4(d*3.5);",
+" float dust=fbm4(d*8.+3.);",
+" float lanes=smoothstep(.45,.68,fbm4(d*10.+vec3(b*6.)));",
+" vec3 c=mix(vec3(.55,.66,1.),vec3(1.,.82,.62),smoothstep(.3,.7,cloud));",
+" float dens=band*(.18+1.05*cloud*cloud+.55*dust*dust);",
+" dens*=1.-.75*lanes*band;",
+" return c*dens*.65;",
+"}",
+"vec3 nebula(vec3 d){",
+" vec3 q=vec3(fbm4(d*2.+1.),fbm4(d*2.+vec3(5.2,1.3,8.1)),fbm4(d*2.+vec3(2.7,9.2,3.3)));",
+" float n=fbm5(d*2.4+q*2.);",
+" float m=smoothstep(.42,.7,fbm4(d*1.2+vec3(7.)));",
+" vec3 c=mix(vec3(.07,.18,.75),vec3(.55,.16,.72),smoothstep(.3,.65,n));",
+" c=mix(c,vec3(.98,.3,.45),smoothstep(.55,.85,n)*.9);",
+" c=mix(c,vec3(1.,.72,.32),smoothstep(.78,.98,n)*.6);",
+" return c*pow(n,2.2)*m*1.8;",
+"}",
+"void main(){",
+" vec3 d=normalize(vD);",
+" vec3 col=vec3(.003,.005,.013)+nebula(d)+milky(d)+stars(d);",
+" col=1.-exp(-col*1.5);",
+" gl_FragColor=vec4(col,1.);",
+"}"
+].join("\n");
+(function bakeSky(){
+  var SKY=ultra?2048:(full?1024:512);
+  var rt=new THREE.WebGLCubeRenderTarget(SKY,{format:THREE.RGBAFormat,generateMipmaps:true,minFilter:THREE.LinearMipmapLinearFilter,magFilter:THREE.LinearFilter});
+  var sc=new THREE.Scene();
+  sc.add(new THREE.Mesh(new THREE.BoxGeometry(10,10,10),new THREE.ShaderMaterial({
+    side:THREE.BackSide,depthWrite:false,depthTest:false,
+    vertexShader:"varying vec3 vD;void main(){vD=position;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}",
+    fragmentShader:SKY_FS
+  })));
+  var cc=new THREE.CubeCamera(.1,100,rt);cc.updateMatrixWorld(true);
+  var T=Math.min(512,SKY),n=SKY/T;
+  for(var f=0;f<6;f++)for(var j=0;j<n;j++)for(var i=0;i<n;i++)(function(face,x,y){
+    bakeQ.push(function(){rt.scissor.set(x,y,T,T);rt.scissorTest=true;renderer.setRenderTarget(rt,face);renderer.render(sc,cc.children[face])});
+  })(f,i*T,j*T);
+  bakeQ.push(function(){rt.scissorTest=false});
+  scene.background=rt.texture;
+  kick();
+})();
+
+/* planets: seamless procedural surfaces baked on the GPU (albedo and height) */
+var PLANET_FS=GLSL_NOISE+[
+"varying vec2 vUv;uniform int uKind;uniform float uSeed;uniform int uOut;",
+"float ridged(vec3 p){float s=0.,a=.5;for(int i=0;i<5;i++){float n=1.-abs(noise(p)*2.-1.);s+=a*n*n;p=p*2.05+vec3(3.1,1.7,5.3);a*=.5;}return s;}",
+"float craters(vec3 p){",
+" vec3 i=floor(p),f=fract(p);float h=0.;",
+" for(int x=-1;x<=1;x++)for(int y=-1;y<=1;y++)for(int z=-1;z<=1;z++){",
+"  vec3 g=vec3(float(x),float(y),float(z));",
+"  vec3 o=vec3(hash(i+g+1.1),hash(i+g+2.2),hash(i+g+3.3));",
+"  float rad=.14+.3*hash(i+g+4.4);",
+"  float t=length(g+o-f)/rad;",
+"  float bowl=-smoothstep(1.,0.,t)*.65;",
+"  float rim=smoothstep(.75,1.,t)*(1.-smoothstep(1.,1.4,t))*.4;",
+"  h+=(bowl+rim)*step(.5,hash(i+g+5.5));",
+" }",
+" return h;",
+"}",
+"void main(){",
+" float lon=(vUv.x*2.-1.)*3.14159265,lat=(vUv.y-.5)*3.14159265;",
+" vec3 d=vec3(cos(lat)*cos(lon),sin(lat),cos(lat)*sin(lon));",
+" vec3 col=vec3(.5);float height=.5;",
+" if(uKind==0){",
+"  float y=d.y*7.+(fbm5(d*4.+uSeed)-.5)*1.7+(fbm5(d*9.+uSeed*2.)-.5)*.55;",
+"  float band=.5+.5*sin(y*6.28318);",
+"  float fine=fbm5(vec3(d.x*14.,d.y*60.,d.z*14.)+uSeed);",
+"  vec3 c1=vec3(.86,.68,.46),c2=vec3(.42,.27,.2),c3=vec3(.96,.88,.72);",
+"  col=mix(c2,c1,band);col=mix(col,c3,smoothstep(.55,.9,fine)*.55);col*=.78+.4*fine;",
+"  vec2 sp=vec2(atan(d.z,d.x)+1.1,d.y+.3);float sd=length(sp*vec2(1.,2.6));",
+"  float storm=smoothstep(.36,.1,sd);",
+"  float swirl=.5+.5*sin(atan(sp.y,sp.x)*3.+sd*26.);",
+"  col=mix(col,mix(vec3(.62,.2,.12),vec3(.9,.5,.32),swirl),storm*.9);",
+" }else if(uKind==1){",
+"  float y=d.y*9.+(fbm5(d*3.+uSeed)-.5)*1.1;",
+"  float band=.5+.5*sin(y*6.28318);",
+"  float fine=fbm5(vec3(d.x*10.,d.y*44.,d.z*10.)+uSeed);",
+"  col=mix(vec3(.66,.52,.36),vec3(.93,.83,.62),band);col=mix(col,vec3(.97,.92,.8),smoothstep(.5,.85,fine)*.4);col*=.86+.24*fine;",
+"  col=mix(col,vec3(.55,.5,.5),smoothstep(.86,1.,abs(d.y))*.5);",
+" }else if(uKind==2){",
+"  float e=fbm5(d*2.5+uSeed)*.68+ridged(d*5.+uSeed)*.5+craters(d*6.+uSeed)*.34+craters(d*19.+uSeed)*.15;",
+"  float cy=abs(d.y+.06+(fbm4(d*3.)-.5)*.25);",
+"  float canyon=smoothstep(.05,.0,cy)*smoothstep(-.5,.3,d.x)*smoothstep(.35,.7,fbm4(d*4.+2.));",
+"  e-=canyon*.55;",
+"  height=e;",
+"  vec3 rust=mix(vec3(.4,.17,.09),vec3(.86,.5,.3),smoothstep(.15,.95,e));",
+"  float dark=smoothstep(.45,.66,fbm5(d*1.7+uSeed+9.));",
+"  rust=mix(rust,vec3(.2,.11,.09),dark*.7);",
+"  rust=mix(rust,vec3(.9,.62,.4),smoothstep(.62,.95,fbm4(d*3.+uSeed+3.))*.25);",
+"  rust*=.82+.32*fbm5(d*46.+uSeed);",
+"  float cap=smoothstep(.8,.9,abs(d.y)+(fbm4(d*8.)-.5)*.09);",
+"  col=mix(rust,vec3(.95,.94,.92),cap);",
+" }else{",
+"  float e=fbm5(d*3.+uSeed)*.5+craters(d*5.+uSeed)*.45+craters(d*16.+uSeed)*.2;",
+"  height=e;",
+"  col=mix(vec3(.3,.29,.28),vec3(.68,.66,.62),smoothstep(.1,.85,e));",
+"  col=mix(col,vec3(.17,.17,.18),smoothstep(.5,.7,fbm5(d*1.6+uSeed))*.6);",
+"  col*=.85+.3*fbm5(d*40.+uSeed);",
+" }",
+" if(uOut==1)gl_FragColor=vec4(vec3(clamp(height,0.,1.)),1.);else gl_FragColor=vec4(col,1.);",
+"}"
+].join("\n");
+var planetBakeMat=new THREE.ShaderMaterial({uniforms:{uKind:{value:0},uSeed:{value:1},uOut:{value:0}},vertexShader:QVS,fragmentShader:PLANET_FS});
+var PW=ultra?4096:(full?2048:1024),PH=PW/2;
+function bakePlanet(mat,kind,seed,W,H,withHeight,bump){
+  var rt=makeRT(W,H);
+  bake2D(rt,function(){quadMesh.material=planetBakeMat;var u=planetBakeMat.uniforms;u.uKind.value=kind;u.uSeed.value=seed;u.uOut.value=0},function(){
+    mat.map=rt.texture;mat.color.setHex(0xffffff);mat.needsUpdate=true;
+  });
+  if(withHeight){
+    var rh=makeRT(W,H);
+    bake2D(rh,function(){quadMesh.material=planetBakeMat;var u=planetBakeMat.uniforms;u.uKind.value=kind;u.uSeed.value=seed;u.uOut.value=1},function(){
+      mat.bumpMap=rh.texture;mat.bumpScale=bump||2.5;mat.needsUpdate=true;
+    });
+  }
+}
+
+/* ---------- point layers (stars, dust, galaxy) ---------- */
+var uTime={value:0};
+var pointVS="attribute float aSize;attribute vec3 aColor;attribute float aRand;uniform float uTime;uniform float uScale;uniform float uPR;uniform float uMax;varying vec3 vC;varying float vA;void main(){vC=aColor;vec4 mv=modelViewMatrix*vec4(position,1.0);float tw=0.7+0.3*sin(uTime*(0.5+aRand*2.2)+aRand*60.0);gl_PointSize=clamp(aSize*uScale*uPR/(-mv.z)*tw,1.0,uMax*uPR);gl_Position=projectionMatrix*mv;vA=tw;}";
+var pointFS="uniform float uAlpha;varying vec3 vC;varying float vA;void main(){float d=length(gl_PointCoord-vec2(0.5));float a=smoothstep(0.5,0.02,d);gl_FragColor=vec4(vC,a*vA*uAlpha);}";
+var pointMats=[];
+function pointMat(scale,alpha,max){
+  var m=new THREE.ShaderMaterial({
+    uniforms:{uTime:uTime,uScale:{value:scale},uPR:{value:PR},uAlpha:{value:alpha},uMax:{value:max||9}},
+    vertexShader:pointVS,fragmentShader:pointFS,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending
+  });
+  pointMats.push(m);return m;
+}
+function setPR(v){PR=v;renderer.setPixelRatio(v);for(var i=0;i<pointMats.length;i++)pointMats[i].uniforms.uPR.value=v}
+function pointsFrom(pos,col,siz,rnd,mat){
+  var g=new THREE.BufferGeometry();
+  g.setAttribute("position",new THREE.BufferAttribute(pos,3));
+  g.setAttribute("aColor",new THREE.BufferAttribute(col,3));
+  g.setAttribute("aSize",new THREE.BufferAttribute(siz,1));
+  g.setAttribute("aRand",new THREE.BufferAttribute(rnd,1));
+  var p=new THREE.Points(g,mat);p.frustumCulled=false;return p;
+}
+var STAR_COLS=[[1,1,1],[.74,.82,1],[1,.9,.72],[1,.78,.82],[.8,.95,1]];
+function makeShell(count,rMin,rMax,sMin,sMax,mat){
+  var pos=new Float32Array(count*3),col=new Float32Array(count*3),siz=new Float32Array(count),rnd=new Float32Array(count);
+  for(var i=0;i<count;i++){
+    var th=Math.random()*Math.PI*2,z=Math.random()*2-1,r=Math.sqrt(1-z*z),R=rMin+Math.random()*(rMax-rMin);
+    pos[i*3]=Math.cos(th)*r*R;pos[i*3+1]=z*R;pos[i*3+2]=Math.sin(th)*r*R;
+    var c=STAR_COLS[(Math.random()*STAR_COLS.length)|0],b=.5+Math.random()*.5;
+    col[i*3]=c[0]*b;col[i*3+1]=c[1]*b;col[i*3+2]=c[2]*b;
+    siz[i]=sMin+Math.pow(Math.random(),3)*(sMax-sMin);rnd[i]=Math.random();
+  }
+  return pointsFrom(pos,col,siz,rnd,mat);
+}
+function makeDust(count,c,mat){
+  var pos=new Float32Array(count*3),col=new Float32Array(count*3),siz=new Float32Array(count),rnd=new Float32Array(count);
+  for(var i=0;i<count;i++){
+    pos[i*3]=c.x+(Math.random()-.5)*300;pos[i*3+1]=c.y+(Math.random()-.5)*170;pos[i*3+2]=c.z+(Math.random()-.5)*330;
+    var cc=STAR_COLS[(Math.random()*STAR_COLS.length)|0],b=.55+Math.random()*.45;
+    col[i*3]=cc[0]*b;col[i*3+1]=cc[1]*b;col[i*3+2]=cc[2]*b;
+    siz[i]=1.3+Math.random()*2.3;rnd[i]=Math.random();
+  }
+  return pointsFrom(pos,col,siz,rnd,mat);
+}
+var CIN=new THREE.Color("#ffe0a8"),CMID=new THREE.Color("#f5809a"),CVIO=new THREE.Color("#b08cf0"),COUT=new THREE.Color("#5f93ff");
+function galColor(t,o){
+  if(t<.26)o.copy(CIN).lerp(CMID,t/.26);
+  else if(t<.6)o.copy(CMID).lerp(CVIO,(t-.26)/.34);
+  else o.copy(CVIO).lerp(COUT,(t-.6)/.4);
+}
+function makeGalaxy(count,mat){
+  var pos=new Float32Array(count*3),col=new Float32Array(count*3),siz=new Float32Array(count),rnd=new Float32Array(count);
+  var R=270,arms=4,spin=.0155,c=new THREE.Color();
+  for(var i=0;i<count;i++){
+    var t=Math.pow(Math.random(),1.5),r=t*R+2;
+    var ang=(i%arms)/arms*Math.PI*2+r*spin;
+    var sp=function(){return Math.pow(Math.random(),2.3)*(.5*r+6)*(Math.random()<.5?-1:1)};
+    var x=Math.cos(ang)*r+sp()*.6,z=Math.sin(ang)*r+sp()*.6;
+    var thick=(1-t)*(1-t)*40+4,y=(Math.random()-.5)*thick*Math.pow(Math.random(),1.2)*2;
+    pos[i*3]=x;pos[i*3+1]=y;pos[i*3+2]=z;
+    galColor(t,c);var b=.5+Math.random()*.5;
+    col[i*3]=c.r*b;col[i*3+1]=c.g*b;col[i*3+2]=c.b*b;
+    siz[i]=.55+Math.pow(Math.random(),3)*1.9+(1-t)*.55;rnd[i]=Math.random();
+  }
+  return pointsFrom(pos,col,siz,rnd,mat);
+}
+
+var follow=new THREE.Group();scene.add(follow);
+follow.add(makeShell(ultra?9000:(full?5000:2200),900,1900,.9,2.8,pointMat(900,1,7)));
+follow.add(makeShell(ultra?3200:(full?1800:900),400,800,1.1,3.2,pointMat(900,.95,8)));
+var dustMat=pointMat(520,.8,7);
+
+var galaxyTilt=new THREE.Group();
+galaxyTilt.position.set(0,-10,-420);galaxyTilt.rotation.set(1.02,0,-.42);
+var GAL_COUNT=ultra?160000:(full?90000:30000);
+var galaxy=makeGalaxy(GAL_COUNT,pointMat(1000,.7,11));
+galaxyTilt.add(galaxy);
+var core=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex("rgba(255,240,200,1)","rgba(255,170,120,.32)"),transparent:true,opacity:.55,depthWrite:false,blending:THREE.AdditiveBlending}));
+core.scale.set(170,170,1);galaxyTilt.add(core);
+scene.add(galaxyTilt);
+
+/* ---------- planets ---------- */
+function atmoMat(hex,k){
+  return new THREE.ShaderMaterial({
+    uniforms:{c:{value:new THREE.Color(hex)},k:{value:k||.55}},
+    vertexShader:"varying vec3 vN;varying vec3 vV;void main(){vN=normalize(normalMatrix*normal);vec4 mv=modelViewMatrix*vec4(position,1.0);vV=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}",
+    fragmentShader:"uniform vec3 c;uniform float k;varying vec3 vN;varying vec3 vV;void main(){float x=clamp(-dot(vN,vV)/0.52,0.0,1.0);float f=pow(x,3.0);gl_FragColor=vec4(c,f*k);}",
+    transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.BackSide
+  });
+}
+var SEG=ultra?[128,96]:(full?[64,48]:[36,26]);
+var planets=[];
+function makePlanet(o){
+  var grp=new THREE.Group();
+  var mat=new THREE.MeshStandardMaterial({color:o.base,roughness:1,metalness:0});
+  var mesh=new THREE.Mesh(new THREE.SphereGeometry(o.r,SEG[0],SEG[1]),mat);
+  grp.add(mesh);
+  grp.add(new THREE.Mesh(new THREE.SphereGeometry(o.r*1.17,32,24),atmoMat(o.atm,o.atmK)));
+  bakePlanet(mat,o.kind,o.seed,PW,PH,!!o.height,o.bump);
+  if(o.ring){
+    var rg=new THREE.RingGeometry(o.r*1.5,o.r*2.7,full?160:72,1),p=rg.attributes.position,uv=rg.attributes.uv,v3=new THREE.Vector3();
+    for(var i=0;i<p.count;i++){v3.fromBufferAttribute(p,i);uv.setXY(i,(v3.length()-o.r*1.5)/(o.r*1.2),.5)}
+    var rt=canvasTex(1024,4,function(g,w,h){
+      var rr=mulberry32(o.seed+5),img=g.createImageData(w,h),d=img.data;
+      for(var x=0;x<w;x++){
+        var f=x/w,a=.35+.65*(Math.sin(f*90)*.5+.5)*(.55+.45*rr());
+        if(f>.5&&f<.56)a*=.08;if(f<.05||f>.95)a*=f<.05?f/.05:(1-f)/.05;
+        for(var y=0;y<h;y++){var i2=(y*w+x)*4;d[i2]=240-f*50;d[i2+1]=218-f*60;d[i2+2]=172-f*50;d[i2+3]=a*235}
+      }
+      g.putImageData(img,0,0);
+    });
+    var ring=new THREE.Mesh(rg,new THREE.MeshBasicMaterial({map:rt,transparent:true,side:THREE.DoubleSide,depthWrite:false}));
+    ring.rotation.x=Math.PI/2;grp.add(ring);
+  }
+  grp.position.set(o.p[0],o.p[1],o.p[2]);grp.rotation.z=o.tilt||0;
+  scene.add(grp);planets.push({mesh:mesh,spin:o.spin});return grp;
+}
+var GAS_P=[-330,-30,-170],RING_P=[400,40,-260],MARS_P=[190,-150,-220];
+makePlanet({kind:0,seed:7,r:16,p:GAS_P,atm:"#f0b880",spin:.05,tilt:.08,base:0x9c7a55});
+makePlanet({kind:1,seed:19,r:13,p:RING_P,atm:"#f3d9a4",spin:.04,tilt:.42,ring:true,base:0xd8c6a0});
+makePlanet({kind:2,seed:31,r:10,p:MARS_P,atm:"#e89c6a",atmK:.32,spin:.07,tilt:.42,height:true,bump:1.6,base:0x9a4a2c});
+function makeMoon(seed,r,base){
+  var mat=new THREE.MeshStandardMaterial({color:base,roughness:1});
+  var geo=new THREE.SphereGeometry(r,48,36),pa=geo.attributes.position,rr=mulberry32(seed);
+  for(var i=0;i<pa.count;i++){var k=.92+rr()*.16;pa.setXYZ(i,pa.getX(i)*k,pa.getY(i)*k,pa.getZ(i)*k)}
+  geo.computeVertexNormals();
+  bakePlanet(mat,3,seed,ultra?2048:1024,ultra?1024:512,true,2);
+  return new THREE.Mesh(geo,mat);
+}
+var gasMoonPivot=new THREE.Group();gasMoonPivot.position.set(GAS_P[0],GAS_P[1],GAS_P[2]);
+var gasMoon=makeMoon(44,2.6,0x8a8a88);gasMoon.position.set(31,3,0);gasMoonPivot.add(gasMoon);scene.add(gasMoonPivot);
+var marsMoonPivot=new THREE.Group();marsMoonPivot.position.set(MARS_P[0],MARS_P[1],MARS_P[2]);
+var marsMoon=makeMoon(58,1.5,0x7d7268);marsMoon.position.set(17,2,0);marsMoonPivot.add(marsMoon);scene.add(marsMoonPivot);
+
+/* asteroid belt around the ringed planet */
+var beltGroup=new THREE.Group();
+(function(){
+  var geo=new THREE.IcosahedronGeometry(1,2),pa=geo.attributes.position,rr=mulberry32(99);
+  for(var i=0;i<pa.count;i++){var k=.72+rr()*.5;pa.setXYZ(i,pa.getX(i)*k,pa.getY(i)*k,pa.getZ(i)*k)}
+  geo.computeVertexNormals();
+  var N=ultra?900:(full?520:220),mesh=new THREE.InstancedMesh(geo,new THREE.MeshStandardMaterial({color:0x8d7d6c,roughness:1,flatShading:true}),N);
+  var m=new THREE.Matrix4(),q=new THREE.Quaternion(),e=new THREE.Euler(),pos=new THREE.Vector3(),sc=new THREE.Vector3();
+  for(var i2=0;i2<N;i2++){
+    var a=rr()*Math.PI*2,rad=13*(3.4+rr()*1.9),s=.18+Math.pow(rr(),3)*1.1;
+    pos.set(Math.cos(a)*rad,(rr()-.5)*3.2,Math.sin(a)*rad);
+    e.set(rr()*6,rr()*6,rr()*6);q.setFromEuler(e);sc.set(s,s*(.7+rr()*.5),s);
+    m.compose(pos,q,sc);mesh.setMatrixAt(i2,m);
+  }
+  beltGroup.add(mesh);
+})();
+beltGroup.position.set(RING_P[0],RING_P[1],RING_P[2]);beltGroup.rotation.z=.42;
+scene.add(beltGroup);
+
+/* ---------- sun ---------- */
+var SUN_P=[-720,130,-650];
+var sun=new THREE.Group();sun.position.set(SUN_P[0],SUN_P[1],SUN_P[2]);
+function spr(tex,size,op){var s=new THREE.Sprite(new THREE.SpriteMaterial({map:tex,transparent:true,opacity:op,depthWrite:false,blending:THREE.AdditiveBlending}));s.scale.set(size,size,1);sun.add(s);return s}
+spr(glowTex("rgba(255,200,120,.6)","rgba(255,120,70,.12)"),460,.95);
+var rays=spr(raysTex(),340,.55);
+spr(glowTex("rgba(255,252,240,1)","rgba(255,214,140,.6)"),84,1);
+scene.add(sun);
+
+var sunLight=new THREE.DirectionalLight(0xfff1dc,1.55);sunLight.position.set(-70,50,90);scene.add(sunLight);
+scene.add(new THREE.AmbientLight(0x2c3c78,.9));
+
+/* ---------- meteors ---------- */
+var meteors=[];
+if(!reduce){
+  for(var mi=0;mi<3;mi++){
+    var mg=new THREE.BufferGeometry();
+    mg.setAttribute("position",new THREE.BufferAttribute(new Float32Array(6),3));
+    mg.setAttribute("color",new THREE.BufferAttribute(new Float32Array([1,1,1,0,0,0]),3));
+    var ml=new THREE.Line(mg,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));
+    ml.frustumCulled=false;ml.visible=false;scene.add(ml);
+    meteors.push({line:ml,life:0,dur:1,head:new THREE.Vector3(),vel:new THREE.Vector3(),next:2+Math.random()*5});
+  }
+}
+var _r=new THREE.Vector3(),_u=new THREE.Vector3(),_f=new THREE.Vector3();
+function spawnMeteor(m){
+  camera.getWorldDirection(_f);_r.crossVectors(_f,camera.up).normalize();_u.crossVectors(_r,_f).normalize();
+  m.head.copy(camera.position).addScaledVector(_f,140+Math.random()*160).addScaledVector(_r,(Math.random()-.3)*150).addScaledVector(_u,20+Math.random()*70);
+  m.vel.copy(_r).multiplyScalar(-(90+Math.random()*80)).addScaledVector(_u,-(30+Math.random()*40));
+  m.life=0;m.dur=.9+Math.random()*.6;m.line.visible=true;
+}
+function updateMeteors(dt){
+  for(var i=0;i<meteors.length;i++){
+    var m=meteors[i];
+    if(m.life<=0&&!m.line.visible){m.next-=dt;if(m.next<=0){spawnMeteor(m);m.next=4+Math.random()*7}continue}
+    m.life+=dt;var t=m.life/m.dur;
+    if(t>=1){m.line.visible=false;m.life=0;continue}
+    m.head.addScaledVector(m.vel,dt);
+    var p=m.line.geometry.attributes.position.array;
+    p[0]=m.head.x;p[1]=m.head.y;p[2]=m.head.z;
+    p[3]=m.head.x-m.vel.x*.22;p[4]=m.head.y-m.vel.y*.22;p[5]=m.head.z-m.vel.z*.22;
+    m.line.geometry.attributes.position.needsUpdate=true;
+    m.line.material.opacity=Math.sin(Math.PI*t);
+  }
+}
+
+/* ---------- bloom and colour grade (custom, no extra scripts) ---------- */
+var bloom={on:!reduce&&full};
+var rtS,rtH,rtA,rtB,rtC,rtD,brightMat,blurMat,compMat;
+(function(){
+  var opt={minFilter:THREE.LinearFilter,magFilter:THREE.LinearFilter,format:THREE.RGBAFormat};
+  rtS=new THREE.WebGLRenderTarget(4,4,opt);
+  if(PR<1.5)rtS.samples=4;
+  rtH=new THREE.WebGLRenderTarget(4,4,opt);rtA=new THREE.WebGLRenderTarget(4,4,opt);rtB=new THREE.WebGLRenderTarget(4,4,opt);
+  rtC=new THREE.WebGLRenderTarget(4,4,opt);rtD=new THREE.WebGLRenderTarget(4,4,opt);
+  brightMat=new THREE.ShaderMaterial({uniforms:{tDiffuse:{value:null},uThresh:{value:.72}},vertexShader:QVS,
+    fragmentShader:"uniform sampler2D tDiffuse;uniform float uThresh;varying vec2 vUv;void main(){vec4 c=texture2D(tDiffuse,vUv);float l=max(max(c.r,c.g),c.b);float k=smoothstep(uThresh,uThresh+.4,l);gl_FragColor=vec4(c.rgb*k,1.);}"});
+  blurMat=new THREE.ShaderMaterial({uniforms:{tDiffuse:{value:null},uDir:{value:new THREE.Vector2(1,0)}},vertexShader:QVS,
+    fragmentShader:"uniform sampler2D tDiffuse;uniform vec2 uDir;varying vec2 vUv;void main(){vec3 s=texture2D(tDiffuse,vUv).rgb*.227027;s+=(texture2D(tDiffuse,vUv+uDir*1.3846).rgb+texture2D(tDiffuse,vUv-uDir*1.3846).rgb)*.316216;s+=(texture2D(tDiffuse,vUv+uDir*3.2308).rgb+texture2D(tDiffuse,vUv-uDir*3.2308).rgb)*.070270;gl_FragColor=vec4(s,1.);}"});
+  compMat=new THREE.ShaderMaterial({uniforms:{tScene:{value:null},tB1:{value:null},tB2:{value:null},uTime:{value:0},uStrength:{value:.6}},vertexShader:QVS,
+    fragmentShader:["uniform sampler2D tScene,tB1,tB2;uniform float uTime,uStrength;varying vec2 vUv;",
+    "float h21(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}",
+    "void main(){vec2 c=vUv-.5;float r2=dot(c,c);vec2 ca=c*r2*.014;",
+    " vec3 s=vec3(texture2D(tScene,vUv+ca).r,texture2D(tScene,vUv).g,texture2D(tScene,vUv-ca).b);",
+    " vec3 b=texture2D(tB1,vUv).rgb*.75+texture2D(tB2,vUv).rgb*1.2;",
+    " vec3 col=s+b*uStrength;",
+    " float l=dot(col,vec3(.299,.587,.114));col=mix(vec3(l),col,1.18);",
+    " col=pow(max(col,0.),vec3(.95));",
+    " col*=1.-.32*r2*1.4;",
+    " col+=(h21(vUv*1500.+uTime)-.5)*.012;",
+    " gl_FragColor=vec4(col,1.);}"].join("\n")});
+})();
+function sizeBloom(){
+  var s=renderer.getDrawingBufferSize(new THREE.Vector2()),w=s.x,h=s.y;
+  rtS.setSize(w,h);rtH.setSize(Math.ceil(w/2),Math.ceil(h/2));
+  rtA.setSize(Math.ceil(w/4),Math.ceil(h/4));rtB.setSize(Math.ceil(w/4),Math.ceil(h/4));
+  rtC.setSize(Math.ceil(w/8),Math.ceil(h/8));rtD.setSize(Math.ceil(w/8),Math.ceil(h/8));
+}
+function pass(mat,src,dst,dir){
+  quadMesh.material=mat;mat.uniforms.tDiffuse.value=src.texture;
+  if(dir)mat.uniforms.uDir.value.set(dir[0]/src.width,dir[1]/src.height);
+  renderer.setRenderTarget(dst);renderer.render(quadScene,quadCam);
+}
+function renderFrame(){
+  if(!bloom.on){renderer.setRenderTarget(null);renderer.render(scene,camera);return}
+  renderer.setRenderTarget(rtS);renderer.render(scene,camera);
+  pass(brightMat,rtS,rtH);
+  pass(blurMat,rtH,rtA,[1,0]);pass(blurMat,rtA,rtB,[0,1]);
+  pass(blurMat,rtB,rtC,[1,0]);pass(blurMat,rtC,rtD,[0,1]);
+  quadMesh.material=compMat;
+  compMat.uniforms.tScene.value=rtS.texture;compMat.uniforms.tB1.value=rtB.texture;compMat.uniforms.tB2.value=rtD.texture;
+  compMat.uniforms.uTime.value=time%10;
+  renderer.setRenderTarget(null);renderer.render(quadScene,quadCam);
+}
+
+/* ---------- camera stations (one place in space per page) ---------- */
+var VIEWS={
+  about:{t:[0,-10,-420],d:470,o:[.1,.22,1],s:0},
+  services:{t:GAS_P,d:112,o:[.5,.15,1],s:.42},
+  sectors:{t:MARS_P,d:34,o:[-.4,.2,1],s:.42},
+  trainings:{t:RING_P,d:108,o:[-.3,.25,1],s:.4},
+  hiring:{t:SUN_P,d:270,o:[.2,.05,1],s:.32},
+  book:{t:[0,-10,-420],d:310,o:[-.6,.5,1],s:.18},
+  admin:{t:[0,-10,-420],d:470,o:[.1,.22,1],s:0}
+};
+var curView="trainings";
+var goalPos=new THREE.Vector3(),goalLook=new THREE.Vector3(),camPos=new THREE.Vector3(),look=new THREE.Vector3();
+function computeGoal(name){
+  var v=VIEWS[name]||VIEWS.about,T=new THREE.Vector3(v.t[0],v.t[1],v.t[2]);
+  var off=new THREE.Vector3(v.o[0],v.o[1],v.o[2]).normalize().multiplyScalar(v.d);
+  goalPos.copy(T).add(off);
+  var fwd=new THREE.Vector3().subVectors(T,goalPos).normalize(),right=new THREE.Vector3().crossVectors(fwd,new THREE.Vector3(0,1,0)).normalize();
+  var wide=Math.max(0,Math.min(1,(camera.aspect-1)/.7)),shift=v.s*v.d*wide;
+  goalLook.copy(T).addScaledVector(right,-shift);
+}
+var dustCount=ultra?400:(full?260:110);
+Object.keys(VIEWS).forEach(function(n){if(n==="admin")return;computeGoal(n);scene.add(makeDust(dustCount,goalPos.clone(),dustMat))});
+var fovKick=0;
+function setView(name,instant){
+  if(!VIEWS[name])name="about";
+  curView=name;computeGoal(name);
+  if(instant||reduce){camPos.copy(goalPos);look.copy(goalLook);poseCamera();renderOnce()}
+  else fovKick=1;
+}
+
+/* ---------- loop ---------- */
+var mx=0,my=0,mxs=0,mys=0,time=0;
+if(!coarse)window.addEventListener("pointermove",function(e){mx=e.clientX/window.innerWidth-.5;my=e.clientY/window.innerHeight-.5},{passive:true});
+function poseCamera(){
+  camera.position.copy(camPos);camera.lookAt(look);follow.position.copy(camPos).multiplyScalar(.8);
+  camera.translateX(-mxs*7+Math.sin(time*.17)*2.2);camera.translateY(mys*4.5+Math.cos(time*.13)*1.4);
+  camera.translateZ(-Math.min((window.pageYOffset||0)*.03,40));
+  camera.rotateZ(Math.sin(time*.09)*.014);
+  camera.fov=58+24*fovKick;camera.updateProjectionMatrix();
+}
+function renderOnce(){renderFrame()}
+function resize(){
+  var w=window.innerWidth,h=window.innerHeight;
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;camera.updateProjectionMatrix();
+  sizeBloom();
+  computeGoal(curView);
+  if(reduce||paused){camPos.copy(goalPos);look.copy(goalLook);poseCamera();renderOnce()}
+}
+var raf=0,last=0,frames=0,acc=0,downgrades=0,running=false,paused=false;
+function frame(now){
+  raf=requestAnimationFrame(frame);
+  var dt=Math.min(.05,(now-last)/1000||.016);last=now;time+=dt;uTime.value=time;
+  var boost=1+fovKick*7;
+  galaxy.rotation.y+=dt*.016*boost;
+  for(var i=0;i<planets.length;i++)planets[i].mesh.rotation.y+=dt*planets[i].spin*boost;
+  beltGroup.rotation.y+=dt*.012*boost;
+  gasMoonPivot.rotation.y+=dt*.22;marsMoonPivot.rotation.y+=dt*.5;rays.material.rotation+=dt*.03;
+  var k=1-Math.exp(-dt*1.35);
+  camPos.lerp(goalPos,k);look.lerp(goalLook,k);
+  var km=1-Math.exp(-dt*3);mxs+=(mx-mxs)*km;mys+=(my-mys)*km;
+  fovKick*=Math.exp(-dt*2.1);if(fovKick<.002)fovKick=0;
+  poseCamera();updateMeteors(dt);
+  renderFrame();
+  frames++;acc+=dt;
+  if(frames>=90){
+    if(acc/frames>.036&&downgrades<3){
+      downgrades++;
+      if(downgrades===1){setPR(Math.min(PR,1.25));resize()}
+      else if(downgrades===2){bloom.on=false}
+      else{galaxy.geometry.setDrawRange(0,Math.floor(GAL_COUNT*.55));beltGroup.visible=false}
+    }
+    frames=0;acc=0;
+  }
+}
+function start(){if(!raf&&!reduce&&!paused){running=true;last=performance.now();raf=requestAnimationFrame(frame)}}
+function stop(){if(raf){cancelAnimationFrame(raf);raf=0}}
+function pause(v){paused=!!v;if(paused)stop();else if(running)start()}
+document.addEventListener("visibilitychange",function(){if(document.hidden)stop();else if(running&&!paused)start()});
+var rt2;window.addEventListener("resize",function(){clearTimeout(rt2);rt2=setTimeout(resize,120)});
+
+/* ---------- go ---------- */
+resize();
+var first=window.GKView||"trainings";
+curView=first;computeGoal(first);
+window.GKUniverse={setView:setView,pause:pause};
+document.documentElement.classList.add("has3d");
+if(first==="book"&&window.GKBHPage)paused=true;
+if(reduce){camPos.copy(goalPos);look.copy(goalLook);poseCamera();renderOnce()}
+else{
+  camPos.copy(goalPos).add(new THREE.Vector3(0,40,320));look.copy(goalLook);fovKick=1;
+  poseCamera();renderOnce();
+  var go=function(){start()};
+  if(window.GKIntro&&!window.GKIntro.done)window.GKIntro.onDone(go);else go();
+}
+})();
+
+</script>
 </body>
 </html>
