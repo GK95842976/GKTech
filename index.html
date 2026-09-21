@@ -581,7 +581,7 @@ else{
       <div>
         <h4>Our clients</h4>
         <ul class="fclients" aria-label="Some of our clients">
-          <li>Tech Mahindra</li><li>Mahindra Finance</li><li>iEnergizer</li><li>HGS</li><li>+17 more</li>
+          <li>Tech Mahindra</li><li>Mahindra Finance</li><li>iEnergizer</li><li>HGS</li><li>TCS</li><li>Accenture</li><li>+17 more</li>
         </ul>
       </div>
       <div>
@@ -618,7 +618,7 @@ var CONFIG={
 };
 
 /* ---------- programmes ---------- */
-var DURATION="Half day, first half of the day (about 4 hours)";
+var DURATION="First half of the day (about 4-5 hours)";
 var OPEN="Introductions, what participants want from the day, and how the session will run.";
 var CLOSE="Each participant writes the first three things they will apply. Questions and feedback.";
 
@@ -837,7 +837,7 @@ var ABOUT_VM=["Become one of India\u2019s most trusted business solution provide
 var ABOUT_PTS=["Client-centric, customised approach \u2014 never one-size-fits-all","Integrated expertise across technology, talent, and training","Transparent communication and long-term partnership mindset","Committed to trust, quality, and measurable business outcomes"];
 var TICK='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.2 12.4l2.6 2.6 5-5.2"/></svg>';
 function vAbout(){
-  return '<div class="ph"><h1>Technology, Talent &amp; Training, all with one trusted partner</h1></div>'+
+  return '<div class="ph"><h1>Technology, Talent &amp; Training, all with 1 trusted partner</h1></div>'+
    '<div class="about">'+
     '<div class="about-l"><h2>Bridging business challenges with practical solutions</h2>'+
      '<p>At Global Kernel Technologies, we believe every successful organisation is built on three essential pillars: <b>innovative technology, exceptional talent, and continuous learning.</b></p>'+
@@ -883,7 +883,7 @@ function vSectors(){
 /* ---------- trainings ---------- */
 function vTrainings(){
   return '<section class="hero"><h1>Personalised training programmes designed to develop your teams’ skills and capabilities.</h1>'+
-   '<p>Practical, facilitator-led sessions on communication, leadership, AI and data, and employee wellness. Each programme runs in the first half of the day, at your office or online.</p>'+
+   '<p>Practical, facilitator-led sessions on communication, leadership, AI and data, and employee wellness. Each programme runs in the first half of the day, so they could test their newly learned skills on the same day itself.</p>'+
    '<div class="row"><button class="go" type="button" data-go="book">Book a call with our sales team</button><a class="btn" href="#programmes" data-scroll="programmes">See all programmes</a></div>'+
    '<ol class="steps"><li><b>Choose a programme</b><span>Open any card for the full agenda.</span></li><li><b>Leave your details</b><span>Tell us your team size and preferred dates.</span></li><li><b>Our sales team calls you</b><span>We confirm the plan and share commercials.</span></li></ol></section>'+
    '<section class="sec" id="programmes"><h2>Our programmes</h2><p>Every programme is a half-day session with the same clear structure.</p>'+
@@ -892,7 +892,7 @@ function vTrainings(){
 }
 function progGrid(){
   return PROGRAMS.filter(function(p){return cat==="All"||p.cat===cat}).map(function(p){
-    return '<article class="prog" style="--c:'+p.c+'"><div class="pills"><span class="pill k">'+esc(p.cat)+'</span><span class="pill">Half day</span></div>'+
+    return '<article class="prog" style="--c:'+p.c+'"><div class="pills"><span class="pill k">'+esc(p.cat)+'</span><span class="pill">4-5 hours</span></div>'+
      '<h3>'+esc(p.title)+'</h3><p>'+esc(p.sum)+'</p><p class="aud"><b>Best for:</b> '+esc(p.aud)+'</p>'+
      '<div class="row"><button class="btn" type="button" data-detail="'+p.id+'">Full details</button><button class="btn gold" type="button" data-book="'+p.id+'">Book a call</button></div></article>';
   }).join("");
@@ -1031,7 +1031,7 @@ function bookDone(){
 /* ---------- admin ---------- */
 function vAdmin(){
   if(!adminOK){
-    return '<div class="ph"><h1>Admin</h1><p>Download the contact details people have submitted.</p></div>'+
+    return '<div class="ph"><h1>Admin</h1><p>For admin porpose omly.</p></div>'+
      '<div class="card lock"><form id="adminForm"><label for="ad_key" style="font-weight:600;font-size:.9rem">Admin key</label><div class="row"><input id="ad_key" type="password" autocomplete="off" required><button class="go" type="submit">Unlock</button></div><p class="err" id="ad_err" role="alert"></p>'+
      (connected?'':'<p style="color:var(--muted);font-size:.88rem;margin:.3rem 0 0">Preview mode: use the key <b>demo</b>.</p>')+'</form></div>';
   }
