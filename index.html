@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#000000">
 <noscript><style>#intro{display:none}html.intro-on{overflow:auto}</style></noscript>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GKTech: An HR&IT Solutions Company</title>
+<title>GKTech: An HR&amp;IT Solutions Company</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -274,6 +274,11 @@ html.intro-on{overflow:hidden}
 .side .lbl{margin:.3rem 0 .1rem;color:var(--text);font-weight:600;font-size:.95rem}
 .side a.plain{color:var(--text);font-weight:400;text-decoration:none;font-size:1.05rem}
 .side a.plain:hover{text-decoration:underline}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+.tbl{border-collapse:collapse;width:100%;font-size:.86rem;min-width:520px}
+.tbl th,.tbl td{text-align:left;padding:.5rem .65rem;border-bottom:1px solid var(--line);white-space:nowrap;max-width:200px;overflow:hidden;text-overflow:ellipsis}
+.tbl th{color:var(--muted);font-weight:600;font-size:.78rem}
+.tbl tr:last-child td{border-bottom:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -606,12 +611,14 @@ else{
 
 /* =====================================================
    SETTINGS: edit only this block
-   backendUrl: paste the Web app URL from your Google
-   Apps Script (see the setup guide). Leave empty for
-   preview mode.
+   backendUrl: "https://script.google.com/a/globalkt.in/macros/s/AKfycbzw1mu2QEPXEhF55ISYlkTPIW1w4XnUxn82qfSAskAkn3Kn_Dc/exec",
    ===================================================== */
 var CONFIG={
-  backendUrl:"https://script.google.com/macros/s/AKfycbwmYCAI85NM_MQ_Ix0q2IS9o9yHdrqzLt1MTlArtJCadfZ7S0El-ZbWeXPF7k43kdFd/exec",
+  /* Both addresses belong to the same Google script. The site tries the first one and, if it
+     does not answer, the second one automatically. Paste the address that menu 4
+     ("Show my Web app URL") gives you as backendUrl. Leave backendUrl empty for preview mode. */
+  backendUrl:"https://script.google.com/a/macros/globalkt.in/s/AKfycbwmYCAI85NM_MQ_Ix0q2IS9o9yHdrqzLt1MTlArtJCadfZ7S0El-ZbWeXPF7k43kdFd/exec",
+  backendUrlAlt:"https://script.google.com/macros/s/AKfycbwmYCAI85NM_MQ_Ix0q2IS9o9yHdrqzLt1MTlArtJCadfZ7S0El-ZbWeXPF7k43kdFd/exec",
   mail:"Talent@globalkt.in",
   phone:"9716865327",
   phoneDisplay:"+91 9716865327"
@@ -754,7 +761,7 @@ var FIELDS={
 };
 function csvCell(v){
   var s=String(v==null?"":v);
-  if(/^[=+\-@]/.test(s))s="'"+s;
+  if(/^[=@]/.test(s)||(/^[+\-]/.test(s)&&!/^[+\-][\d\s()\-]{6,}$/.test(s)))s="'"+s;
   return '"'+s.replace(/"/g,'""')+'"';
 }
 function toCsv(type,rows){
@@ -780,21 +787,73 @@ function saveCsvFile(name,text){
   setTimeout(function(){URL.revokeObjectURL(a.href)},1500);
 }
 var connected=!!CONFIG.backendUrl;
+
+/* ---------- talking to Google (JSONP: the browser cannot block it, and every answer is confirmed) ---------- */
+var api={urls:[CONFIG.backendUrl,CONFIG.backendUrlAlt].filter(function(u,i,a){return u&&a.indexOf(u)===i}),ix:0,seq:0};
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8)}
+function qs(o){
+  return Object.keys(o).filter(function(k){return o[k]!==undefined&&o[k]!==null&&o[k]!==""}).map(function(k){
+    return encodeURIComponent(k)+"="+encodeURIComponent(o[k]);
+  }).join("&");
+}
+function jsonp(base,params,ms){
+  return new Promise(function(resolve,reject){
+    var name="__gk"+(++api.seq)+"_"+Date.now().toString(36),s=document.createElement("script"),done=false,t;
+    function fin(){done=true;clearTimeout(t);try{delete window[name]}catch(e){window[name]=undefined}if(s.parentNode)s.parentNode.removeChild(s)}
+    t=setTimeout(function(){if(done)return;fin();reject({error:"timeout"})},ms||12000);
+    window[name]=function(d){if(done)return;fin();resolve(d)};
+    s.onerror=function(){if(done)return;fin();reject({error:"network"})};
+    s.async=true;
+    s.src=base+(base.indexOf("?")>-1?"&":"?")+params+"&callback="+name;
+    document.head.appendChild(s);
+  });
+}
+function call(action,data,ms){
+  var params=qs(Object.assign({action:action},data||{}));
+  if(params.length>1900)return Promise.reject({error:"too_long"});
+  if(!api.urls.length)return Promise.reject({error:"network"});
+  var order=api.urls.slice(api.ix).concat(api.urls.slice(0,api.ix)),i=0;
+  return new Promise(function(resolve,reject){
+    (function next(last){
+      if(i>=order.length)return reject(last||{error:"network"});
+      var base=order[i++];
+      jsonp(base,params,ms).then(function(d){api.ix=api.urls.indexOf(base);resolve(d)},function(err){next(err)});
+    })();
+  });
+}
+function friendly(code){
+  var m={
+    network:"We could not reach our server. Please check your connection and try again.",
+    timeout:"Our server took too long to answer. Please try again.",
+    too_long:"That is a little too long to send. Please shorten your message and try again.",
+    rate:"We already received this. Please wait a moment before trying again.",
+    busy:"We are getting many requests right now. Please try again in a few minutes.",
+    missing:"Please fill in the required fields.",
+    bad_email:"Please enter a valid email address.",
+    bad_phone:"Please enter a valid phone number.",
+    old_script:"Our server needs an update. Please contact us directly."
+  };
+  return (m[code]||"Something went wrong. Please try again.")+" You can also email "+CONFIG.mail+" or call "+CONFIG.phoneDisplay+".";
+}
+/* Sends a form. Resolves {ok:true} only when the Google Sheet confirms the row was saved. */
 function send(type,payload){
   payload._ts=new Date().toISOString();
   if(!connected){
     var rows=store.get("gk_local_"+type)||[];
     rows.push(payload);store.set("gk_local_"+type,rows);
-    return Promise.resolve(true);
+    return Promise.resolve({ok:true});
   }
-  var body=new URLSearchParams();body.set("type",type);
-  Object.keys(payload).forEach(function(k){body.set(k,payload[k])});
-  return fetch(CONFIG.backendUrl,{method:"POST",mode:"no-cors",body:body}).then(function(){return true}).catch(function(){return false});
+  var data=Object.assign({},payload);delete data._ts;data.type=type;data.rid=uid();
+  return call("submit",data).then(function(d){
+    if(d&&d.ok&&d.saved)return{ok:true};
+    if(d&&d.ok&&!d.saved)return{ok:false,error:"old_script"};
+    return{ok:false,error:(d&&d.error)||"server"};
+  },function(e){return{ok:false,error:(e&&e.error)||"network"}});
 }
 var PHONE_RE=/^\+?[0-9][0-9\s-]{8,14}$/, MAIL_RE=/^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 /* ---------- state and routing ---------- */
-var view="trainings", cat="All", vert="All", q="", jobs=SAMPLE_JOBS, openJob={}, adminOK=false, adminKey="", bookPrefill="", adminJobs=[];
+var view="trainings", cat="All", vert="All", q="", jobs=SAMPLE_JOBS, openJob={}, adminOK=false, adminKey="", adminToken="", adminData=null, bookPrefill="", adminJobs=[], jobsState="ok";
 
 function go(v,opts){
   view=v;
@@ -932,6 +991,9 @@ function jobList(){
     if(!ql)return true;
     return (j.title+" "+j.location+" "+j.company+" "+j.skills.join(" ")).toLowerCase().indexOf(ql)>-1;
   });
+  if(connected&&!jobs.length&&jobsState==="loading")return '<div class="empty"><strong>Loading roles</strong>One moment please.</div>';
+  if(connected&&!jobs.length&&jobsState==="error")return '<div class="empty"><strong>We could not load the roles right now</strong>Please refresh the page in a moment, or email '+esc(CONFIG.mail)+' with your CV.</div>';
+  if(connected&&!jobs.length)return '<div class="empty"><strong>No open roles right now</strong>Check back soon, or email '+esc(CONFIG.mail)+' with your CV and we will keep you in mind.</div>';
   if(!list.length)return '<div class="empty"><strong>No roles match</strong>Try a different search, or send us your details from the Book a call page and we will keep you in mind.</div>';
   return '<div class="jobs">'+list.map(function(j){
     return '<article class="job"><h3>'+esc(j.title)+'</h3><p class="co">'+esc(j.company)+', '+esc(j.location)+(j.mode?' ('+esc(j.mode)+')':'')+'</p>'+
@@ -955,7 +1017,7 @@ function openApply(id){
     '<div><label for="a_exp">Total experience (years)</label><input id="a_exp" name="experience" inputmode="decimal"></div>'+
     '<div><label for="a_co">Current company</label><input id="a_co" name="current_company"></div>'+
     '<div><label for="a_np">Notice period</label><select id="a_np" name="notice_period"><option value="">Select</option><option>Immediate</option><option>Up to 15 days</option><option>1 month</option><option>2 months</option><option>3 months</option><option>Not working currently</option></select></div>'+
-    '<div class="full"><label for="a_cv">Link to your resume (Google Drive, LinkedIn or similar)</label><input id="a_cv" name="resume_link" type="url" placeholder="https://"></div>'+
+    '<div class="full"><label for="a_cv">Link to your resume (Google Drive, LinkedIn or similar)</label><input id="a_cv" name="resume_link" type="url" placeholder="https://" maxlength="250"></div>'+
     '<div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>'+
     '<div class="full check"><input type="checkbox" id="a_ok" name="consent"><label for="a_ok" style="font-weight:400;margin:0">I agree that GKTech may contact me by phone and email about this role and other suitable roles.</label></div>'+
    '</div><p class="err" id="a_err" role="alert"></p>'+
@@ -973,9 +1035,9 @@ function submitApply(j){
   if(!f.elements.consent.checked){err.textContent="Please tick the box to let us contact you.";return}
   err.textContent="";
   var b=$("a_go");b.disabled=true;b.textContent="Sending";
-  send("apply",{job_title:j.title,job_id:j.id,name:g("name"),phone:g("phone"),email:g("email"),location:g("location"),experience:g("experience"),current_company:g("current_company"),notice_period:g("notice_period"),resume_link:g("resume_link"),consent:"Yes"}).then(function(ok){
-    if(ok)finishApply();
-    else{b.disabled=false;b.textContent="Submit application";err.textContent="Could not send. Please email "+CONFIG.mail+" or call "+CONFIG.phoneDisplay+"."}
+  send("apply",{job_title:j.title,job_id:j.id,name:g("name"),phone:g("phone"),email:g("email"),location:g("location"),experience:g("experience"),current_company:g("current_company"),notice_period:g("notice_period"),resume_link:g("resume_link"),consent:"Yes"}).then(function(r){
+    if(r.ok)finishApply();
+    else{b.disabled=false;b.textContent="Submit application";err.textContent=friendly(r.error)}
   });
 }
 function finishApply(){
@@ -1000,7 +1062,7 @@ function vBook(){
     '<div class="full"><label for="b_mail">Work email <span class="req">*</span></label><input id="b_mail" name="email" type="email" autocomplete="email" required></div>'+
     '<div class="full"><label for="b_prog">Programme you are interested in</label><select id="b_prog" name="programme">'+opts+'</select></div>'+
     '<div class="full"><label for="b_d">Preferred date &amp; time</label><div class="dt-row"><input id="b_d" name="preferred_date" type="date" min="'+todayIso+'" aria-label="Preferred date"><input id="b_t" name="best_time" type="time" step="900" aria-label="Preferred time"></div><p class="hint">Pick a date and time for our sales team to call you (India time).</p></div>'+
-    '<div class="full"><label for="b_m">Anything else we should know</label><textarea id="b_m" name="message"></textarea></div>'+
+    '<div class="full"><label for="b_m">Anything else we should know</label><textarea id="b_m" name="message" maxlength="400"></textarea></div>'+
     '<div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>'+
     '<div class="full check"><input type="checkbox" id="b_ok" name="consent"><label for="b_ok" style="font-weight:400;margin:0">I agree that GKTech may contact me by phone and email about training.</label></div>'+
    '</div><p class="err" id="b_err" role="alert"></p><div class="row" style="margin-top:.6rem"><button class="go" type="submit" id="b_go">Request a call</button></div></form></div>'+
@@ -1018,9 +1080,9 @@ function submitBook(){
   if(!f.elements.consent.checked){err.textContent="Please tick the box to let us contact you.";return}
   err.textContent="";
   var b=$("b_go");b.disabled=true;b.textContent="Sending";
-  send("call",{name:g("name"),company:g("company"),designation:g("designation"),email:g("email"),phone:cc+" "+num,programme:g("programme"),participants:g("participants"),preferred_date:fmtDateShort(g("preferred_date")),best_time:fmtTime12(g("best_time")),message:g("message"),consent:"Yes"}).then(function(ok){
-    if(ok)bookDone();
-    else{b.disabled=false;b.textContent="Request a call";err.textContent="Could not send. Please email "+CONFIG.mail+" or call "+CONFIG.phoneDisplay+"."}
+  send("call",{name:g("name"),company:g("company"),designation:g("designation"),email:g("email"),phone:cc+" "+num,programme:g("programme"),participants:g("participants"),preferred_date:fmtDateShort(g("preferred_date")),best_time:fmtTime12(g("best_time")),message:g("message"),consent:"Yes"}).then(function(r){
+    if(r.ok)bookDone();
+    else{b.disabled=false;b.textContent="Request a call";err.textContent=friendly(r.error)}
   });
 }
 function bookDone(){
@@ -1029,16 +1091,53 @@ function bookDone(){
 }
 
 /* ---------- admin ---------- */
+function loginMsg(code){
+  return({
+    wrong_key:"Wrong key.",
+    no_key:"The admin key is not set yet. In your Google Sheet open the GKTech setup menu and choose 2. Set the admin key.",
+    locked:"Too many wrong attempts. Please wait 10 minutes and try again."
+  })[code]||"Something went wrong. Please try again.";
+}
+function netMsg(e){
+  var c=(e&&e.error)||"network";
+  if(c==="too_long")return "That is too long to send. Please shorten it.";
+  return "Could not reach the Google script ("+c+"). Check that the Web app URL in the site file is correct, that the deployment is set to Anyone, and that you deployed the latest version.";
+}
+function adminCall(action,data){
+  return call(action,Object.assign({token:adminToken},data||{})).then(function(d){
+    if(d&&d.error==="unauthorized"){
+      adminOK=false;adminToken="";adminData=null;toast("Your admin session ended. Please unlock again.");render();
+      return Promise.reject({error:"unauthorized",handled:true});
+    }
+    return d;
+  });
+}
+function fmtWhen(v){return String(v||"").replace("T"," ").slice(0,16)}
+function recentTable(rows,kind){
+  if(!rows.length)return '<p style="color:var(--muted);margin:0;font-size:.93rem">Nothing here yet.</p>';
+  var head=kind==="call"?["When","Name","Company","Phone","Email"]:["When","Role","Name","Phone","Email"];
+  return '<div class="tblwrap"><table class="tbl"><thead><tr>'+head.map(function(h){return '<th>'+h+'</th>'}).join("")+'</tr></thead><tbody>'+
+    rows.map(function(r){
+      var cells=kind==="call"?[fmtWhen(r._ts),r.name,r.company,r.phone,r.email]:[fmtWhen(r._ts),r.job_title,r.name,r.phone,r.email];
+      return '<tr>'+cells.map(function(c){return '<td>'+esc(c)+'</td>'}).join("")+'</tr>';
+    }).join("")+'</tbody></table></div>';
+}
+function localSummary(){
+  var c=store.get("gk_local_call")||[],a=store.get("gk_local_apply")||[],j=store.get("gk_local_jobs")||[];
+  return {ok:true,counts:{call:c.length,apply:a.length,jobs:j.length,jobsLive:j.filter(function(x){return x.status==="live"}).length},recent:{call:c.slice(-5).reverse(),apply:a.slice(-5).reverse()}};
+}
 function vAdmin(){
   if(!adminOK){
     return '<div class="ph"><h1>Admin</h1><p>For admin purpose only.</p></div>'+
-     '<div class="card lock"><form id="adminForm"><label for="ad_key" style="font-weight:600;font-size:.9rem">Admin key</label><div class="row"><input id="ad_key" type="password" autocomplete="off" required><button class="go" type="submit">Unlock</button></div><p class="err" id="ad_err" role="alert"></p>'+
+     '<div class="card lock"><form id="adminForm"><label for="ad_key" style="font-weight:600;font-size:.9rem">Admin key</label><div class="row"><input id="ad_key" type="password" autocomplete="off" required><button class="go" type="submit" id="ad_go">Unlock</button></div><p class="err" id="ad_err" role="alert"></p>'+
      (connected?'':'<p style="color:var(--muted);font-size:.88rem;margin:.3rem 0 0">Preview mode: use the key <b>demo</b>.</p>')+'</form></div>';
   }
-  var n1=(store.get("gk_local_call")||[]).length,n2=(store.get("gk_local_apply")||[]).length;
-  return '<div class="ph"><h1>Admin</h1><p>'+(connected?'Downloads come straight from your Google Sheet.':'Preview mode: these files contain what was submitted in this browser.')+'</p></div>'+
-   '<div class="adm"><div class="card"><h3>Call requests</h3><p>Everyone who asked for a call about a training.'+(connected?'':' ('+n1+' saved here)')+'</p><button class="go" type="button" data-export="call">Download CSV</button></div>'+
-   '<div class="card"><h3>Job applications</h3><p>Everyone who applied for a role.'+(connected?'':' ('+n2+' saved here)')+'</p><button class="go" type="button" data-export="apply">Download CSV</button></div></div>'+
+  var d=adminData||localSummary(),n=d.counts||{call:0,apply:0,jobs:0,jobsLive:0},rc=(d.recent||{}).call||[],ra=(d.recent||{}).apply||[];
+  return '<div class="ph"><h1>Admin</h1><p>'+(connected?'Live data from your Google Sheet.':'Preview mode: this shows what was submitted in this browser.')+'</p></div>'+
+   '<div class="card" style="margin-bottom:1rem"><h3 style="margin:0 0 .3rem">Connection</h3><p id="connMsg" style="color:var(--muted);font-size:.93rem;margin:0 0 .8rem">'+(connected?'Connected to your Google Sheet.':'Preview mode. Nothing is sent to Google.')+'</p>'+
+   '<div class="row"><button class="btn" type="button" data-pingtest="1">Test connection</button><button class="btn" type="button" data-adminrefresh="1">Refresh data</button></div></div>'+
+   '<div class="adm"><div class="card"><h3>Call requests</h3><p>'+n.call+' saved. Latest five:</p>'+recentTable(rc,"call")+'<div class="row" style="margin-top:.9rem"><button class="go" type="button" data-export="call">Download CSV</button></div></div>'+
+   '<div class="card"><h3>Job applications</h3><p>'+n.apply+' saved. Latest five:</p>'+recentTable(ra,"apply")+'<div class="row" style="margin-top:.9rem"><button class="go" type="button" data-export="apply">Download CSV</button></div></div></div>'+
    '<div class="stack"><div class="card"><h3 style="margin:0 0 .3rem">Post a job</h3><p style="color:var(--muted);font-size:.93rem;margin:0 0 1rem">New jobs go live on the Hiring page straight away.</p>'+
    '<form id="jobForm" novalidate><div class="form">'+
     '<div class="full"><label for="j_t">Job title <span class="req">*</span></label><input id="j_t" name="title" maxlength="120" required></div>'+
@@ -1049,23 +1148,41 @@ function vAdmin(){
     '<div><label for="j_min">Minimum experience (years)</label><input id="j_min" name="min_years" type="number" min="0" max="50" inputmode="numeric"></div>'+
     '<div><label for="j_max">Maximum experience (years)</label><input id="j_max" name="max_years" type="number" min="0" max="50" inputmode="numeric"></div>'+
     '<div class="full"><label for="j_p">Pay (optional, for example 8 to 12 LPA)</label><input id="j_p" name="pay" maxlength="80"></div>'+
-    '<div class="full"><label for="j_s">Key skills (separate with commas)</label><input id="j_s" name="skills" maxlength="240"></div>'+
-    '<div class="full"><label for="j_d">Job description <span class="req">*</span></label><textarea id="j_d" name="description" maxlength="1500" required></textarea></div>'+
+    '<div class="full"><label for="j_s">Key skills (separate with commas)</label><input id="j_s" name="skills" maxlength="200"></div>'+
+    '<div class="full"><label for="j_d">Job description <span class="req">*</span></label><textarea id="j_d" name="description" maxlength="700" required></textarea><p class="hint">Up to 700 characters.</p></div>'+
    '</div><p class="err" id="j_err" role="alert"></p><button class="go" type="submit" id="j_go">Post job</button></form></div>'+
-   '<div class="card"><h3 style="margin:0 0 .6rem">Jobs you posted here</h3><div id="adminJobs">'+adminJobsHtml()+'</div></div></div>'+
+   '<div class="card"><h3 style="margin:0 0 .6rem">Jobs you posted ('+n.jobsLive+' live)</h3><div id="adminJobs">'+adminJobsHtml()+'</div></div></div>'+
    '<div class="row" style="margin-top:1.2rem"><button class="btn" type="button" data-lock="1">Lock admin</button></div>';
 }
 function tryUnlock(){
-  var k=$("ad_key").value.trim(),err=$("ad_err");
+  var k=$("ad_key").value.trim(),err=$("ad_err"),b=$("ad_go");
   if(!k){err.textContent="Enter the admin key.";return}
   if(!connected){
-    if(k==="demo"){adminOK=true;adminKey=k;loadAdminJobs(render)}else err.textContent="Wrong key.";
+    if(k==="demo"){adminOK=true;adminData=null;loadAdmin(render)}else err.textContent="Wrong key.";
     return;
   }
-  err.textContent="Checking";
-  fetch(CONFIG.backendUrl+"?action=check&key="+encodeURIComponent(k)).then(function(r){return r.json()}).then(function(d){
-    if(d&&d.ok){adminOK=true;adminKey=k;loadAdminJobs(render)}else $("ad_err").textContent="Wrong key.";
-  }).catch(function(){$("ad_err").textContent="Could not reach the server. Try again."});
+  err.textContent="Checking";b.disabled=true;
+  call("login",{key:k}).then(function(d){
+    if(d&&d.ok&&d.token){adminOK=true;adminToken=d.token;loadAdmin(render);return}
+    b.disabled=false;
+    if(d&&d.ok&&!d.token){err.textContent="The Google script is out of date. Paste the latest Code.gs and deploy a new version.";return}
+    err.textContent=loginMsg(d&&d.error);
+  },function(e){b.disabled=false;err.textContent=netMsg(e)});
+}
+function loadAdmin(cb){
+  if(!connected){adminData=localSummary();adminJobs=store.get("gk_local_jobs")||[];if(cb)cb();return}
+  adminCall("admin_summary").then(function(d){adminData=d;return adminCall("admin_jobs")}).then(function(d){
+    adminJobs=(d&&d.jobs)||[];if(cb)cb();
+  }).catch(function(e){if(e&&e.handled)return;toast(netMsg(e));if(cb)cb()});
+}
+function pingTest(){
+  var el=$("connMsg");if(!el)return;
+  if(!connected){el.textContent="Preview mode. Nothing is sent to Google.";return}
+  el.textContent="Testing";
+  call("ping").then(function(d){
+    if(!d||!d.v)el.textContent="The Google script answered, but it is an old version. Paste the latest Code.gs and deploy a new version.";
+    else el.textContent="Connected. Script version "+d.v+". Admin key "+(d.keySet?"is set":"is NOT set")+".";
+  },function(e){el.textContent=netMsg(e)});
 }
 function doExport(type){
   var name="gktech-"+(type==="call"?"call-requests":"job-applications")+"-"+new Date().toISOString().slice(0,10)+".csv";
@@ -1073,10 +1190,11 @@ function doExport(type){
     var rows=store.get("gk_local_"+type)||[];
     saveCsv(name,toCsv(type,rows));toast("Downloaded "+rows.length+" rows.");return;
   }
-  fetch(CONFIG.backendUrl+"?action=export&type="+type+"&key="+encodeURIComponent(adminKey)).then(function(r){return r.text()}).then(function(t){
-    if(t.charAt(0)==="{"){toast("Access denied. Unlock admin again.");adminOK=false;render();return}
-    saveCsv(name,t);toast("CSV downloaded.");
-  }).catch(function(){toast("Could not download. Try again.")});
+  adminCall("admin_rows",{type:type}).then(function(d){
+    if(!d||!d.ok||!Array.isArray(d.rows)){toast("Could not download. Please try again.");return}
+    saveCsv(name,d.rows.map(function(r){return r.map(csvCell).join(",")}).join("\r\n"));
+    toast("Downloaded "+Math.max(0,d.rows.length-1)+" rows.");
+  }).catch(function(e){if(!(e&&e.handled))toast(netMsg(e))});
 }
 
 /* ---------- admin: jobs ---------- */
@@ -1086,14 +1204,12 @@ function adminJobsHtml(){
     var live=String(j.status).toLowerCase()==="live";
     return '<div class="jrow"><div><strong>'+esc(j.title)+'</strong><br><span class="jmeta">'+esc(j.location)+(j.company?', '+esc(j.company):'')+'</span></div>'+
       '<div class="jact"><span class="stt'+(live?' on':'')+'">'+(live?'Live':'Closed')+'</span>'+
-      '<button class="btn" type="button" data-jobstatus="'+esc(j.id)+'" data-to="'+(live?'closed':'live')+'">'+(live?'Close':'Reopen')+'</button></div></div>';
+      '<button class="btn" type="button" data-jobstatus="'+esc(j.id)+'" data-to="'+(live?'closed':'live')+'">'+(live?'Close':'Reopen')+'</button>'+
+      '<button class="btn" type="button" data-jobdelete="'+esc(j.id)+'">Delete</button></div></div>';
   }).join("");
 }
-function loadAdminJobs(cb){
-  if(!connected){adminJobs=store.get("gk_local_jobs")||[];if(cb)cb();return}
-  fetch(CONFIG.backendUrl+"?action=adminjobs&key="+encodeURIComponent(adminKey)).then(function(r){return r.json()}).then(function(d){
-    adminJobs=(d&&d.ok&&Array.isArray(d.jobs))?d.jobs:[];if(cb)cb();
-  }).catch(function(){if(cb)cb()});
+function refreshAfterJobChange(msg){
+  toast(msg);loadLiveJobs();loadAdmin(render);
 }
 function submitJob(){
   var f=$("jobForm"),g=function(n){return f.elements[n].value.trim()},err=$("j_err");
@@ -1101,28 +1217,41 @@ function submitJob(){
   var mn=g("min_years"),mx=g("max_years");
   if(mn!==""&&mx!==""&&+mx<+mn){err.textContent="Maximum experience cannot be lower than minimum.";return}
   err.textContent="";
-  var job={id:"J"+Date.now().toString(36),title:g("title"),company:g("company")||"Confidential client",location:g("location"),mode:g("mode"),vertical:g("vertical"),min_years:mn||0,max_years:mx||0,pay:g("pay"),skills:g("skills"),description:g("description"),status:"live"};
+  var job={title:g("title"),company:g("company")||"Confidential client",location:g("location"),mode:g("mode"),vertical:g("vertical"),min_years:mn||0,max_years:mx||0,pay:g("pay"),skills:g("skills"),description:g("description")};
   var b=$("j_go");b.disabled=true;b.textContent="Posting";
   if(!connected){
+    job.id="J"+Date.now().toString(36);job.status="live";
     var l=store.get("gk_local_jobs")||[];l.push(job);store.set("gk_local_jobs",l);
-    loadLiveJobs();loadAdminJobs(function(){toast("Job posted. It is now on the Hiring page.");render()});
+    refreshAfterJobChange("Job posted. It is now on the Hiring page.");
     return;
   }
-  var p=Object.assign({key:adminKey},job);
-  send("job",p).then(function(ok){
-    if(!ok){b.disabled=false;b.textContent="Post job";err.textContent="Could not send. Try again.";return}
-    setTimeout(function(){loadLiveJobs();loadAdminJobs(function(){toast("Job posted. It is now on the Hiring page.");render()})},1800);
+  adminCall("admin_save_job",job).then(function(d){
+    if(d&&d.ok&&d.saved){refreshAfterJobChange("Job posted. It is now on the Hiring page.");return}
+    b.disabled=false;b.textContent="Post job";
+    err.textContent=(d&&d.error==="missing")?"Title, location and description are required.":"The job was not saved. Please try again.";
+  }).catch(function(e){
+    if(e&&e.handled)return;
+    b.disabled=false;b.textContent="Post job";err.textContent=netMsg(e);
   });
 }
 function setJobStatus(id,to){
   if(!connected){
     var l=store.get("gk_local_jobs")||[];l.forEach(function(j){if(j.id===id)j.status=to});store.set("gk_local_jobs",l);
-    loadLiveJobs();loadAdminJobs(render);return;
+    refreshAfterJobChange("Updated");return;
   }
-  toast("Updating");
-  send("job_status",{key:adminKey,id:id,status:to}).then(function(){
-    setTimeout(function(){loadLiveJobs();loadAdminJobs(render)},1800);
-  });
+  adminCall("admin_job_status",{id:id,status:to}).then(function(d){
+    if(d&&d.ok&&d.saved)refreshAfterJobChange("Updated");else toast("Could not update. Please try again.");
+  }).catch(function(e){if(!(e&&e.handled))toast(netMsg(e))});
+}
+function deleteJob(id){
+  if(!window.confirm("Delete this job permanently?"))return;
+  if(!connected){
+    var l=(store.get("gk_local_jobs")||[]).filter(function(j){return j.id!==id});store.set("gk_local_jobs",l);
+    refreshAfterJobChange("Job deleted");return;
+  }
+  adminCall("admin_job_delete",{id:id}).then(function(d){
+    if(d&&d.ok&&d.saved)refreshAfterJobChange("Job deleted");else toast("Could not delete. Please try again.");
+  }).catch(function(e){if(!(e&&e.handled))toast(netMsg(e))});
 }
 
 /* ---------- events ---------- */
@@ -1142,7 +1271,10 @@ document.addEventListener("click",function(e){
   if((v=t.getAttribute("data-apply"))){openApply(v);return}
   if((v=t.getAttribute("data-export"))){doExport(v);return}
   if((v=t.getAttribute("data-jobstatus"))){setJobStatus(v,t.getAttribute("data-to"));return}
-  if(t.getAttribute("data-lock")){adminOK=false;adminKey="";render();return}
+  if((v=t.getAttribute("data-jobdelete"))){deleteJob(v);return}
+  if(t.getAttribute("data-adminrefresh")){toast("Refreshing");loadAdmin(render);return}
+  if(t.getAttribute("data-pingtest")){pingTest();return}
+  if(t.getAttribute("data-lock")){adminOK=false;adminToken="";adminData=null;render();return}
 });
 document.addEventListener("input",function(e){
   if(e.target.id==="jobSearch"){q=e.target.value;$("jobList").innerHTML=jobList()}
@@ -1183,11 +1315,12 @@ function loadLiveJobs(){
     if(view==="hiring")render();
     return;
   }
-  fetch(CONFIG.backendUrl+"?action=jobs").then(function(r){return r.json()}).then(function(d){
-    if(d&&d.ok&&Array.isArray(d.jobs)){jobs=d.jobs.map(mapJob);if(view==="hiring")render()}
-  }).catch(function(){});
+  call("jobs").then(function(d){
+    if(d&&d.ok&&Array.isArray(d.jobs)){jobs=d.jobs.map(mapJob);jobsState="ok"}else jobsState="error";
+    if(view==="hiring")render();
+  },function(){jobsState="error";if(view==="hiring")render()});
 }
-if(connected){jobs=[]}
+if(connected){jobs=[];jobsState="loading"}
 loadLiveJobs();
 })();
 </script>
