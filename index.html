@@ -945,7 +945,7 @@ function vTrainings(){
    '<p>Practical, facilitator-led sessions on communication, leadership, AI and data, and employee wellness. Each programme runs in the first half of the day, so they could test their newly learned skills on the same day itself.</p>'+
    '<div class="row"><button class="go" type="button" data-go="book">Book a call with our sales team</button><a class="btn" href="#programmes" data-scroll="programmes">See all programmes</a></div>'+
    '<ol class="steps"><li><b>Choose a programme</b><span>Open any card for the full agenda.</span></li><li><b>Leave your details</b><span>Tell us your team size and preferred dates.</span></li><li><b>Our sales team calls you</b><span>We confirm the plan and share commercials.</span></li></ol></section>'+
-   '<section class="sec" id="programmes"><h2>Our programmes</h2><p>Every programme is a half-day session with the same clear structure.</p>'+
+   '<section class="sec" id="programmes"><h2>Our programmes</h2><p>Every programme is a half-day session with the clear predefined structure to avoid same day operational commitments.</p>'+
    '<div class="chips" id="catChips">'+CATS.map(function(c){return '<button type="button" class="chip" data-cat="'+esc(c)+'" aria-pressed="'+(c===cat)+'">'+esc(c)+'</button>'}).join("")+'</div>'+
    '<div class="grid" id="progGrid">'+progGrid()+'</div></section>';
 }
@@ -966,10 +966,10 @@ function openDetail(id){
    '<button class="close" type="button" data-close="detailDlg" aria-label="Close">&times;</button>'+
    '<div class="pills"><span class="pill k" style="--c:'+p.c+'">'+esc(p.cat)+'</span></div>'+
    '<h2 style="margin-top:.6rem">'+esc(p.title)+'</h2><p class="muted">'+esc(p.sum)+'</p>'+
-   '<div class="facts2"><div><b>Duration</b>'+esc(DURATION)+'</div><div><b>Format</b>'+esc(p.fmt)+'</div><div><b>Group size</b>Confirmed with our sales team</div><div><b>Where</b>At your office or online</div></div>'+
+   '<div class="facts2"><div><b>Duration</b>'+esc(DURATION)+'</div><div><b>Format</b>'+esc(p.fmt)+'</div><div><b>Group size</b>Any, based on client requirements</div><div><b>Where</b>At your office, online or in the form of event</div></div>'+
    '<h4>Who should attend</h4><p>'+esc(p.aud)+'</p>'+
    '<h4>What participants learn</h4><ul>'+p.learn.map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul>'+
-   '<h4>Half-day agenda</h4><div class="agenda">'+ag+'</div><p class="muted" style="margin-top:.6rem">Timings are a guide and can be adjusted to your working day.</p>'+
+   '<h4>Half-day agenda</h4><div class="agenda">'+ag+'</div><p class="muted" style="margin-top:.6rem">Timings are a guide and can be adjusted to your working day schedule</p>'+
    '<h4>What you take away</h4><ul>'+p.out.map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul>'+
    (p.note?'<p class="muted" style="margin-top:1rem">'+esc(p.note)+'</p>':"")+
    '<div class="dlg-acts"><button class="go" type="button" data-book="'+p.id+'">Book a call for this programme</button><button class="btn" type="button" data-close="detailDlg">Close</button></div>';
