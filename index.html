@@ -625,7 +625,7 @@ var CONFIG={
 };
 
 /* ---------- programmes ---------- */
-var DURATION="First half of the day (about 4-5 hours)";
+var DURATION="First half of the day (about 4-5 hours).";
 var OPEN="Introductions, what participants want from the day, and how the session will run.";
 var CLOSE="Each participant writes the first three things they will apply. Questions and feedback.";
 
@@ -966,7 +966,7 @@ function openDetail(id){
    '<button class="close" type="button" data-close="detailDlg" aria-label="Close">&times;</button>'+
    '<div class="pills"><span class="pill k" style="--c:'+p.c+'">'+esc(p.cat)+'</span></div>'+
    '<h2 style="margin-top:.6rem">'+esc(p.title)+'</h2><p class="muted">'+esc(p.sum)+'</p>'+
-   '<div class="facts2"><div><b>Duration</b>'+esc(DURATION)+'</div><div><b>Format</b>'+esc(p.fmt)+'</div><div><b>Group size</b>Any, based on client requirements</div><div><b>Where</b>At your office, online or in the form of event</div></div>'+
+   '<div class="facts2"><div><b>Duration</b>'+esc(DURATION)+'</div><div><b>Format</b>'+esc(p.fmt)+'</div><div><b>Group size</b>Any, based on client requirements.</div><div><b>Where</b>At your office, online or in the form of event.</div></div>'+
    '<h4>Who should attend</h4><p>'+esc(p.aud)+'</p>'+
    '<h4>What participants learn</h4><ul>'+p.learn.map(function(x){return '<li>'+esc(x)+'</li>'}).join("")+'</ul>'+
    '<h4>Half-day agenda</h4><div class="agenda">'+ag+'</div><p class="muted" style="margin-top:.6rem">Timings are a guide and can be adjusted to your working day schedule</p>'+
